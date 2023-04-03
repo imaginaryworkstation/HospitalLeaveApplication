@@ -1,4 +1,6 @@
-﻿using MvvmHelpers;
+﻿using HospitalLeaveApplication.Models;
+using HospitalLeaveApplication.Services;
+using MvvmHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +11,9 @@ namespace HospitalLeaveApplication.ViewModels
 {
     public class DashboardViewModel : BaseViewModel
     {
+        public void OnAppearing()
+        {
+            
+        }
     }
 }

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HospitalLeaveApplication.Views.LeaveApplicationPage"
+             xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             Title="Leave Application">
+    
+    
+    <ContentPage.BindingContext>
+        <viewmodel:LeaveApplicationViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*" />
+                <ColumnDefinition Width="0.7*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Leave type" />
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Picker x:Name="picker"
+                        Title="Select Leave Type"
+                        ItemsSource="{Binding LeaveTypes}"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding LeaveApplication.LeaveType}"/>
+
+            </Grid>
+            <Grid Grid.Row="1" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Grid.Column="0" Text="From date" />
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <DatePicker Date="{Binding LeaveApplication.FromDate}" MinimumDate="{Binding MinFromDate}" DateSelected="FromDatePicker_DateSelected" />
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="To date" />
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <DatePicker Date="{Binding LeaveApplication.ToDate}" MinimumDate="{Binding MinToDate}"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="Leave enjoyed" />
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding User.Enjoyed}" />
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="Leave enjoyed" />
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding User.Remaining}" />
+            </Grid>
+            <Grid Grid.Row="5" Grid.ColumnSpan="2" Margin="10">
+                <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Submit" Command="{Binding LeaveApplicationCommand}"/>
+            </Grid>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

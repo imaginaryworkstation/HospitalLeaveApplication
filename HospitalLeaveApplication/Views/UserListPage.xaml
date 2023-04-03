@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HospitalLeaveApplication.Views.UserListPage"
+             xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             Title="User List">
+    
+    <ContentPage.BindingContext>
+        <viewmodel:UserListViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout>
+        <Frame Padding="10" Margin="10, 10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Label TextColor="Black" Text="Name" />
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Label TextColor="Black" Text="Phone" />
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Label TextColor="Black" Text="Post" />
+                </Grid>
+            </Grid>
+        </Frame>
+        <CollectionView ItemsSource="{Binding UserList}"
+                SelectionMode="Single"
+                EmptyView="No items found">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="20, 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Label Text="{Binding Name}" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Label Text="{Binding Phone}" />
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Label Text="{Binding SubCategory}" />
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>
