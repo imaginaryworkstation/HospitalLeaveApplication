@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HospitalLeaveApplication.Views.NewUserPage"
+             xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             Title="New User">
+    
+    <ContentPage.BindingContext>
+        <viewmodel:NewUserViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*" />
+                <ColumnDefinition Width="0.7*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Name" />
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Entry Placeholder="Name" Text="{Binding User.Name}"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Email" />
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Entry Placeholder="Email"  Text="{Binding User.Email}" Keyboard="Email"/>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Phone" />
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Entry Placeholder="Phone"  Text="{Binding User.Phone}" Keyboard="Telephone"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Category" />
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Picker x:Name="categorypicker"
+                        Title="Select Category"
+                        ItemsSource="{Binding CategoryList}"
+                        SelectedItem="{Binding User.Category}"/>
+
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Sub Category" />
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Picker x:Name="subcategorypicker"
+                        Title="Select Category"
+                        ItemsSource="{Binding SubcategoryList}"
+                        SelectedItem="{Binding User.SubCategory}"/>
+
+            </Grid>
+            <Grid Grid.Row="5" Grid.ColumnSpan="2" Margin="10">
+                <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Submit" Command="{Binding NewUserCommand}"/>
+            </Grid>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
