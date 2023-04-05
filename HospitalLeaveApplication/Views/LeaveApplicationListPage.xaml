@@ -13,5 +13,57 @@
         <StackLayout HorizontalOptions="EndAndExpand" Margin="10">
             <Button Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" TextColor="Black" Text="Apply new" Clicked="LeaveButton_Clicked"/>
         </StackLayout>
+        <StackLayout>
+            <Frame Padding="10" Margin="10, 10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label TextColor="Black" Text="Name" />
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Label TextColor="Black" Text="From" />
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Label TextColor="Black" Text="To" />
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Label TextColor="Black" Text="Leave type" />
+                    </Grid>
+                </Grid>
+            </Frame>
+            <CollectionView ItemsSource="{Binding LeaveApplicationList}"
+                SelectionMode="Single"
+                EmptyView="No items found">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="20, 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Label Text="{Binding Name}" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Label Text="{Binding FromDate, StringFormat='{0:MM-dd-yyyy}'}" />
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Label Text="{Binding ToDate, StringFormat='{0:MM-dd-yyyy}'}" />
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <Label Text="{Binding LeaveType}" />
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

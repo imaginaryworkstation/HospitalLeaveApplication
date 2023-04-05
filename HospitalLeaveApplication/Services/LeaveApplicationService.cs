@@ -47,7 +47,7 @@ namespace HospitalLeaveApplication.Services
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<LeaveApplication> firebaseObjects = null;
-            firebaseObjects = (await firebaseClient.Child("Users").OnceAsync<LeaveApplication>()).Select(u => u.Object).ToList();
+            firebaseObjects = (await firebaseClient.Child("LeaveApplications").OnceAsync<LeaveApplication>()).Select(u => u.Object).ToList();
             return firebaseObjects;
         }
     }

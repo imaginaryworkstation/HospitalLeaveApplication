@@ -21,14 +21,6 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task GetUsers()
         {
-            //var a = await UserService.StoreUser(new User
-            //{
-            //    Name = "Test user",
-            //    Email = "testuser@gmail.com",
-            //    Phone = "01924241969",
-            //    Category = "Nurse",
-            //    SubCategory = "Senior nurse"
-            //});
             try
             {
                 UserList.Clear();
