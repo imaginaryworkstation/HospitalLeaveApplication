@@ -21,4 +21,9 @@ public partial class LeaveApplicationPage : ContentPage
     {
         viewModel.MinToDate = e.NewDate.AddDays(1);
     }
+
+    private void picker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        var a = e;
+    }
 }

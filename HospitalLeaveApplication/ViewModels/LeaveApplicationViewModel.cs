@@ -15,6 +15,8 @@ namespace HospitalLeaveApplication.ViewModels
         private DateTime minToDate;
         private User user;
         private LeaveApplication leaveApplication;
+        private string selectedLeaveType;
+        private bool isResidenceEnable;
 
         public ICommand LeaveApplicationCommand { get; }
         public ObservableRangeCollection<string> LeaveTypes { get; }
@@ -22,6 +24,23 @@ namespace HospitalLeaveApplication.ViewModels
         public DateTime MinToDate { get => minToDate; set => SetProperty(ref minToDate, value); }
         public User User { get => user; set => SetProperty(ref user, value); }
         public LeaveApplication LeaveApplication { get => leaveApplication; set => SetProperty(ref leaveApplication, value); }
+        public string SelectedLeaveType
+        {
+            get => selectedLeaveType;
+            set
+            {
+                if(value == "Casual")
+                {
+                    IsResidenceEnable = false;
+                }
+                else
+                {
+                    IsResidenceEnable = true;
+                }
+                SetProperty(ref selectedLeaveType, value);
+            }
+        }
+        public bool IsResidenceEnable { get => isResidenceEnable; set => SetProperty(ref isResidenceEnable, value); }
 
         public LeaveApplicationViewModel()
         {
@@ -65,6 +84,7 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task ExecuteLeaveApplication()
         {
+            LeaveApplication.LeaveType = SelectedLeaveType;
             LeaveApplication.Days = (LeaveApplication.ToDate - LeaveApplication.FromDate).Days + 1;
             FirebaseResponse response = await LeaveApplicationService.StoreLeaveApplication(LeaveApplication);
         }
