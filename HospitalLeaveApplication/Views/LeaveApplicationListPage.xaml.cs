@@ -18,11 +18,6 @@ public partial class LeaveApplicationListPage : ContentPage
         viewModel.OnAppearing();
     }
 
-    async void LeaveButton_Clicked(System.Object sender, System.EventArgs e)
-    {
-        await MainThread.InvokeOnMainThreadAsync(() => { Navigation.PushAsync(new LeaveApplicationPage()); });
-    }
-
     private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var a = e.CurrentSelection;

@@ -16,9 +16,4 @@ public partial class UserListPage : ContentPage
         base.OnAppearing();
 		viewModel.OnAppearing();
     }
-
-    async void AddUser_Clicked(System.Object sender, System.EventArgs e)
-    {
-        await MainThread.InvokeOnMainThreadAsync(() => { Navigation.PushAsync(new NewUserPage()); });
-    }
 }

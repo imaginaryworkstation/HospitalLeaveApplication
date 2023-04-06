@@ -13,7 +13,7 @@
 
     <FlyoutItem Title="Applications">
        <Tab>
-           <ShellContent ContentTemplate="{DataTemplate local:LeaveApplicationListPage}"  Route="LeaveApplicationList"/>
+           <ShellContent ContentTemplate="{DataTemplate local:LeaveApplicationListPage}"  Route="LeaveApplicationListPage"/>
        </Tab>
     </FlyoutItem>
 

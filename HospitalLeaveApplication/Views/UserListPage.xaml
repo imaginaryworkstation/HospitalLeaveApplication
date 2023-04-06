@@ -11,7 +11,7 @@
 
     <VerticalStackLayout>
         <StackLayout HorizontalOptions="EndAndExpand" Margin="10">
-            <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" TextColor="Black" Text="New User" Clicked="AddUser_Clicked"/>
+            <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" TextColor="Black" Text="New User" Command="{Binding NavigateToNewUserCommand}"/>
         </StackLayout>
         <StackLayout>
             <Frame Padding="10" Margin="10, 10">

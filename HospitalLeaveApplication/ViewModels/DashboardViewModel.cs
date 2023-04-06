@@ -21,7 +21,7 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task ExecuteNavigateToLeaveApplications()
         {
-            await Shell.Current.GoToAsync("//LeaveApplicationList");
+            await Shell.Current.GoToAsync("//LeaveApplicationListPage");
         }
         public void OnAppearing()
         {
