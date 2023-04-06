@@ -16,14 +16,17 @@ namespace HospitalLeaveApplication.ViewModels
         private User user;
         private LeaveApplication leaveApplication;
         private string selectedLeaveType;
+        private User selectedUser;
         private bool isResidenceEnable;
 
         public ICommand LeaveApplicationCommand { get; }
         public ObservableRangeCollection<string> LeaveTypes { get; }
+        public ObservableRangeCollection<User> UserList { get; }
         public DateTime MinFromDate { get => minFromDate; set => SetProperty(ref minFromDate, value); }
         public DateTime MinToDate { get => minToDate; set => SetProperty(ref minToDate, value); }
         public User User { get => user; set => SetProperty(ref user, value); }
         public LeaveApplication LeaveApplication { get => leaveApplication; set => SetProperty(ref leaveApplication, value); }
+        public User SelectedUser { get => selectedUser; set => SetProperty(ref selectedUser, value); }
         public string SelectedLeaveType
         {
             get => selectedLeaveType;
@@ -52,14 +55,17 @@ namespace HospitalLeaveApplication.ViewModels
                 FromDate = MinFromDate,
                 ToDate = MinToDate
             };
+            SelectedUser = new User();
             LeaveApplicationCommand = new AsyncCommand(ExecuteLeaveApplication);
             LeaveTypes = new ObservableRangeCollection<string>();
+            UserList = new ObservableRangeCollection<User>();
         }
 
         public void OnAppearing()
         {
             GetLeaveTypes();
             Task.Run(async () => await GetUserDetails());
+            Task.Run(async () => await GetUserList());
         }
 
         private void GetLeaveTypes()
@@ -74,7 +80,7 @@ namespace HospitalLeaveApplication.ViewModels
             {
                 User = await UserService.GetUserAsync("testuser@gmail.com");
                 LeaveApplication.Name = User.Name;
-                LeaveApplication.Email = LeaveApplication.Email;
+                LeaveApplication.Email = User.Email;
             }
             catch(Exception ex)
             {
@@ -82,11 +88,27 @@ namespace HospitalLeaveApplication.ViewModels
             }
         }
 
+        private async Task GetUserList()
+        {
+            try
+            {
+                UserList.Clear();
+                UserList.AddRange(await UserService.GetUsersAsync());
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         private async Task ExecuteLeaveApplication()
         {
+            LeaveApplication.Key = string.Format("{0}{1}", User.Email, DateTime.Now.ToString("yyyyMMddHHmmss"));
             LeaveApplication.LeaveType = SelectedLeaveType;
             LeaveApplication.Days = (LeaveApplication.ToDate - LeaveApplication.FromDate).Days + 1;
+            leaveApplication.Proxy = SelectedUser.Email;
             FirebaseResponse response = await LeaveApplicationService.StoreLeaveApplication(LeaveApplication);
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

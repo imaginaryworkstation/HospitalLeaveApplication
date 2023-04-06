@@ -11,17 +11,11 @@ namespace HospitalLeaveApplication.ViewModels
 	public class LeaveApplicationListViewModel : BaseViewModel
     {
         public ICommand NavigateToNewLeaveApplicationsCommand { get; }
-        public ICommand SelectionChangedCommand { get; }
         public ObservableRangeCollection<LeaveApplication> LeaveApplicationList { get; }
         public LeaveApplicationListViewModel()
         {
             NavigateToNewLeaveApplicationsCommand = new AsyncCommand(ExecuteNavigateToNewLeaveApplications);
-            SelectionChangedCommand = new AsyncCommand<LeaveApplication>(ExecuteSelectionChanged);
             LeaveApplicationList = new ObservableRangeCollection<LeaveApplication>();
-        }
-        private async Task ExecuteSelectionChanged(LeaveApplication leaveApplication)
-        {
-            await Shell.Current.GoToAsync(nameof(LeaveApplicationDetailPage));
         }
 
         private async Task ExecuteNavigateToNewLeaveApplications()

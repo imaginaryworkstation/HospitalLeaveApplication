@@ -18,8 +18,9 @@ public partial class LeaveApplicationListPage : ContentPage
         viewModel.OnAppearing();
     }
 
-    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var a = e.CurrentSelection;
+        LeaveApplication leaveApplication = e.CurrentSelection.FirstOrDefault() as LeaveApplication;
+        await Shell.Current.GoToAsync($"{nameof(LeaveApplicationDetailPage)}?key={leaveApplication.Key}");
     }
 }

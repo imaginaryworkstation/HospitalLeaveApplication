@@ -21,21 +21,21 @@ namespace HospitalLeaveApplication.Services
             };
         }
 
-        public async static Task<LeaveApplication> GetLeaveApplicationAsync(string email)
+        public async static Task<LeaveApplication> GetLeaveApplicationAsync(string key)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             FirebaseObject<LeaveApplication> firebaseObject = null;
-            if (email != null && email != "")
+            if (key != null && key != "")
             {
                 firebaseObject = (await firebaseClient
                     .Child("LeaveApplications")
-                    .OnceAsync<LeaveApplication>()).FirstOrDefault(a => a.Object.Email == email);
+                    .OnceAsync<LeaveApplication>()).FirstOrDefault(a => a.Object.Key == key);
             }
             else
             {
                 firebaseObject = (await firebaseClient
                     .Child("LeaveApplications")
-                    .OnceAsync<LeaveApplication>()).FirstOrDefault(a => a.Object.Email == email);
+                    .OnceAsync<LeaveApplication>()).FirstOrDefault(a => a.Object.Key == key);
             }
             if (firebaseObject != null && firebaseObject.Object != null)
             {
@@ -49,16 +49,6 @@ namespace HospitalLeaveApplication.Services
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<LeaveApplication> firebaseObjects = null;
             firebaseObjects = (await firebaseClient.Child("LeaveApplications").OnceAsync<LeaveApplication>()).Select(u => u.Object).ToList();
-
-            var data = await firebaseClient.Child("LeaveApplications").OnceAsync<Dictionary<string, LeaveApplication>>();
-
-            // Process the retrieved data
-            var dataList = new List<(string key, LeaveApplication data)>();
-            foreach (var item in data)
-            {
-                
-            }
-
             return firebaseObjects;
         }
     }

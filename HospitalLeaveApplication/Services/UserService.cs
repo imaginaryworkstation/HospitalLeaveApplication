@@ -50,6 +50,15 @@ namespace HospitalLeaveApplication.Services
             firebaseObjects = (await firebaseClient.Child("Users").OnceAsync<User>()).Select(u => u.Object).ToList();
             return firebaseObjects;
         }
+
+        public async static Task<List<User>> GetUsersAsync(string Subcategory)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            List<User> firebaseObjects = null;
+            firebaseObjects = (await firebaseClient.Child("Users").OnceAsync<User>()).Select(u => u.Object).ToList();
+            firebaseObjects = firebaseObjects.Where(s => s.SubCategory == Subcategory).ToList();
+            return firebaseObjects;
+        }
     }
 }
 
