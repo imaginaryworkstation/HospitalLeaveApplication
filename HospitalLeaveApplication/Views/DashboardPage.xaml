@@ -15,6 +15,9 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Button Text="Leave Applications" Command="{Binding NavigateToLeaveApplicationsCommand}"/>
+            </Grid>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
