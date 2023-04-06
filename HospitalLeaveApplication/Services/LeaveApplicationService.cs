@@ -4,6 +4,7 @@ using Firebase.Database.Query;
 using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.Models.HelperModels;
 using HospitalLeaveApplication.Utilities;
+using Microsoft.Maui.Storage;
 
 namespace HospitalLeaveApplication.Services
 {
@@ -48,6 +49,16 @@ namespace HospitalLeaveApplication.Services
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<LeaveApplication> firebaseObjects = null;
             firebaseObjects = (await firebaseClient.Child("LeaveApplications").OnceAsync<LeaveApplication>()).Select(u => u.Object).ToList();
+
+            var data = await firebaseClient.Child("LeaveApplications").OnceAsync<Dictionary<string, LeaveApplication>>();
+
+            // Process the retrieved data
+            var dataList = new List<(string key, LeaveApplication data)>();
+            foreach (var item in data)
+            {
+                
+            }
+
             return firebaseObjects;
         }
     }

@@ -39,6 +39,7 @@
             <CollectionView ItemsSource="{Binding LeaveApplicationList}"
                             SelectionMode="Single"
                             EmptyView="No items found"
+                            SelectionChangedCommand="{Binding SelectionChangedCommand}"
                             SelectionChanged="CollectionView_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
