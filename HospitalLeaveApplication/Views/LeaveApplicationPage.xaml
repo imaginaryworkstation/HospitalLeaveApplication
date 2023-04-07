@@ -70,7 +70,7 @@
             </Grid>
             <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Picker x:Name="userpicker"
-                        Title="Select Leave Type"
+                        Title="Select Proxy"
                         ItemsSource="{Binding UserList}"
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedUser}"/>

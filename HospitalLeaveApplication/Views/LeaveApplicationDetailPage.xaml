@@ -24,6 +24,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Leave type" />
@@ -50,16 +53,16 @@
                 <Label Text="{Binding LeaveApplication.Days}" />
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave enjoyed" />
+                <Label Text="Enjoyed" />
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Enjoyed}" />
+                <Label Text="{Binding User.Enjoyed, StringFormat='{0} days'}" />
             </Grid>
             <Grid Grid.Row="5" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave remaining" />
+                <Label Text="Remaining" />
             </Grid>
             <Grid Grid.Row="5" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Remaining}" />
+                <Label Text="{Binding User.Remaining, StringFormat='{0} days'}" />
             </Grid>
             <Grid Grid.Row="6" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                 <Label Text="Proxy" />
@@ -73,7 +76,19 @@
             <Grid x:Name="residenceEntry" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding LeaveApplication.Residence}" />
             </Grid>
-            <Grid Grid.Row="8" Grid.ColumnSpan="2" Margin="10">
+            <Grid Grid.Row="8" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="Status" />
+            </Grid>
+            <Grid Grid.Row="8" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding LeaveApplication.Status}" />
+            </Grid>
+            <Grid Grid.Row="9" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="Message" />
+            </Grid>
+            <Grid Grid.Row="9" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
+                <Entry Placeholder="Feedback" Text="{Binding LeaveApplication.Message}" />
+            </Grid>
+            <Grid Grid.Row="10" Grid.ColumnSpan="2" Margin="10">
                 <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Submit" Command="{Binding LeaveApplicationCommand}"/>
             </Grid>
         </Grid>

@@ -53,10 +53,10 @@
                                 <Label Text="{Binding Name}" />
                             </Grid>
                             <Grid Grid.Column="1">
-                                <Label Text="{Binding FromDate, StringFormat='{0:MMM dd,yyyy}'}" />
+                                <Label Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" />
                             </Grid>
                             <Grid Grid.Column="2">
-                                <Label Text="{Binding ToDate, StringFormat='{0:MMM dd, yyyy}'}" />
+                                <Label Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" />
                             </Grid>
                             <Grid Grid.Column="3">
                                 <Label Text="{Binding LeaveType}" />

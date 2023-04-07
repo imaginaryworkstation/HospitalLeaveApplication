@@ -107,6 +107,7 @@ namespace HospitalLeaveApplication.ViewModels
             LeaveApplication.LeaveType = SelectedLeaveType;
             LeaveApplication.Days = (LeaveApplication.ToDate - LeaveApplication.FromDate).Days + 1;
             leaveApplication.Proxy = SelectedUser.Email;
+            LeaveApplication.Status = "Pending";
             FirebaseResponse response = await LeaveApplicationService.StoreLeaveApplication(LeaveApplication);
             await Shell.Current.GoToAsync("..");
         }

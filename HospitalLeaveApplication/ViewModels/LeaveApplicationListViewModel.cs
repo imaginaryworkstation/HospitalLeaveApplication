@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Views;
@@ -8,7 +7,7 @@ using MvvmHelpers.Commands;
 
 namespace HospitalLeaveApplication.ViewModels
 {
-	public class LeaveApplicationListViewModel : BaseViewModel
+    public class LeaveApplicationListViewModel : BaseViewModel
     {
         public ICommand NavigateToNewLeaveApplicationsCommand { get; }
         public ObservableRangeCollection<LeaveApplication> LeaveApplicationList { get; }
