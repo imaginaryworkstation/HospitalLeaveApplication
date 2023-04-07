@@ -5,40 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:HospitalLeaveApplication.Views">
 
-    <FlyoutItem Title="Dashboard">
-       <Tab>
-           <ShellContent ContentTemplate="{DataTemplate local:DashboardPage}" />
-       </Tab>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Notifications">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:NotificationListPage}"  Route="NotificationListPage"/>
+    <TabBar>
+        <Tab Title="Login" Icon="home_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:LoadingPage}" />
         </Tab>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Leave History">
-       <Tab>
-           <ShellContent ContentTemplate="{DataTemplate local:LeaveApplicationListPage}"  Route="LeaveApplicationListPage"/>
-       </Tab>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Take Leave">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:LeaveApplicationPage}"  Route="LeaveApplicationPage"/>
-        </Tab>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Users">
-       <Tab>
-           <ShellContent ContentTemplate="{DataTemplate local:UserListPage}"  Route="UserList"/>
-       </Tab>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Login">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"  Route="LoginPage"/>
-        </Tab>
-    </FlyoutItem>
-
+    </TabBar>
 </Shell>
