@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HospitalLeaveApplication.Views.LoginPage"
+             xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             Title="Login">
+
+    <ContentPage.BindingContext>
+        <viewmodel:LoginViewModel/>
+    </ContentPage.BindingContext>
+    
+    <VerticalStackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <Entry Placeholder="Email" Text="{Binding User.Email}" Keyboard="Email"/>
+        <Entry Placeholder="Email" Text="{Binding User.Password}" IsPassword="True"/>
+        <Button Text="Login" Command="{Binding LoginCommand}" />
+    </VerticalStackLayout>
+</ContentPage>

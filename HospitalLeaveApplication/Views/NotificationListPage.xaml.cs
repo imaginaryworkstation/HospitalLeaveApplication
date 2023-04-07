@@ -1,3 +1,4 @@
+using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.ViewModels;
 
 namespace HospitalLeaveApplication.Views;
@@ -17,8 +18,9 @@ public partial class NotificationListPage : ContentPage
 		viewModel.OnAppearing();
     }
 
-    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-
+        LeaveApplication leaveApplication = e.CurrentSelection.FirstOrDefault() as LeaveApplication;
+        await Shell.Current.GoToAsync($"{nameof(NotificationDetailPage)}?key={leaveApplication.Key}");
     }
 }

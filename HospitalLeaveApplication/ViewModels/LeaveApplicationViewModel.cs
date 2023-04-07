@@ -1,17 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.Models.HelperModels;
 using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Utilities;
-using HospitalLeaveApplication.Views;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 
 namespace HospitalLeaveApplication.ViewModels
 {
-	public class LeaveApplicationViewModel : BaseViewModel
+    public class LeaveApplicationViewModel : BaseViewModel
     {
         private DateTime minFromDate;
         private DateTime minToDate;

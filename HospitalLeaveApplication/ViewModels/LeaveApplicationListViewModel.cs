@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.Services;
+using HospitalLeaveApplication.Utilities;
 using HospitalLeaveApplication.Views;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
@@ -31,7 +32,7 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 LeaveApplicationList.Clear();
-                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByEmailAsync("testuser@gmail.com"));
+                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(StaticCredential.User.Email));
             }
             catch (Exception ex)
             {

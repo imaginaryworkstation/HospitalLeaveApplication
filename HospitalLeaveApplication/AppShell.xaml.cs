@@ -8,6 +8,7 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
 		Routing.RegisterRoute("LeaveApplicationDetailPage", typeof(LeaveApplicationDetailPage));
+        Routing.RegisterRoute("NotificationDetailPage", typeof(NotificationDetailPage));
         Routing.RegisterRoute("NewUserPage", typeof(NewUserPage));
     }
 }

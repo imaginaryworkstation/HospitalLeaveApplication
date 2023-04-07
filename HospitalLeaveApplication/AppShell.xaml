@@ -35,4 +35,10 @@
        </Tab>
     </FlyoutItem>
 
+    <FlyoutItem Title="Login">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"  Route="LoginPage"/>
+        </Tab>
+    </FlyoutItem>
+
 </Shell>
