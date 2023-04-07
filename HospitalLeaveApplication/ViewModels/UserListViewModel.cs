@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.Services;
+using HospitalLeaveApplication.Services.Helpers;
+using HospitalLeaveApplication.Utilities;
 using HospitalLeaveApplication.Views;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
@@ -10,6 +12,7 @@ namespace HospitalLeaveApplication.ViewModels
 {
 	public class UserListViewModel : BaseViewModel
     {
+        private User LoggedinUser;
         public ICommand NavigateToNewUserCommand { get; }
         public ObservableRangeCollection<User> UserList { get; }
 
@@ -33,8 +36,14 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
+                LoggedinUser = StaticCredential.User;
+                if(LoggedinUser == null)
+                {
+                    LoggedinUser = await LocalDBService.GetToken();
+                }
+                List<User> users = await UserService.GetUsersAsync();
                 UserList.Clear();
-                UserList.AddRange(await UserService.GetUsersAsync());
+                UserList.AddRange(users.Where(u => u.Email != LoggedinUser.Email));
             }
             catch (Exception ex)
             {

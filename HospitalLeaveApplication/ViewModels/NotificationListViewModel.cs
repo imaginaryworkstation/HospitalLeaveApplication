@@ -27,6 +27,10 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 LoggedInUser = StaticCredential.User;
+                if (LoggedInUser == null)
+                {
+                    LoggedInUser = await LocalDBService.GetToken();
+                }
                 await GetPathway();
             }
             catch(Exception ex)

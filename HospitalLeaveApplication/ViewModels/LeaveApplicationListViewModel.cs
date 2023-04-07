@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.Services;
+using HospitalLeaveApplication.Services.Helpers;
 using HospitalLeaveApplication.Utilities;
 using HospitalLeaveApplication.Views;
 using MvvmHelpers;
@@ -10,6 +11,7 @@ namespace HospitalLeaveApplication.ViewModels
 {
     public class LeaveApplicationListViewModel : BaseViewModel
     {
+        private User LoggedInUser;
         public ICommand NavigateToNewLeaveApplicationsCommand { get; }
         public ObservableRangeCollection<LeaveApplication> LeaveApplicationList { get; }
         public LeaveApplicationListViewModel()
@@ -24,7 +26,24 @@ namespace HospitalLeaveApplication.ViewModels
         }
         public void OnAppearing()
         {
-            Task.Run(async () => await GetLeaveApplications());
+            Task.Run(async () => await GetUser());
+        }
+
+        private async Task GetUser()
+        {
+            try
+            {
+                LoggedInUser = StaticCredential.User;
+                if(LoggedInUser == null)
+                {
+                    LoggedInUser = await LocalDBService.GetToken();
+                }
+                await GetLeaveApplications();
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         private async Task GetLeaveApplications()
@@ -32,7 +51,7 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 LeaveApplicationList.Clear();
-                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(StaticCredential.User.Email));
+                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(LoggedInUser.Email));
             }
             catch (Exception ex)
             {

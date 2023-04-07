@@ -28,6 +28,7 @@ namespace HospitalLeaveApplication.ViewModels
                 await LocalDBService.RemoveToken();
                 await LocalDBService.InsertToken(LoginUser);
                 StaticCredential.User = LoginUser;
+                await MainThread.InvokeOnMainThreadAsync(() => { Application.Current.MainPage = new UserShell(); });
             }
         }
 

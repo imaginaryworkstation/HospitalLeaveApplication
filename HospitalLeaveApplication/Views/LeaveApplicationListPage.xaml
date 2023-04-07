@@ -23,16 +23,16 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Label TextColor="Black" Text="Name" />
-                    </Grid>
-                    <Grid Grid.Column="1">
                         <Label TextColor="Black" Text="From" />
                     </Grid>
-                    <Grid Grid.Column="2">
+                    <Grid Grid.Column="1">
                         <Label TextColor="Black" Text="To" />
                     </Grid>
-                    <Grid Grid.Column="3">
+                    <Grid Grid.Column="2">
                         <Label TextColor="Black" Text="Leave type" />
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Label TextColor="Black" Text="Status" />
                     </Grid>
                 </Grid>
             </Frame>
@@ -50,16 +50,16 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-                                <Label Text="{Binding Name}" />
-                            </Grid>
-                            <Grid Grid.Column="1">
                                 <Label Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" />
                             </Grid>
-                            <Grid Grid.Column="2">
+                            <Grid Grid.Column="1">
                                 <Label Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" />
                             </Grid>
-                            <Grid Grid.Column="3">
+                            <Grid Grid.Column="2">
                                 <Label Text="{Binding LeaveType}" />
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <Label Text="{Binding Status}" />
                             </Grid>
                         </Grid>
                     </DataTemplate>

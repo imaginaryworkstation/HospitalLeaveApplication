@@ -38,4 +38,10 @@
             <ShellContent ContentTemplate="{DataTemplate local:UserListPage}"  Route="UserList"/>
         </Tab>
     </FlyoutItem>
+
+    <FlyoutItem Title="Profile">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}"  Route="ProfilePage"/>
+        </Tab>
+    </FlyoutItem>
 </Shell>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.LoginPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             Shell.NavBarIsVisible="False"
              Title="Login">
 
     <ContentPage.BindingContext>
