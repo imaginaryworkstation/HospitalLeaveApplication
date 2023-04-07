@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.Models.HelperModels;
 using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Utilities;
+using HospitalLeaveApplication.Views;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 
@@ -92,8 +94,9 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
+                List<User> users = await UserService.GetUsersAsync("Senior Staff Nurse");
                 UserList.Clear();
-                UserList.AddRange(await UserService.GetUsersAsync());
+                UserList.AddRange(users.Where(u => u.Email != User.Email).ToList());
             }
             catch (Exception ex)
             {
@@ -107,9 +110,10 @@ namespace HospitalLeaveApplication.ViewModels
             LeaveApplication.LeaveType = SelectedLeaveType;
             LeaveApplication.Days = (LeaveApplication.ToDate - LeaveApplication.FromDate).Days + 1;
             leaveApplication.Proxy = SelectedUser.Email;
+            LeaveApplication.Role = User.SubCategory;
             LeaveApplication.Status = "Pending";
             FirebaseResponse response = await LeaveApplicationService.StoreLeaveApplication(LeaveApplication);
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync("//LeaveApplicationListPage");
         }
     }
 }

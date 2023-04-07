@@ -31,7 +31,7 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 LeaveApplicationList.Clear();
-                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsAsync());
+                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByEmailAsync("testuser@gmail.com"));
             }
             catch (Exception ex)
             {

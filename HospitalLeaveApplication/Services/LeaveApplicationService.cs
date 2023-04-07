@@ -21,7 +21,7 @@ namespace HospitalLeaveApplication.Services
             };
         }
 
-        public async static Task<FirebaseObject<LeaveApplication>> GetLeaveApplicationAsync(string key)
+        public async static Task<FirebaseObject<LeaveApplication>> GetLeaveApplicationByKeyAsync(string key)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             FirebaseObject<LeaveApplication> firebaseObject = null;
@@ -42,6 +42,28 @@ namespace HospitalLeaveApplication.Services
                 return firebaseObject;
             }
             return null;
+        }
+
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByEmailAsync(string email)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            List<LeaveApplication> firebaseObjects = null;
+            firebaseObjects = (await firebaseClient.Child("LeaveApplications")
+                .OnceAsync<LeaveApplication>())
+                .Where(l => l.Object.Email == email)
+                .Select(u => u.Object).ToList();
+            return firebaseObjects;
+        }
+
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByRoleAsync(string role)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            List<LeaveApplication> firebaseObjects = null;
+            firebaseObjects = (await firebaseClient.Child("LeaveApplications")
+                .OnceAsync<LeaveApplication>())
+                .Where(l => l.Object.Role == role)
+                .Select(u => u.Object).ToList();
+            return firebaseObjects;
         }
 
         public async static Task<List<LeaveApplication>> GetLeaveApplicationsAsync()

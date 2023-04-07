@@ -42,7 +42,7 @@ namespace HospitalLeaveApplication.ViewModels
         }
         private async Task GetLeaveApplicationDetail()
         {
-            FirebaseObject<LeaveApplication> FirebaseLeaveApplication = await LeaveApplicationService.GetLeaveApplicationAsync(key);
+            FirebaseObject<LeaveApplication> FirebaseLeaveApplication = await LeaveApplicationService.GetLeaveApplicationByKeyAsync(key);
             LeaveApplication = FirebaseLeaveApplication.Object as LeaveApplication;
             FirebaseKey = FirebaseLeaveApplication.Key;
             IsResidenceEnable = LeaveApplication.LeaveType == "Casual" ? false : true;

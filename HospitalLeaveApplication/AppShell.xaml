@@ -11,10 +11,22 @@
        </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Applications">
+    <FlyoutItem Title="Notifications">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:NotificationListPage}"  Route="NotificationListPage"/>
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Leave History">
        <Tab>
            <ShellContent ContentTemplate="{DataTemplate local:LeaveApplicationListPage}"  Route="LeaveApplicationListPage"/>
        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Take Leave">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:LeaveApplicationPage}"  Route="LeaveApplicationPage"/>
+        </Tab>
     </FlyoutItem>
 
     <FlyoutItem Title="Users">

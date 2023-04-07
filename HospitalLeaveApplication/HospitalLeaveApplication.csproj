@@ -64,6 +64,9 @@
 	  <MauiXaml Update="Views\LeaveApplicationListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\NotificationListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -73,8 +76,6 @@
 	  <None Remove="Models\HelperModels\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Models\" />
-	  <Folder Include="Services\" />
 	  <Folder Include="Utilities\" />
 	  <Folder Include="Models\HelperModels\" />
 	</ItemGroup>
