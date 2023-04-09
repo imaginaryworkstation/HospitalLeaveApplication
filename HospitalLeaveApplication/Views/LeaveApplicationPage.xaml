@@ -24,6 +24,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Leave type" />
@@ -51,13 +52,13 @@
                 <Label Text="Leave enjoyed" />
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Enjoyed}" />
+                <Label Text="{Binding LoggedInUser.Enjoyed}" />
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                 <Label Text="Leave enjoyed" />
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Remaining}" />
+                <Label Text="{Binding LoggedInUser.Remaining}" />
             </Grid>
             <Grid IsVisible="{Binding IsResidenceEnable}" x:Name="residenceLabel" Grid.Row="5" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                 <Label Text="Place of residence" />
@@ -76,7 +77,10 @@
                         SelectedItem="{Binding SelectedUser}"/>
 
             </Grid>
-            <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="10">
+            <Grid IsVisible="{Binding HasError}" Grid.ColumnSpan="2" Grid.Row="7">
+                <Label Text="{Binding ErrorMessage}" TextColor="Red" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" />
+            </Grid>
+            <Grid Grid.Row="8" Grid.ColumnSpan="2" Margin="10">
                 <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Submit" Command="{Binding LeaveApplicationCommand}"/>
             </Grid>
         </Grid>

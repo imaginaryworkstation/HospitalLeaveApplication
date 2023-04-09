@@ -12,25 +12,28 @@
     </ContentPage.BindingContext>
     
     <VerticalStackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-        <VerticalStackLayout Spacing="15">
+        <VerticalStackLayout Spacing="15" Margin="20, 10" >
+            <Frame BorderColor="Transparent" BackgroundColor="Transparent">
+                <Label Text="Moksudpur UHL" HorizontalOptions="CenterAndExpand" FontSize="Title" FontAttributes="Bold" />
+            </Frame>
             <Frame Padding="10,0" BorderColor="{StaticResource Primary}" BackgroundColor="#F6F6F6" CornerRadius="25" HeightRequest="40">
                 <Grid ColumnDefinitions="20,*">
                     <Label VerticalOptions="Center" FontSize="16" FontFamily="FASRegular" Text="{x:Static utility:FASolid.User}" />
-                    <Entry x:Name="emailEntry" VerticalOptions="Center" Placeholder="Email" Text="{Binding User.Email}" Grid.Column="1" Keyboard="Email"/>
+                    <Entry x:Name="emailEntry" VerticalOptions="Center" Placeholder="Email" HeightRequest="60" Text="{Binding User.Email}" Grid.Column="1" Keyboard="Email"/>
                 </Grid>
             </Frame>
             
             <Frame Padding="10,0" BorderColor="{StaticResource Primary}" BackgroundColor="#F6F6F6" CornerRadius="25" HeightRequest="40">
-                <Grid ColumnDefinitions="20, *">
+                <Grid ColumnDefinitions="20, *" Margin="0, -15" Padding="0, -5">
                     <Image VerticalOptions="Center" Source="unlock.svg" HeightRequest="16" WidthRequest="16" />
-                    <Entry x:Name="passEntry" VerticalOptions="Center" Placeholder="Password" IsPassword="True" Grid.Column="1" Text="{Binding User.Password}" />
+                    <Entry x:Name="passEntry" VerticalOptions="Center" Placeholder="Password" IsPassword="True" HeightRequest="60" Grid.Column="1" Text="{Binding User.Password}" />
                 </Grid>
             </Frame>
 
             <Button BackgroundColor="{StaticResource Primary}" CornerRadius="25" Padding="8" Text="Login" FontSize="16" FontAttributes="Bold" Command="{Binding LoginCommand}"/>
 
             <StackLayout>
-                <Label  FontAttributes="Bold" TextColor="Gray" Text="Forget Password ?" HorizontalOptions="CenterAndExpand" />
+                <!--<Label  FontAttributes="Bold" TextColor="Gray" Text="Forget Password ?" HorizontalOptions="CenterAndExpand" />-->
                 <!--<StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ForgetPassword" />
                 </StackLayout.GestureRecognizers>-->
