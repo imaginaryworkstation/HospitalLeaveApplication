@@ -15,8 +15,21 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Button Text="Leave Applications" Command="{Binding NavigateToLeaveApplicationsCommand}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0" Margin="20">
+                <Button Text="New Leave Application" Command="{Binding NavigateToNewLeaveApplicationCommand}"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1" Margin="20">
+                <Button Text="Leave History" Command="{Binding NavigateToLeaveApplicationListCommand}"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0" Margin="20">
+                <Button Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1" Margin="20">
+                <Button Text="Profile" Command="{Binding NavigateToProfileCommand}"/>
             </Grid>
         </Grid>
     </VerticalStackLayout>
