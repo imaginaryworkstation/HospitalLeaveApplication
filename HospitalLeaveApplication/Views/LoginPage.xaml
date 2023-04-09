@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.LoginPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             xmlns:utility="clr-namespace:HospitalLeaveApplication.Utilities"
              Shell.NavBarIsVisible="False"
              Title="Login">
 
@@ -11,8 +12,37 @@
     </ContentPage.BindingContext>
     
     <VerticalStackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-        <Entry Placeholder="Email" Text="{Binding User.Email}" Keyboard="Email"/>
-        <Entry Placeholder="Email" Text="{Binding User.Password}" IsPassword="True"/>
-        <Button Text="Login" Command="{Binding LoginCommand}" />
+        <VerticalStackLayout Spacing="15">
+            <Frame Padding="10,0" BorderColor="#707070" BackgroundColor="#F6F6F6" CornerRadius="25" HeightRequest="40">
+                <Grid ColumnDefinitions="20,*">
+                    <Label VerticalOptions="Center" FontSize="16" FontFamily="FASRegular" Text="{x:Static utility:FASolid.User}" />
+                    <Entry x:Name="emailEntry" VerticalOptions="Center" Placeholder="Email" Text="{Binding User.Email}" Grid.Column="1" Keyboard="Email"/>
+                </Grid>
+            </Frame>
+            
+            <Frame Padding="10,0" BorderColor="#707070" BackgroundColor="#F6F6F6" CornerRadius="25" HeightRequest="40">
+                <Grid ColumnDefinitions="20,*">
+                    <Image VerticalOptions="Center" Source="unlock.svg" HeightRequest="16" WidthRequest="16" />
+                    <Entry x:Name="passEntry" VerticalOptions="Center" Placeholder="Password" IsPassword="True" Grid.Column="1" Text="{Binding User.Password}" />
+                </Grid>
+            </Frame>
+
+            <Button BackgroundColor="#934B7D" CornerRadius="25" Padding="8" Text="Login" FontSize="16" FontAttributes="Bold" Command="{Binding LoginCommand}"/>
+
+            <StackLayout>
+                <Label  FontAttributes="Bold" TextColor="Gray" Text="Forget Password ?" HorizontalOptions="CenterAndExpand" />
+                <!--<StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ForgetPassword" />
+                </StackLayout.GestureRecognizers>-->
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical">
+                <Grid>
+                    <Border Background="#707070" HeightRequest="1" WidthRequest="150" HorizontalOptions="StartAndExpand"/>
+                    <Label  FontAttributes="Bold" TextColor="#707070" Text="OR" Grid.Column="1" HorizontalOptions="CenterAndExpand" />
+                    <Border Background="#707070" HeightRequest="1" WidthRequest="150" Grid.Column="2" HorizontalOptions="EndAndExpand"/>
+                </Grid>
+            </StackLayout>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

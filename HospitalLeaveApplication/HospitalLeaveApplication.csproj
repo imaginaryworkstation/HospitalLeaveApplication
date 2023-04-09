@@ -86,12 +86,14 @@
 
 	<ItemGroup>
 	  <None Remove="Models\" />
+	  <None Remove="Resources\Fonts\fa-brands-400.ttf" />
+	  <None Remove="Resources\Fonts\fa-regular-400.ttf" />
+	  <None Remove="Resources\Fonts\fa-solid-900.ttf" />
 	  <None Remove="Services\" />
 	  <None Remove="Utilities\" />
 	  <None Remove="Models\HelperModels\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Utilities\" />
 	  <Folder Include="Models\HelperModels\" />
 	</ItemGroup>
 </Project>
