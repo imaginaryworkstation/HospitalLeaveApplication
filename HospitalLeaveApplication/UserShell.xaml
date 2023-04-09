@@ -33,6 +33,12 @@
         </Tab>
     </FlyoutItem>
 
+    <FlyoutItem Title="Proxy List">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:ProxyListPage}"  Route="ProxyListPage"/>
+        </Tab>
+    </FlyoutItem>
+
     <FlyoutItem IsVisible="{Binding IsAdmin}" Title="Users">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate local:UserListPage}"  Route="UserList"/>

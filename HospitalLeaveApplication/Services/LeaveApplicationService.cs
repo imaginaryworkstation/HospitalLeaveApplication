@@ -51,6 +51,19 @@ namespace HospitalLeaveApplication.Services
             firebaseObjects = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
                 .Where(l => l.Object.Email == email)
+                .OrderBy(l => l.Object.FromDate)
+                .Select(u => u.Object).ToList();
+            return firebaseObjects;
+        }
+
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByProxyAsync(string email)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            List<LeaveApplication> firebaseObjects = null;
+            firebaseObjects = (await firebaseClient.Child("LeaveApplications")
+                .OnceAsync<LeaveApplication>())
+                .Where(l => l.Object.Proxy == email)
+                .OrderBy(l => l.Object.FromDate)
                 .Select(u => u.Object).ToList();
             return firebaseObjects;
         }
@@ -62,6 +75,7 @@ namespace HospitalLeaveApplication.Services
             firebaseObjects = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
                 .Where(l => l.Object.Role == role)
+                .OrderBy(l => l.Object.FromDate)
                 .Select(u => u.Object).ToList();
             return firebaseObjects;
         }

@@ -11,6 +11,7 @@ public partial class UserShell : Shell
         viewModel = BindingContext as UserShellViewModel;
         Routing.RegisterRoute("LeaveApplicationDetailPage", typeof(LeaveApplicationDetailPage));
         Routing.RegisterRoute("NotificationDetailPage", typeof(NotificationDetailPage));
+        Routing.RegisterRoute("ProxyLeaveDetailpage", typeof(ProxyLeaveDetailpage));
         Routing.RegisterRoute("NewUserPage", typeof(NewUserPage));
     }
 
