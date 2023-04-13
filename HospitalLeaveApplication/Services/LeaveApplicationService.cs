@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Firebase.Database;
 using Firebase.Database.Query;
 using HospitalLeaveApplication.Models;
@@ -75,6 +76,37 @@ namespace HospitalLeaveApplication.Services
             firebaseObjects = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
                 .Where(l => l.Object.Role == role)
+                .OrderBy(l => l.Object.FromDate)
+                .Select(u => u.Object).ToList();
+            return firebaseObjects;
+        }
+
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByRecommendedRoleAsync(List<Pathway> roles, string status = null)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            List<LeaveApplication> firebaseObjects = null;
+            var query = (await firebaseClient.Child("LeaveApplications")
+                .OnceAsync<LeaveApplication>())
+                .Where(p => roles.Any(c => p.Object.Role.Contains(c.Role)))
+                .OrderBy(l => l.Object.FromDate);
+            if(status != null)
+            {
+                firebaseObjects = query.Where(l => l.Object.Status == status).Select(u => u.Object).ToList();
+            }
+            else
+            {
+                firebaseObjects = query.Select(u => u.Object).ToList();
+            }
+            return firebaseObjects;
+        }
+
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByStatusAsync(string status)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            List<LeaveApplication> firebaseObjects = null;
+            firebaseObjects = (await firebaseClient.Child("LeaveApplications")
+                .OnceAsync<LeaveApplication>())
+                .Where(l => l.Object.Status == status)
                 .OrderBy(l => l.Object.FromDate)
                 .Select(u => u.Object).ToList();
             return firebaseObjects;

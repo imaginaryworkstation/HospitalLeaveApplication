@@ -47,6 +47,14 @@ namespace HospitalLeaveApplication.Services
             return null;
         }
 
+        public async static Task<List<Pathway>> GetRecommendingPersonnel(string role)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            List<Pathway> pathways = null;
+            pathways = (await firebaseClient.Child("Pathway").OnceAsync<Pathway>()).Where(p => p.Object.Recommend == role).Select(u => u.Object).ToList();
+            return pathways;
+        }
+
         public async static Task<List<Pathway>> GetPathwaysAsync()
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);

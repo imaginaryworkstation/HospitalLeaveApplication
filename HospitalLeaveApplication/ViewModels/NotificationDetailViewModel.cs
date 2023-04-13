@@ -1,6 +1,7 @@
 ﻿using Firebase.Database;
 using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.Services;
+using HospitalLeaveApplication.Services.Helpers;
 using HospitalLeaveApplication.Utilities;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
@@ -16,6 +17,7 @@ namespace HospitalLeaveApplication.ViewModels
     [QueryProperty(nameof(key), "key")]
     public class NotificationDetailViewModel : BaseViewModel
     {
+        private User LoggedInUser;
         private string FirebaseKey { get; set; }
         public string key { get; set; }
         FirebaseObject<LeaveApplication> firebaseLeaveApplication;
@@ -46,8 +48,24 @@ namespace HospitalLeaveApplication.ViewModels
 
         public void OnAppearing()
         {
-            GetLeaveStatusList();
-            Task.Run(async () => await GetLeaveApplicationDetail());
+            Task.Run(async () => await GetLoggedInUser());
+        }
+
+        private async Task GetLoggedInUser()
+        {
+            try
+            {
+                LoggedInUser = StaticCredential.User;
+                if (LoggedInUser == null)
+                {
+                    LoggedInUser = await LocalDBService.GetToken();
+                }
+                GetLeaveStatusList();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         private async Task GetLeaveApplicationDetail()
         {
@@ -67,6 +85,11 @@ namespace HospitalLeaveApplication.ViewModels
             {
                 LeaveStatusList.Clear();
                 LeaveStatusList.AddRange(StaticCredential.GetLeaveStatus());
+                if (LoggedInUser.Category != "UHFPO")
+                {
+                    LeaveStatusList.Remove("Approved");
+                }
+                Task.Run(async () => await GetLeaveApplicationDetail());
             }
             catch(Exception ex)
             {

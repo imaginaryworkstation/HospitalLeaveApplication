@@ -10,11 +10,26 @@ namespace HospitalLeaveApplication.ViewModels
     {
         private User LoggedInUser;
         private Pathway pathway;
+        private string selectedLeaveStatus;
+        private List<Pathway> pathways;
         public ObservableRangeCollection<LeaveApplication> LeaveApplicationList { get; }
+        public ObservableRangeCollection<string> LeaveStatusList { get; }
         public Pathway Pathway { get => pathway; set => SetProperty(ref pathway, value); }
+        public string SelectedLeaveStatus
+        {
+            get => selectedLeaveStatus;
+            set
+            {
+                SetProperty(ref selectedLeaveStatus, value);
+                Task.Run(async () => await GetLeaveApplications());
+            }
+        }
+        public List<Pathway> Pathways { get => pathways; set => SetProperty(ref pathways, value); }
 
         public NotificationListViewModel()
         {
+            LeaveStatusList = new ObservableRangeCollection<string>();
+            Pathways = new List<Pathway>();
             LeaveApplicationList = new ObservableRangeCollection<LeaveApplication>();
         }
         public void OnAppearing()
@@ -31,26 +46,64 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LoggedInUser = await LocalDBService.GetToken();
                 }
-                await GetPathway();
+                GetLeaveStatusList();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
         }
 
-        private async Task GetPathway()
+        private void GetLeaveStatusList()
         {
-            Pathway = await PathwayService.GetPathwayAsync(LoggedInUser.SubCategory);
-            await GetLeaveApplications();
+            try
+            {
+                LeaveStatusList.Clear();
+                LeaveStatusList.AddRange(StaticCredential.GetLeaveStatus());
+                if (LoggedInUser.Category != "UHFPO")
+                {
+                    LeaveStatusList.Remove("Approved");
+                }
+                //SelectedLeaveStatus = LeaveStatusList[0];
+                Task.Run(async () => {
+                    await GetPathways();
+                });
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private async Task GetPathways()
+        {
+            Pathways.Clear();
+            Pathways.AddRange(await PathwayService.GetRecommendingPersonnel(LoggedInUser.SubCategory));
+            SelectedLeaveStatus = LeaveStatusList.FirstOrDefault();
+            //await GetLeaveApplications();
         }
 
         private async Task GetLeaveApplications()
         {
             try
             {
-                LeaveApplicationList.Clear();
-                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByRoleAsync(Pathway.Recommend));
+                if(LoggedInUser.Category == "UHFPO")
+                {
+                    LeaveApplicationList.Clear();
+                    Pathways.Clear();
+                    Pathways.Add(new Pathway { Role = "RMO", Forward = "MO"});
+                    Pathways.Add(new Pathway { Role = "Statistician", Forward = "Office Sohokari" });
+                    Pathways.Add(new Pathway { Role = "Office Sohokari", Forward = "Office Sohokari" });
+                    var list1 = await LeaveApplicationService.GetLeaveApplicationsByRecommendedRoleAsync(Pathways, SelectedLeaveStatus);
+                    var list2 = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync("Forwarded");
+                    LeaveApplicationList.AddRange(list1);
+                    LeaveApplicationList.AddRange(list2);
+                }
+                else
+                {
+                    LeaveApplicationList.Clear();
+                    LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByRecommendedRoleAsync(Pathways, SelectedLeaveStatus));
+                }
             }
             catch (Exception ex)
             {

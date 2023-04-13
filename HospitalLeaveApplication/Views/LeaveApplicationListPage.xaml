@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.LeaveApplicationListPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             BackgroundImageSource="bg.jpg"
              Title="Leave Application List">
     
     <ContentPage.BindingContext>

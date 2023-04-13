@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.LeaveApplicationPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             BackgroundColor="White"
              Title="Leave Application">
     
     <ContentPage.BindingContext>
@@ -27,51 +28,53 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave type" />
+                <Label Text="Leave type" TextColor="Black" />
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Picker x:Name="picker"
                         Title="Select Leave Type"
+                        TextColor="Black"
                         ItemsSource="{Binding LeaveTypes}"
                         SelectedItem="{Binding SelectedLeaveType}" />
 
             </Grid>
             <Grid Grid.Row="1" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Grid.Column="0" Text="From date" />
+                <Label Grid.Column="0" Text="From date" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <DatePicker Date="{Binding LeaveApplication.FromDate}" MinimumDate="{Binding MinFromDate}" DateSelected="FromDatePicker_DateSelected" />
+                <DatePicker Date="{Binding LeaveApplication.FromDate}" MinimumDate="{Binding MinFromDate}" DateSelected="FromDatePicker_DateSelected" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="To date" />
+                <Label Text="To date" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <DatePicker Date="{Binding LeaveApplication.ToDate}" MinimumDate="{Binding MinToDate}"/>
+                <DatePicker Date="{Binding LeaveApplication.ToDate}" MinimumDate="{Binding MinToDate}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave enjoyed" />
+                <Label Text="Leave enjoyed" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LoggedInUser.Enjoyed}" />
+                <Label Text="{Binding LoggedInUser.Enjoyed}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave enjoyed" />
+                <Label Text="Leave enjoyed" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LoggedInUser.Remaining}" />
+                <Label Text="{Binding LoggedInUser.Remaining}" TextColor="Black"/>
             </Grid>
             <Grid IsVisible="{Binding IsResidenceEnable}" x:Name="residenceLabel" Grid.Row="5" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Place of residence" />
+                <Label Text="Place of residence" TextColor="Black"/>
             </Grid>
             <Grid IsVisible="{Binding IsResidenceEnable}" x:Name="residenceEntry" Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Entry Placeholder="Place of residence during leave" Text="{Binding LeaveApplication.Residence}" />
+                <Entry Placeholder="Place of residence during leave" Text="{Binding LeaveApplication.Residence}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="6" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Proxy" />
+                <Label Text="Proxy" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Picker x:Name="userpicker"
                         Title="Select Proxy"
+                        TextColor="Black"
                         ItemsSource="{Binding UserList}"
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedUser}"/>
@@ -80,8 +83,8 @@
             <Grid IsVisible="{Binding HasError}" Grid.ColumnSpan="2" Grid.Row="7">
                 <Label Text="{Binding ErrorMessage}" TextColor="Red" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" />
             </Grid>
-            <Grid Grid.Row="8" Grid.ColumnSpan="2" Margin="10">
-                <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Submit" Command="{Binding LeaveApplicationCommand}"/>
+            <Grid Grid.Row="8" Grid.ColumnSpan="2" Margin="10" >
+                <Button Margin="0" Padding="0" HeightRequest="30" BackgroundColor="{StaticResource Primary}" TextColor="White" FontSize="14" Text="Submit" Command="{Binding LeaveApplicationCommand}"/>
             </Grid>
         </Grid>
     </VerticalStackLayout>

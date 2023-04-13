@@ -4,6 +4,7 @@
              x:Class="HospitalLeaveApplication.Views.LoadingPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
              Shell.NavBarIsVisible="False"
+             BackgroundImageSource="bg.jpg"
              Title="Moksudpur UHL">
     
     <ContentPage.BindingContext>
@@ -11,9 +12,6 @@
     </ContentPage.BindingContext>
     
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        
     </VerticalStackLayout>
 </ContentPage>

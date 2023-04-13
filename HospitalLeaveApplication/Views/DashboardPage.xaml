@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.DashboardPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             BackgroundImageSource="bg.jpg"
              Title="Dashboard">
     
     <ContentPage.BindingContext>
@@ -10,7 +11,7 @@
     </ContentPage.BindingContext>
 
     <VerticalStackLayout>
-        <Grid>
+        <Grid IsVisible="{Binding IsNotAdmin}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -29,7 +30,22 @@
                 <Button Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Margin="20">
-                <Button Text="Profile" Command="{Binding NavigateToProfileCommand}"/>
+                <Button Text="Proxy List" Command="{Binding NavigateToProxyListCommand}"/>
+            </Grid>
+        </Grid>
+        <Grid IsVisible="{Binding IsAdmin}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0" Margin="20">
+                <Button Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1" Margin="20">
+                <Button Text="User List" Command="{Binding NavigateToUserCommand}"/>
             </Grid>
         </Grid>
     </VerticalStackLayout>

@@ -80,7 +80,7 @@
             </Grid>
             <Grid Grid.Row="8" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
                 <Picker x:Name="picker"
-                        Title="Select Leave Type"
+                        Title="Select Status"
                         ItemsSource="{Binding LeaveStatusList}"
                         SelectedItem="{Binding LeaveApplication.Status}" />
             </Grid>
