@@ -88,6 +88,9 @@
 	  <MauiXaml Update="Views\ProxyListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\UserDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -96,6 +99,7 @@
 	  <None Remove="Resources\Fonts\fa-regular-400.ttf" />
 	  <None Remove="Resources\Fonts\fa-solid-900.ttf" />
 	  <None Remove="Resources\Images\bg.jpg" />
+	  <None Remove="Resources\Images\logout.png" />
 	  <None Remove="Services\" />
 	  <None Remove="Utilities\" />
 	  <None Remove="Models\HelperModels\" />

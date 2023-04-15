@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.UserListPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             BackgroundColor="White"
              Title="User List">
     
     <ContentPage.BindingContext>
@@ -11,10 +12,10 @@
 
     <VerticalStackLayout>
         <StackLayout HorizontalOptions="EndAndExpand" Margin="10">
-            <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" TextColor="Black" Text="New User" Command="{Binding NavigateToNewUserCommand}"/>
+            <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" TextColor="White" Text="New User" Command="{Binding NavigateToNewUserCommand}"/>
         </StackLayout>
         <StackLayout>
-            <Frame Padding="10" Margin="10, 10">
+            <Frame Padding="10" Margin="10, 10" BackgroundColor="LightGrey">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -33,26 +34,29 @@
                 </Grid>
             </Frame>
             <CollectionView ItemsSource="{Binding UserList}"
-                    SelectionMode="Single"
-                    EmptyView="No items found">
+                            SelectionMode="Single"
+                            EmptyView="No items found"
+                            SelectionChanged="CollectionView_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="20, 10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Label Text="{Binding Name}" />
+                        <Frame Padding="5" Margin="10, 5" CornerRadius="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Label TextColor="Black" Text="{Binding Name}" FontSize="12" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Label TextColor="Black" Text="{Binding Phone}" FontSize="12" />
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <Label TextColor="Black" Text="{Binding SubCategory}" FontSize="12"/>
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Column="1">
-                                <Label Text="{Binding Phone}" />
-                            </Grid>
-                            <Grid Grid.Column="2">
-                                <Label Text="{Binding SubCategory}" />
-                            </Grid>
-                        </Grid>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

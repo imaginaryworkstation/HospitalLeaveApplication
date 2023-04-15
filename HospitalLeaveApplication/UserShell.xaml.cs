@@ -13,6 +13,7 @@ public partial class UserShell : Shell
         Routing.RegisterRoute("NotificationDetailPage", typeof(NotificationDetailPage));
         Routing.RegisterRoute("ProxyLeaveDetailpage", typeof(ProxyLeaveDetailpage));
         Routing.RegisterRoute("NewUserPage", typeof(NewUserPage));
+        Routing.RegisterRoute("UserDetailPage", typeof(UserDetailPage));
     }
 
     protected override void OnAppearing()

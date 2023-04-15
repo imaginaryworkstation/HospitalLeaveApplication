@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.NotificationListPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             BackgroundColor="White"
              Title="Notifications">
 
     <ContentPage.BindingContext>
@@ -32,7 +33,7 @@
                 </StackLayout>
             </Grid>
             <Grid Grid.Row="1">
-                <Frame Padding="10" Margin="10, 10">
+                <Frame Padding="10" Margin="10, 10" BackgroundColor="LightGrey">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -62,26 +63,28 @@
                             SelectionChanged="CollectionView_SelectionChanged">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="20, 10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <Label Text="{Binding Name}" />
+                            <Frame Padding="2" Margin="10, 2" CornerRadius="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Label TextColor="Black" Text="{Binding Name}" FontSize="12" />
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Label TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12" />
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Label TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12" />
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <Label TextColor="Black" Text="{Binding LeaveType}" FontSize="12" />
+                                    </Grid>
                                 </Grid>
-                                <Grid Grid.Column="1">
-                                    <Label Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" />
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <Label Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" />
-                                </Grid>
-                                <Grid Grid.Column="3">
-                                    <Label Text="{Binding LeaveType}" />
-                                </Grid>
-                            </Grid>
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

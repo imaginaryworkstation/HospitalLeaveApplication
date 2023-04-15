@@ -20,6 +20,29 @@ namespace HospitalLeaveApplication.Services
             };
         }
 
+        public async static Task<FirebaseObject<User>> GetUserWithKeyAsync(string email)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            FirebaseObject<User> firebaseObject = null;
+            if (email != null && email != "")
+            {
+                firebaseObject = (await firebaseClient
+                    .Child("Users")
+                    .OnceAsync<User>()).FirstOrDefault(a => a.Object.Email == email);
+            }
+            else
+            {
+                firebaseObject = (await firebaseClient
+                    .Child("Users")
+                    .OnceAsync<User>()).FirstOrDefault(a => a.Object.Email == email);
+            }
+            if (firebaseObject != null && firebaseObject.Object != null)
+            {
+                return firebaseObject;
+            }
+            return null;
+        }
+
         public async static Task<User> GetUserAsync(string email)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
@@ -58,6 +81,12 @@ namespace HospitalLeaveApplication.Services
             firebaseObjects = (await firebaseClient.Child("Users").OnceAsync<User>()).Select(u => u.Object).ToList();
             firebaseObjects = firebaseObjects.Where(s => s.SubCategory == Subcategory).ToList();
             return firebaseObjects;
+        }
+        public async static Task<bool> UpdateUserAsync(string key, User user)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            await firebaseClient.Child("Users").Child(key).PutAsync(user);
+            return true;
         }
     }
 }

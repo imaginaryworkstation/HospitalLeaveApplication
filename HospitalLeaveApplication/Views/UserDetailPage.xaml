@@ -1,13 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HospitalLeaveApplication.Views.NewUserPage"
+             x:Class="HospitalLeaveApplication.Views.UserDetailPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
              BackgroundColor="White"
-             Title="New User">
-    
+             Title="User Detail">
+
     <ContentPage.BindingContext>
-        <viewmodel:NewUserViewModel/>
+        <viewmodel:UserDetailViewModel/>
     </ContentPage.BindingContext>
 
     <VerticalStackLayout>
@@ -17,6 +17,7 @@
                 <ColumnDefinition Width="0.7*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -35,42 +36,40 @@
                 <Label Text="Email" />
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Entry Placeholder="Email"  Text="{Binding User.Email}" Keyboard="Email"/>
+                <Label  Text="{Binding User.Email}"/>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Phone" />
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Entry Placeholder="Phone"  Text="{Binding User.Phone}" Keyboard="Telephone"/>
+                <Entry Placeholder="Phone number" Text="{Binding User.Phone}"/>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Category" />
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Picker x:Name="categorypicker"
-                        Title="Select Category"
-                        ItemsSource="{Binding CategoryList}"
-                        SelectedItem="{Binding User.Category}"/>
-
+                <Label Text="{Binding User.Category}"/>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Sub Category" />
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Picker x:Name="subcategorypicker"
-                        Title="Select Category"
-                        ItemsSource="{Binding SubcategoryList}"
-                        SelectedItem="{Binding User.SubCategory}"/>
-
+                <Label Text="{Binding User.SubCategory}"/>
             </Grid>
             <Grid Grid.Row="5" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Password" />
+                <Label Text="Leave Enjoyed" />
             </Grid>
             <Grid Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Entry Placeholder="Password"  Text="{Binding User.Password}" Keyboard="Default"/>
+                <Label Text="{Binding User.Enjoyed}"/>
             </Grid>
-            <Grid Grid.Row="6" Grid.ColumnSpan="2" Margin="10">
-                <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Submit" Command="{Binding NewUserCommand}"/>
+            <Grid Grid.Row="6" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Leave Remaining" />
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding User.Remaining}"/>
+            </Grid>
+            <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="10">
+                <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Update" Command="{Binding UpdateProfileCommand}"/>
             </Grid>
         </Grid>
     </VerticalStackLayout>

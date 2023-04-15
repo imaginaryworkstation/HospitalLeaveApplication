@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.NotificationDetailPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             BackgroundColor="White"
              Title="Notification Detail">
     <ContentPage.BindingContext>
         <viewmodel:NotificationDetailViewModel/>

@@ -40,26 +40,28 @@
                             SelectionChanged="CollectionView_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="10, 2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.2*" />
-                                <ColumnDefinition Width="0.22*" />
-                                <ColumnDefinition Width="0.22*" />
-                                <ColumnDefinition Width="0.36*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" BackgroundColor="Gray" Padding="10" VerticalOptions="CenterAndExpand">
-                                <Label TextColor="White" Text="{Binding Name}" FontSize="12"/>
+                        <Frame Padding="2" Margin="10, 2" CornerRadius="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*" />
+                                    <ColumnDefinition Width="0.22*" />
+                                    <ColumnDefinition Width="0.22*" />
+                                    <ColumnDefinition Width="0.36*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                    <Label TextColor="Black" Text="{Binding Name}" FontSize="12"/>
+                                </Grid>
+                                <Grid Grid.Column="1" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                    <Label TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12"/>
+                                </Grid>
+                                <Grid Grid.Column="2" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                    <Label TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12"/>
+                                </Grid>
+                                <Grid Grid.Column="3" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                    <Label TextColor="Black" Text="{Binding LeaveType}" FontSize="12"/>
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Column="1" BackgroundColor="Gray" Padding="10" VerticalOptions="CenterAndExpand">
-                                <Label TextColor="White" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12"/>
-                            </Grid>
-                            <Grid Grid.Column="2" BackgroundColor="Gray" Padding="10" VerticalOptions="CenterAndExpand">
-                                <Label TextColor="White" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12"/>
-                            </Grid>
-                            <Grid Grid.Column="3" BackgroundColor="Gray" Padding="10" VerticalOptions="CenterAndExpand">
-                                <Label TextColor="White" Text="{Binding LeaveType}" FontSize="12"/>
-                            </Grid>
-                        </Grid>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

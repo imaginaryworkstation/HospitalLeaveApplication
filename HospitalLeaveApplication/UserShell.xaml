@@ -41,7 +41,7 @@
 
     <FlyoutItem IsVisible="{Binding IsAdmin}" Title="Users">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:UserListPage}"  Route="UserList"/>
+            <ShellContent ContentTemplate="{DataTemplate local:UserListPage}"  Route="UserListPage"/>
         </Tab>
     </FlyoutItem>
 

@@ -1,33 +1,26 @@
 ﻿using Firebase.Database;
 using HospitalLeaveApplication.Models;
-using HospitalLeaveApplication.Services;
-using HospitalLeaveApplication.Services.Helpers;
-using HospitalLeaveApplication.Utilities;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System.Windows.Input;
+using HospitalLeaveApplication.Services;
+using HospitalLeaveApplication.Utilities;
+using HospitalLeaveApplication.Services.Helpers;
 
 namespace HospitalLeaveApplication.ViewModels
 {
-    public class ProfileViewModel : BaseViewModel
+    [QueryProperty(nameof(email), "email")]
+    public class UserDetailViewModel : BaseViewModel
     {
-        private User user;
-        private User Token;
+        private User LoggedInUser;
         private string FirebaseKey { get; set; }
-
-        public ICommand LogoutCommand { get; }
+        public string email { get; set; }
+        private User user;
         public ICommand UpdateProfileCommand { get; }
         public User User { get => user; set => SetProperty(ref user, value); }
-        public ProfileViewModel()
+        public UserDetailViewModel()
         {
-            LogoutCommand = new AsyncCommand(ExecuteLogout);
             UpdateProfileCommand = new AsyncCommand(ExecuteUpdateProfile);
-        }
-
-        private async Task ExecuteLogout()
-        {
-            await LocalDBService.RemoveToken();
-            await MainThread.InvokeOnMainThreadAsync(() => { Application.Current.MainPage = new AppShell(); });
         }
 
         private async Task ExecuteUpdateProfile()
@@ -42,10 +35,10 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task GetToken()
         {
-            Token = StaticCredential.User;
-            if (Token == null)
+            LoggedInUser = StaticCredential.User;
+            if (LoggedInUser == null)
             {
-                Token = await LocalDBService.GetToken();
+                LoggedInUser = await LocalDBService.GetToken();
             }
             await GetUserDetail();
         }
@@ -54,11 +47,11 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(Token.Email);
+                FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(LoggedInUser.Email);
                 FirebaseKey = firebaseObject.Key;
                 User = firebaseObject.Object as User;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
