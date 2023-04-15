@@ -11,7 +11,7 @@
     </ContentPage.BindingContext>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Logout" IconImageSource="logout.jpg" Command="{Binding LogoutCommand}" />
+        <ToolbarItem Text="Logout" IconImageSource="logout.png" Command="{Binding LogoutCommand}" />
     </ContentPage.ToolbarItems>
 
     <VerticalStackLayout>

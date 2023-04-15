@@ -35,7 +35,6 @@
                 </Grid>
             </Frame>
             <CollectionView ItemsSource="{Binding LeaveApplicationList}"
-                            SelectionMode="Single"
                             EmptyView="No items found"
                             SelectionChanged="CollectionView_SelectionChanged">
                 <CollectionView.ItemTemplate>
