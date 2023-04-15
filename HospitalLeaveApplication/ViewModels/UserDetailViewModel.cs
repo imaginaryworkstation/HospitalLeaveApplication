@@ -26,6 +26,7 @@ namespace HospitalLeaveApplication.ViewModels
         private async Task ExecuteUpdateProfile()
         {
             await UserService.UpdateUserAsync(FirebaseKey, User);
+            await Shell.Current.GoToAsync("//UserListPage");
         }
 
         public void OnAppearing()
@@ -47,7 +48,7 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(LoggedInUser.Email);
+                FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(email);
                 FirebaseKey = firebaseObject.Key;
                 User = firebaseObject.Object as User;
             }

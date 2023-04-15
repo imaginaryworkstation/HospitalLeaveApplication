@@ -21,6 +21,6 @@ public partial class UserListPage : ContentPage
     private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         User user = e.CurrentSelection.FirstOrDefault() as User;
-        await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}?key={user.Email}");
+        await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}?email={user.Email}");
     }
 }
