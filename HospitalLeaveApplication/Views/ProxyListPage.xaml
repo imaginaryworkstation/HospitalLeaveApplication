@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.ProxyListPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             BackgroundColor="White"
              Title="Proxy List">
 
     <ContentPage.BindingContext>
@@ -14,10 +15,10 @@
             <Frame Padding="10" Margin="10, 10">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="0.22*" />
+                        <ColumnDefinition Width="0.22*" />
+                        <ColumnDefinition Width="0.36*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Label TextColor="Black" Text="Name" />
@@ -39,24 +40,24 @@
                             SelectionChanged="CollectionView_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="20, 10">
+                        <Grid Margin="10, 2">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="0.22*" />
+                                <ColumnDefinition Width="0.22*" />
+                                <ColumnDefinition Width="0.36*" />
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Label Text="{Binding Name}" />
+                            <Grid Grid.Column="0" BackgroundColor="Gray" Padding="10" VerticalOptions="CenterAndExpand">
+                                <Label TextColor="White" Text="{Binding Name}" FontSize="12"/>
                             </Grid>
-                            <Grid Grid.Column="1">
-                                <Label Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" />
+                            <Grid Grid.Column="1" BackgroundColor="Gray" Padding="10" VerticalOptions="CenterAndExpand">
+                                <Label TextColor="White" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12"/>
                             </Grid>
-                            <Grid Grid.Column="2">
-                                <Label Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" />
+                            <Grid Grid.Column="2" BackgroundColor="Gray" Padding="10" VerticalOptions="CenterAndExpand">
+                                <Label TextColor="White" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12"/>
                             </Grid>
-                            <Grid Grid.Column="3">
-                                <Label Text="{Binding LeaveType}" />
+                            <Grid Grid.Column="3" BackgroundColor="Gray" Padding="10" VerticalOptions="CenterAndExpand">
+                                <Label TextColor="White" Text="{Binding LeaveType}" FontSize="12"/>
                             </Grid>
                         </Grid>
                     </DataTemplate>
