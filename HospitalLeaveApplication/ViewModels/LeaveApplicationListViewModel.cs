@@ -12,10 +12,22 @@ namespace HospitalLeaveApplication.ViewModels
     public class LeaveApplicationListViewModel : BaseViewModel
     {
         private User LoggedInUser;
+        private string selectedLeaveStatus;
         public ICommand NavigateToNewLeaveApplicationsCommand { get; }
         public ObservableRangeCollection<LeaveApplication> LeaveApplicationList { get; }
+        public ObservableRangeCollection<string> LeaveStatusList { get; }
+        public string SelectedLeaveStatus
+        {
+            get => selectedLeaveStatus;
+            set
+            {
+                SetProperty(ref selectedLeaveStatus, value);
+                Task.Run(async () => await GetLeaveApplications());
+            }
+        }
         public LeaveApplicationListViewModel()
         {
+            LeaveStatusList = new ObservableRangeCollection<string>();
             NavigateToNewLeaveApplicationsCommand = new AsyncCommand(ExecuteNavigateToNewLeaveApplications);
             LeaveApplicationList = new ObservableRangeCollection<LeaveApplication>();
         }
@@ -26,7 +38,23 @@ namespace HospitalLeaveApplication.ViewModels
         }
         public void OnAppearing()
         {
-            Task.Run(async () => await GetUser());
+            GetLeaveStatusList();
+        }
+
+        private void GetLeaveStatusList()
+        {
+            try
+            {
+                LeaveStatusList.Clear();
+                LeaveStatusList.AddRange(StaticCredential.GetLeaveStatus());
+                Task.Run(async () => {
+                    await GetUser();
+                });
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private async Task GetUser()
@@ -51,7 +79,7 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 LeaveApplicationList.Clear();
-                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(LoggedInUser.Email));
+                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(LoggedInUser.Email, SelectedLeaveStatus));
             }
             catch (Exception ex)
             {

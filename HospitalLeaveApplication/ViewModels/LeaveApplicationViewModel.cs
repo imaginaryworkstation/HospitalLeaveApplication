@@ -18,7 +18,7 @@ namespace HospitalLeaveApplication.ViewModels
         private User loggedInUser;
         private LeaveApplication leaveApplication;
         private string selectedLeaveType;
-        private User selectedUser;
+        private User selectedProxyUser;
         private bool isResidenceEnable;
 
         public ICommand LeaveApplicationCommand { get; }
@@ -30,7 +30,7 @@ namespace HospitalLeaveApplication.ViewModels
         public DateTime MinToDate { get => minToDate; set => SetProperty(ref minToDate, value); }
         public User LoggedInUser { get => loggedInUser; set => SetProperty(ref loggedInUser, value); }
         public LeaveApplication LeaveApplication { get => leaveApplication; set => SetProperty(ref leaveApplication, value); }
-        public User SelectedUser { get => selectedUser; set => SetProperty(ref selectedUser, value); }
+        public User SelectedProxyUser { get => selectedProxyUser; set => SetProperty(ref selectedProxyUser, value); }
         public string SelectedLeaveType
         {
             get => selectedLeaveType;
@@ -59,7 +59,7 @@ namespace HospitalLeaveApplication.ViewModels
                 FromDate = MinFromDate,
                 ToDate = MinToDate
             };
-            SelectedUser = new User();
+            SelectedProxyUser = new User();
             LeaveApplicationCommand = new AsyncCommand(ExecuteLeaveApplication);
             LeaveTypes = new ObservableRangeCollection<string>();
             UserList = new ObservableRangeCollection<User>();
@@ -69,24 +69,32 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
+                if(SelectedProxyUser == null)
+                {
+                    HasError = true;
+                    ErrorMessage = "Please select a proxy user";
+                    return;
+                }
                 bool isValid = await ValidateApplication(LoggedInUser.Email);
-                bool isValidProxy = await ValidateApplication(SelectedUser.Email);
+                bool isValidProxy = await ValidateApplication(SelectedProxyUser.Email);
                 if (!isValid)
                 {
                     HasError = true;
                     ErrorMessage = "Already has leave in these date";
+                    return;
                 }
                 if (!isValidProxy)
                 {
                     HasError = true;
                     ErrorMessage = "Proxy already has leave in these date";
+                    return;
                 }
                 if (isValid && isValidProxy)
                 {
                     LeaveApplication.Key = string.Format("{0}{1}", LoggedInUser.Email, DateTime.Now.ToString("yyyyMMddHHmmss"));
                     LeaveApplication.LeaveType = SelectedLeaveType;
                     LeaveApplication.Days = (LeaveApplication.ToDate - LeaveApplication.FromDate).Days + 1;
-                    leaveApplication.Proxy = SelectedUser.Email;
+                    leaveApplication.Proxy = SelectedProxyUser.Email;
                     LeaveApplication.Role = LoggedInUser.SubCategory;
                     LeaveApplication.Status = "Pending";
                     FirebaseResponse response = await LeaveApplicationService.StoreLeaveApplication(LeaveApplication);
@@ -95,12 +103,13 @@ namespace HospitalLeaveApplication.ViewModels
             }
             catch(Exception ex)
             {
-
+                SelectedProxyUser = null;
             }
         }
 
         public void OnAppearing()
         {
+            HasError = false;
             GetLeaveTypes();
             Task.Run(async () => await GetToken());
         }

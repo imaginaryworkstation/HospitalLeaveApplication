@@ -45,15 +45,22 @@ namespace HospitalLeaveApplication.Services
             return null;
         }
 
-        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByEmailAsync(string email)
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByEmailAsync(string email, string status = null)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<LeaveApplication> firebaseObjects = null;
-            firebaseObjects = (await firebaseClient.Child("LeaveApplications")
+            var query = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
                 .Where(l => l.Object.Email == email)
-                .OrderBy(l => l.Object.FromDate)
-                .Select(u => u.Object).ToList();
+                .OrderBy(l => l.Object.FromDate);
+            if (status != null)
+            {
+                firebaseObjects = query.Where(l => l.Object.Status == status).Select(u => u.Object).ToList();
+            }
+            else
+            {
+                firebaseObjects = query.Select(u => u.Object).ToList();
+            }
             return firebaseObjects;
         }
 
@@ -64,6 +71,7 @@ namespace HospitalLeaveApplication.Services
             firebaseObjects = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
                 .Where(l => l.Object.Proxy == email)
+                .Where(l => l.Object.Status == "Approved")
                 .OrderBy(l => l.Object.FromDate)
                 .Select(u => u.Object).ToList();
             return firebaseObjects;

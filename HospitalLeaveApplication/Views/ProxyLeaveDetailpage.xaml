@@ -31,44 +31,35 @@
             <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding LeaveApplication.LeaveType}" />
             </Grid>
-            <Grid Grid.Row="1" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Grid.Column="0" Text="From date" />
+            <Grid Grid.Row="1" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Leave type" />
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.FromDate, StringFormat='{0:MMM dd, yyyy}'}" />
+                <Label Text="{Binding LeaveApplication.LeaveType}" />
             </Grid>
-            <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="To date" />
+            <Grid Grid.Row="2" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Grid.Column="0" Text="From date" />
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.ToDate, StringFormat='{0:MMM dd, yyyy}'}" />
+                <Label Text="{Binding LeaveApplication.FromDate, StringFormat='{0:MMM dd, yyyy}'}" />
             </Grid>
             <Grid Grid.Row="3" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Total days" />
+                <Label Text="To date" />
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding LeaveApplication.ToDate, StringFormat='{0:MMM dd, yyyy}'}" />
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="Total days" />
+            </Grid>
+            <Grid Grid.Row="4" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding LeaveApplication.Days}" />
             </Grid>
-            <Grid x:Name="residenceLabel" IsVisible="{Binding IsResidenceEnable}" Grid.Row="4" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
+            <Grid x:Name="residenceLabel" IsVisible="{Binding IsResidenceEnable}" Grid.Row="5" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                 <Label Text="Place of residence" />
             </Grid>
-            <Grid x:Name="residenceEntry" IsVisible="{Binding IsResidenceEnable}" Grid.Row="4" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid x:Name="residenceEntry" IsVisible="{Binding IsResidenceEnable}" Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding LeaveApplication.Residence}" />
-            </Grid>
-            <Grid Grid.Row="5" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Status" />
-            </Grid>
-            <Grid Grid.Row="5" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.Status}" />
-            </Grid>
-            <Grid Grid.Row="6" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Message" />
-            </Grid>
-            <Grid Grid.Row="6" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.Message}" />
-            </Grid>
-            <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="10">
-                <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Submit" Command="{Binding LeaveApplicationCommand}"/>
             </Grid>
         </Grid>
     </VerticalStackLayout>

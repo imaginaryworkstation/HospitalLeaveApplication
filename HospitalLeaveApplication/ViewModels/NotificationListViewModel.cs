@@ -64,7 +64,6 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LeaveStatusList.Remove("Approved");
                 }
-                //SelectedLeaveStatus = LeaveStatusList[0];
                 Task.Run(async () => {
                     await GetPathways();
                 });
@@ -79,8 +78,7 @@ namespace HospitalLeaveApplication.ViewModels
         {
             Pathways.Clear();
             Pathways.AddRange(await PathwayService.GetRecommendingPersonnel(LoggedInUser.SubCategory));
-            SelectedLeaveStatus = LeaveStatusList.FirstOrDefault();
-            //await GetLeaveApplications();
+            await GetLeaveApplications();
         }
 
         private async Task GetLeaveApplications()
@@ -101,8 +99,10 @@ namespace HospitalLeaveApplication.ViewModels
                 }
                 else
                 {
-                    LeaveApplicationList.Clear();
-                    LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByRecommendedRoleAsync(Pathways, SelectedLeaveStatus));
+                    MainThread.BeginInvokeOnMainThread(async () => {
+                        LeaveApplicationList.Clear();
+                        LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByRecommendedRoleAsync(Pathways, SelectedLeaveStatus));
+                    });
                 }
             }
             catch (Exception ex)

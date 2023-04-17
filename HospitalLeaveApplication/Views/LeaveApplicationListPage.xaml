@@ -11,6 +11,21 @@
     </ContentPage.BindingContext>
 
     <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.5*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand">
+                
+            </StackLayout>
+            <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Picker x:Name="picker"
+                        Title="Select Leave Type"
+                        ItemsSource="{Binding LeaveStatusList}"
+                        SelectedItem="{Binding SelectedLeaveStatus}" />
+            </StackLayout>
+        </Grid>
         <StackLayout>
             <Frame Padding="10" Margin="10, 10" BackgroundColor="LightGrey">
                 <Grid>

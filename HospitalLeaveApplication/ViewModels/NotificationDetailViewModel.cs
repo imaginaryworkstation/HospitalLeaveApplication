@@ -19,6 +19,7 @@ namespace HospitalLeaveApplication.ViewModels
     {
         private User LoggedInUser;
         private string FirebaseKey { get; set; }
+        private string UserFirebsaeKey { get; set; }
         public string key { get; set; }
         FirebaseObject<LeaveApplication> firebaseLeaveApplication;
         private LeaveApplication leaveApplication;
@@ -43,6 +44,9 @@ namespace HospitalLeaveApplication.ViewModels
         private async Task ExecuteLeaveApplication()
         {
             await LeaveApplicationService.UpdateLeaveApplicationAsync(FirebaseKey, LeaveApplication);
+            User.Enjoyed += LeaveApplication.Days;
+            User.Remaining -= LeaveApplication.Days;
+            await UserService.UpdateUserAsync(UserFirebsaeKey, User);
             await Shell.Current.GoToAsync("..");
         }
 
@@ -99,7 +103,9 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task GetUserDetail()
         {
-            User = await UserService.GetUserAsync(LeaveApplication.Email);
+            FirebaseObject<User> firebaseUser = await UserService.GetUserWithKeyAsync(LeaveApplication.Email);
+            UserFirebsaeKey = firebaseUser.Key;
+            User = firebaseUser.Object as User;
             ProxyUser = await UserService.GetUserAsync(LeaveApplication.Proxy);
         }
     }

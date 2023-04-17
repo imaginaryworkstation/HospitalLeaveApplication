@@ -77,7 +77,7 @@
                         TextColor="Black"
                         ItemsSource="{Binding UserList}"
                         ItemDisplayBinding="{Binding Name}"
-                        SelectedItem="{Binding SelectedUser}"/>
+                        SelectedItem="{Binding SelectedProxyUser}"/>
 
             </Grid>
             <Grid IsVisible="{Binding HasError}" Grid.ColumnSpan="2" Grid.Row="7">

@@ -29,7 +29,7 @@ namespace HospitalLeaveApplication.ViewModels
         private async Task ExecuteNewuser()
         {
             await UserService.StoreUser(User);
-            await Shell.Current.GoToAsync("//UserList");
+            await Shell.Current.GoToAsync("//UserListPage");
         }
 
         public void OnAppearing()
