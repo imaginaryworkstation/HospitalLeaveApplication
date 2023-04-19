@@ -23,8 +23,8 @@
                     <ColumnDefinition Width="0.5*" />
                 </Grid.ColumnDefinitions>
                 <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="Name" />
-                    </StackLayout>
+                    <!--<Entry Placeholder="Name" />-->
+                </StackLayout>
                 <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
                     <Picker x:Name="picker"
                         Title="Select Leave Type"

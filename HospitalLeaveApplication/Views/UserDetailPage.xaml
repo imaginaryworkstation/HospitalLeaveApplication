@@ -11,7 +11,10 @@
     </ContentPage.BindingContext>
 
     <VerticalStackLayout>
-        <Grid Margin="10">
+        <StackLayout HorizontalOptions="EndAndExpand" Margin="10">
+            <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" TextColor="White" Text="Change Password" Command="{Binding NavigateToChangePassword}"/>
+        </StackLayout>
+        <Grid Margin="10, 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.3*" />
                 <ColumnDefinition Width="0.7*" />

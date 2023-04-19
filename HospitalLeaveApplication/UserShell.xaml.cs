@@ -14,6 +14,7 @@ public partial class UserShell : Shell
         Routing.RegisterRoute("ProxyLeaveDetailpage", typeof(ProxyLeaveDetailpage));
         Routing.RegisterRoute("NewUserPage", typeof(NewUserPage));
         Routing.RegisterRoute("UserDetailPage", typeof(UserDetailPage));
+        Routing.RegisterRoute("ChangePasswordPage", typeof(ChangePasswordPage));
     }
 
     protected override void OnAppearing()

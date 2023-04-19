@@ -6,6 +6,7 @@ using System.Windows.Input;
 using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Utilities;
 using HospitalLeaveApplication.Services.Helpers;
+using HospitalLeaveApplication.Views;
 
 namespace HospitalLeaveApplication.ViewModels
 {
@@ -16,17 +17,24 @@ namespace HospitalLeaveApplication.ViewModels
         private string FirebaseKey { get; set; }
         public string email { get; set; }
         private User user;
+        public ICommand NavigateToChangePassword { get; }
         public ICommand UpdateProfileCommand { get; }
         public User User { get => user; set => SetProperty(ref user, value); }
         public UserDetailViewModel()
         {
             UpdateProfileCommand = new AsyncCommand(ExecuteUpdateProfile);
+            NavigateToChangePassword = new AsyncCommand(ExecuteNavigateToChangePassword);
         }
 
         private async Task ExecuteUpdateProfile()
         {
             await UserService.UpdateUserAsync(FirebaseKey, User);
             await Shell.Current.GoToAsync("//UserListPage");
+        }
+
+        private async Task ExecuteNavigateToChangePassword()
+        {
+            await Shell.Current.GoToAsync($"{nameof(ChangePasswordPage)}?email={email}");
         }
 
         public void OnAppearing()

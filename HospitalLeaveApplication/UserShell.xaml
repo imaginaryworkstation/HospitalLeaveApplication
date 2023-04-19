@@ -50,4 +50,10 @@
             <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}"  Route="ProfilePage"/>
         </Tab>
     </FlyoutItem>
+
+    <FlyoutItem Title="Password">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:UpdatePasswordPage}"  Route="UpdatePasswordPage"/>
+        </Tab>
+    </FlyoutItem>
 </Shell>
