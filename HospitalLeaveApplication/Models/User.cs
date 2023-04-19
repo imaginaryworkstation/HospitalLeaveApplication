@@ -10,6 +10,7 @@ namespace HospitalLeaveApplication.Models
 		public string SubCategory { get; set; }
 		public int Enjoyed { get; set; }
         public int Remaining { get; set; }
+		public string Posting { get; set; }
 		public string Password { get; set; }
     }
 }

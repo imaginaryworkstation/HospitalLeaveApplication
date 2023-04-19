@@ -31,6 +31,27 @@ namespace HospitalLeaveApplication.Utilities
             };
             return StatusList;
         }
+        public static List<String> GetPostingLocations()
+        {
+            List<string> PostingLocations = new List<string>
+            {
+                "Health Complex",
+                "Union Health Complex",
+                "Union",
+                "Community Clinic"
+            };
+            return PostingLocations;
+        }
+        public static List<String> GetPostingWards()
+        {
+            List<string> PostingWards = new List<string>
+            {
+                "Ward 1",
+                "Ward 2",
+                "Ward 3"
+            };
+            return PostingWards;
+        }
     }
 }
 

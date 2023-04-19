@@ -17,14 +17,18 @@
                 <ColumnDefinition Width="0.7*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Name" />
@@ -52,7 +56,6 @@
                         Title="Select Category"
                         ItemsSource="{Binding CategoryList}"
                         SelectedItem="{Binding User.Category}"/>
-
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Sub Category" />
@@ -62,7 +65,6 @@
                         Title="Select Category"
                         ItemsSource="{Binding SubcategoryList}"
                         SelectedItem="{Binding User.SubCategory}"/>
-
             </Grid>
             <Grid Grid.Row="5" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Password" />
@@ -76,7 +78,28 @@
             <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Entry Placeholder="Leave"  Text="{Binding User.Remaining}" Keyboard="Numeric"/>
             </Grid>
-            <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="10">
+            <Grid Grid.Row="7" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Posting" />
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Picker Title="Select Posting"
+                        ItemsSource="{Binding PostingLocationList}"
+                        SelectedItem="{Binding SelectedPostingLocation}" />
+            </Grid>
+            <Grid IsVisible="{Binding IsSubPosting}" Grid.Row="8" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Picker Title="Select Posting"
+                        ItemsSource="{Binding SubPostingLocationList}"
+                        SelectedItem="{Binding SelectedSubPostingLocation}" />
+            </Grid>
+            <Grid IsVisible="{Binding IsWard}" Grid.Row="9" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Picker Title="Select Ward"
+                        ItemsSource="{Binding WardLocationList}"
+                        SelectedItem="{Binding SelectedWardLocation}" />
+            </Grid>
+            <Grid IsVisible="{Binding IsError}" Grid.Row="10" Grid.ColumnSpan="2" Margin="10">
+                <Label Margin="0" Padding="0" Text="{Binding ErrorMessage}" TextColor="Red"/>
+            </Grid>
+            <Grid Grid.Row="11" Grid.ColumnSpan="2" Margin="10">
                 <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Submit" Command="{Binding NewUserCommand}"/>
             </Grid>
         </Grid>
