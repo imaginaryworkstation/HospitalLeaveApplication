@@ -7,13 +7,14 @@
              Shell.NavBarIsVisible="False"
              BackgroundColor="White"
              BackgroundImageSource="bg.jpg"
+             x:DataType="viewmodel:LoginViewModel"
              Title="Login">
 
     <ContentPage.BindingContext>
         <viewmodel:LoginViewModel/>
     </ContentPage.BindingContext>
     
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
         <VerticalStackLayout Spacing="16" Margin="20, 0" >
             <Frame BorderColor="Transparent" BackgroundColor="Transparent">
                 <Label Text="Moksudpur UHL" HorizontalOptions="CenterAndExpand" FontSize="Title" FontAttributes="Bold" />

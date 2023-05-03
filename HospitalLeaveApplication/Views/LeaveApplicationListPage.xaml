@@ -4,87 +4,90 @@
              x:Class="HospitalLeaveApplication.Views.LeaveApplicationListPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
              BackgroundColor="White"
-             Title="Leave Application List">
+             Title="Leave History">
     
     <ContentPage.BindingContext>
         <viewmodel:LeaveApplicationListViewModel/>
     </ContentPage.BindingContext>
 
-    <VerticalStackLayout>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="0.5*" />
-            </Grid.ColumnDefinitions>
-            <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand">
+    <Frame Style="{StaticResource FullFrame}">
+        <VerticalStackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand">
                 
-            </StackLayout>
-            <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
-                <Picker x:Name="picker"
-                        Title="Select Leave Type"
-                        ItemsSource="{Binding LeaveStatusList}"
-                        SelectedItem="{Binding SelectedLeaveStatus}" />
-            </StackLayout>
-        </Grid>
-        <StackLayout>
-            <Frame Padding="10" Margin="10, 10" BackgroundColor="LightGrey">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.25*" />
-                        <ColumnDefinition Width="0.25*" />
-                        <ColumnDefinition Width="0.30*" />
-                        <ColumnDefinition Width="0.20*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Label TextColor="Black" Text="From" />
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Label TextColor="Black" Text="To" />
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <Label TextColor="Black" Text="Leave type" />
-                    </Grid>
-                    <Grid Grid.Column="3">
-                        <Label TextColor="Black" Text="Status" />
-                    </Grid>
-                </Grid>
-            </Frame>
-            <CollectionView ItemsSource="{Binding LeaveApplicationList}"
-                            SelectionMode="Single"
-                            EmptyView="No items found"
-                            SelectionChanged="CollectionView_SelectionChanged">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="10, 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.25*" />
-                                <ColumnDefinition Width="0.25*" />
-                                <ColumnDefinition Width="0.30*" />
-                                <ColumnDefinition Width="0.20*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                <Label TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="13"/>
-                            </Grid>
-                            <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                <Label TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}"  FontSize="13"/>
-                            </Grid>
-                            <Grid Grid.Column="2" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                <Label TextColor="Black" Text="{Binding LeaveType}"  FontSize="13"/>
-                            </Grid>
-                            <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                <Label TextColor="Black" Text="{Binding Status}"  FontSize="13"/>
-                            </Grid>
-                            <Grid Grid.Row="1" Grid.ColumnSpan="4">
-                                <BoxView Color="LightGrey" HeightRequest="1" />
-                            </Grid>
+                </StackLayout>
+                <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker x:Name="picker"
+                            TextColor="{StaticResource Primary}"
+                            Title="Select Leave Type"
+                            ItemsSource="{Binding LeaveStatusList}"
+                            SelectedItem="{Binding SelectedLeaveStatus}" />
+                </StackLayout>
+            </Grid>
+            <StackLayout>
+                <Frame Style="{StaticResource TableHeaderFrame}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.25*" />
+                            <ColumnDefinition Width="0.25*" />
+                            <ColumnDefinition Width="0.20*" />
+                            <ColumnDefinition Width="0.30*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Label TextColor="Black" Text="From" />
                         </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
-    </VerticalStackLayout>
+                        <Grid Grid.Column="1">
+                            <Label TextColor="Black" Text="To" />
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Label TextColor="Black" Text="Type" />
+                        </Grid>
+                        <Grid Grid.Column="3">
+                            <Label TextColor="Black" Text="Proxy" />
+                        </Grid>
+                    </Grid>
+                </Frame>
+                <CollectionView ItemsSource="{Binding LeaveApplicationList}"
+                                SelectionMode="Single"
+                                EmptyView="No items found"
+                                SelectionChanged="CollectionView_SelectionChanged">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.25*" />
+                                    <ColumnDefinition Width="0.25*" />
+                                    <ColumnDefinition Width="0.20*" />
+                                    <ColumnDefinition Width="0.30*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                    <Label TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="13"/>
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                    <Label TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}"  FontSize="13"/>
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                    <Label TextColor="Black" Text="{Binding LeaveType}"  FontSize="13"/>
+                                </Grid>
+                                <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                    <Label TextColor="Black" Text="{Binding ProxyName}"  FontSize="13"/>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.ColumnSpan="4">
+                                    <BoxView Color="LightGrey" HeightRequest="1" />
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </VerticalStackLayout>
+    </Frame>
 </ContentPage>

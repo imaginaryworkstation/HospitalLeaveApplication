@@ -70,7 +70,7 @@ namespace HospitalLeaveApplication.Services
             List<LeaveApplication> firebaseObjects = null;
             firebaseObjects = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
-                .Where(l => l.Object.Proxy == email)
+                .Where(l => l.Object.ProxyEmail == email)
                 .Where(l => l.Object.Status == "Approved")
                 .OrderBy(l => l.Object.FromDate)
                 .Select(u => u.Object).ToList();

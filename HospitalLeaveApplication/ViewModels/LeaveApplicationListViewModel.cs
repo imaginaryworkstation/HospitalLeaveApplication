@@ -66,7 +66,8 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LoggedInUser = await LocalDBService.GetToken();
                 }
-                await GetLeaveApplications();
+                SelectedLeaveStatus = "Approved";
+                //await GetLeaveApplications();
             }
             catch(Exception ex)
             {
@@ -78,8 +79,13 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                LeaveApplicationList.Clear();
-                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(LoggedInUser.Email, SelectedLeaveStatus));
+                var list = await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(LoggedInUser.Email, SelectedLeaveStatus);
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    LeaveApplicationList.Clear();
+                    LeaveApplicationList.AddRange(list);
+                });
+                
             }
             catch (Exception ex)
             {

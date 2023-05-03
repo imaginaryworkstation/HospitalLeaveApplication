@@ -21,16 +21,16 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="20">
-                <Button Text="New Leave Application" Command="{Binding NavigateToNewLeaveApplicationCommand}"/>
+                <Button Style="{StaticResource NavigateButton}" Text="New Leave Application" Command="{Binding NavigateToNewLeaveApplicationCommand}"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1" Margin="20">
-                <Button Text="Leave History" Command="{Binding NavigateToLeaveApplicationListCommand}"/>
+                <Button Style="{StaticResource NavigateButton}" Text="Leave History" Command="{Binding NavigateToLeaveApplicationListCommand}"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Margin="20">
-                <Button Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
+                <Button Style="{StaticResource NavigateButton}" Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Margin="20">
-                <Button Text="Proxy List" Command="{Binding NavigateToProxyListCommand}"/>
+                <Button Style="{StaticResource NavigateButton}" Text="Proxy List" Command="{Binding NavigateToProxyListCommand}"/>
             </Grid>
         </Grid>
         <Grid IsVisible="{Binding IsAdmin}">
@@ -42,10 +42,10 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="20">
-                <Button Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
+                <Button Style="{StaticResource NavigateButton}" Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1" Margin="20">
-                <Button Text="User List" Command="{Binding NavigateToUserCommand}"/>
+                <Button Style="{StaticResource NavigateButton}" Text="User List" Command="{Binding NavigateToUserCommand}"/>
             </Grid>
         </Grid>
     </VerticalStackLayout>

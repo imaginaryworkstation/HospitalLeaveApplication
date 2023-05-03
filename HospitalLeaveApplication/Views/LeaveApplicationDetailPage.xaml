@@ -4,6 +4,7 @@
              x:Class="HospitalLeaveApplication.Views.LeaveApplicationDetailPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
              BackgroundColor="White"
+             x:DataType="viewmodel:LeaveApplicationDetailViewModel"
              Title="Leave Application Detail">
 
     <ContentPage.BindingContext>
@@ -11,6 +12,7 @@
     </ContentPage.BindingContext>
     
     <VerticalStackLayout>
+        <Frame Style="{StaticResource FullFrame}">
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.3*" />
@@ -29,66 +31,67 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave type" />
+            <Grid Grid.Row="0" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Label Text="Leave type" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.LeaveType}" />
+            <Grid Grid.Row="0" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding LeaveApplication.LeaveType}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="1" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Grid.Column="0" Text="From date" />
+            <Grid Grid.Row="1" Margin="10" Style="{StaticResource DetailGrid}">
+                <Label Grid.Column="0" Text="From date" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.FromDate, StringFormat='{0:MMM dd, yyyy}'}" />
+            <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding LeaveApplication.FromDate, StringFormat='{0:MMM dd, yyyy}'}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="To date" />
+            <Grid Grid.Row="2" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Label Text="To date" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.ToDate, StringFormat='{0:MMM dd, yyyy}'}" />
+            <Grid Grid.Row="2" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding LeaveApplication.ToDate, StringFormat='{0:MMM dd, yyyy}'}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="3" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Total days" />
+            <Grid Grid.Row="3" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Label Text="Total days" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="3" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.Days}" />
+            <Grid Grid.Row="3" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding LeaveApplication.Days}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="4" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Enjoyed" />
+            <Grid Grid.Row="4" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Label Text="Enjoyed" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="4" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Enjoyed, StringFormat='{0} days'}" />
+            <Grid Grid.Row="4" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding User.Enjoyed, StringFormat='{0} days'}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="5" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Remaining" />
+            <Grid Grid.Row="5" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Label Text="Remaining" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="5" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Remaining, StringFormat='{0} days'}" />
+            <Grid Grid.Row="5" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding User.Remaining, StringFormat='{0} days'}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="6" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Proxy" />
+            <Grid Grid.Row="6" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Label Text="Proxy" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="6" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding ProxyUser.Name}" />
+            <Grid Grid.Row="6" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding LeaveApplication.ProxyName}" TextColor="Black"/>
             </Grid>
-            <Grid x:Name="residenceLabel" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Place of residence" />
+            <Grid x:Name="residenceLabel" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Label Text="Place of residence" TextColor="Black"/>
             </Grid>
-            <Grid x:Name="residenceEntry" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.Residence}" />
+            <Grid x:Name="residenceEntry" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding LeaveApplication.Residence}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="8" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Status" />
+            <Grid Grid.Row="8" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Label Text="Status" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="8" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.Status}" />
+            <Grid Grid.Row="8" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding LeaveApplication.Status}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="9" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Message" />
+            <Grid Grid.Row="9" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Label Text="Message" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="9" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.Message}" />
+            <Grid Grid.Row="9" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Label Text="{Binding LeaveApplication.Message}" TextColor="Black"/>
             </Grid>
         </Grid>
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>

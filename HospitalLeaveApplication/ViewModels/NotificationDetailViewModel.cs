@@ -106,7 +106,7 @@ namespace HospitalLeaveApplication.ViewModels
             FirebaseObject<User> firebaseUser = await UserService.GetUserWithKeyAsync(LeaveApplication.Email);
             UserFirebsaeKey = firebaseUser.Key;
             User = firebaseUser.Object as User;
-            ProxyUser = await UserService.GetUserAsync(LeaveApplication.Proxy);
+            ProxyUser = await UserService.GetUserAsync(LeaveApplication.ProxyEmail);
         }
     }
 }

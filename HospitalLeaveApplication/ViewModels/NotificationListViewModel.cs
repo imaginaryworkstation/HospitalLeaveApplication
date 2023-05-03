@@ -47,6 +47,18 @@ namespace HospitalLeaveApplication.ViewModels
                     LoggedInUser = await LocalDBService.GetToken();
                 }
                 GetLeaveStatusList();
+                switch (LoggedInUser.Category)
+                {
+                    case "UHFPO":
+                        SelectedLeaveStatus = "Reccomended";
+                        break;
+                    case "Approver":
+                        SelectedLeaveStatus = "Forwarded";
+                        break;
+                    default:
+                        SelectedLeaveStatus = "Pending";
+                        break;
+                }
             }
             catch (Exception ex)
             {
@@ -64,6 +76,11 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LeaveStatusList.Remove("Approved");
                 }
+                else if(LoggedInUser.Category != "UHFPO" && LoggedInUser.Category != "Approver")
+                {
+                    LeaveStatusList.Remove("Reccomended");
+                    LeaveStatusList.Remove("Approved");
+                }
                 Task.Run(async () => {
                     await GetPathways();
                 });
@@ -78,24 +95,27 @@ namespace HospitalLeaveApplication.ViewModels
         {
             Pathways.Clear();
             Pathways.AddRange(await PathwayService.GetRecommendingPersonnel(LoggedInUser.SubCategory));
-            await GetLeaveApplications();
+            //await GetLeaveApplications();
         }
 
         private async Task GetLeaveApplications()
         {
             try
             {
-                if(LoggedInUser.Category == "UHFPO")
+                if (LoggedInUser.Category == "UHFPO" || LoggedInUser.Category == "Approver")
                 {
-                    LeaveApplicationList.Clear();
                     Pathways.Clear();
                     Pathways.Add(new Pathway { Role = "RMO", Forward = "MO"});
                     Pathways.Add(new Pathway { Role = "Statistician", Forward = "Office Sohokari" });
                     Pathways.Add(new Pathway { Role = "Office Sohokari", Forward = "Office Sohokari" });
                     var list1 = await LeaveApplicationService.GetLeaveApplicationsByRecommendedRoleAsync(Pathways, SelectedLeaveStatus);
-                    var list2 = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync("Forwarded");
-                    LeaveApplicationList.AddRange(list1);
-                    LeaveApplicationList.AddRange(list2);
+                    var list2 = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync(SelectedLeaveStatus);
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        LeaveApplicationList.Clear();
+                        LeaveApplicationList.AddRange(list1);
+                        LeaveApplicationList.AddRange(list2);
+                    });
                 }
                 else
                 {

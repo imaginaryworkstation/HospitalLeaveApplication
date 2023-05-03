@@ -11,7 +11,8 @@ namespace HospitalLeaveApplication.Models
 		public DateTime ToDate { get; set; }
 		public int Days { get; set; }
 		public string Residence { get; set; }
-		public string Proxy { get; set; }
+		public string ProxyName { get; set; }
+		public string ProxyEmail { get; set; }
 		public string Status { get; set; }
 		public string Role { get; set; }
 		public string Message { get; set; }

@@ -27,7 +27,8 @@ namespace HospitalLeaveApplication.Utilities
                 "Pending",
                 "Approved",
                 "Rejected",
-                "Forwarded"
+                "Forwarded",
+                "Reccomended"
             };
             return StatusList;
         }

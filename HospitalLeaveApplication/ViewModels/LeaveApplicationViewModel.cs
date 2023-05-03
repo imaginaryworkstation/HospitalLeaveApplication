@@ -94,7 +94,8 @@ namespace HospitalLeaveApplication.ViewModels
                     LeaveApplication.Key = string.Format("{0}{1}", LoggedInUser.Email, DateTime.Now.ToString("yyyyMMddHHmmss"));
                     LeaveApplication.LeaveType = SelectedLeaveType;
                     LeaveApplication.Days = (LeaveApplication.ToDate - LeaveApplication.FromDate).Days + 1;
-                    leaveApplication.Proxy = SelectedProxyUser.Email;
+                    LeaveApplication.ProxyName = SelectedProxyUser.Name;
+                    leaveApplication.ProxyEmail = SelectedProxyUser.Email;
                     LeaveApplication.Role = LoggedInUser.SubCategory;
                     LeaveApplication.Status = "Pending";
                     FirebaseResponse response = await LeaveApplicationService.StoreLeaveApplication(LeaveApplication);
@@ -111,6 +112,7 @@ namespace HospitalLeaveApplication.ViewModels
         {
             HasError = false;
             GetLeaveTypes();
+            SelectedLeaveType = "Casual";
             Task.Run(async () => await GetToken());
         }
 
@@ -140,7 +142,7 @@ namespace HospitalLeaveApplication.ViewModels
                 LeaveApplication.Email = LoggedInUser.Email;
             }
             catch(Exception ex)
-            {
+            {   
 
             }
         }

@@ -55,7 +55,6 @@ namespace HospitalLeaveApplication.ViewModels
         private async Task GetUserDetail()
         {
             User = await UserService.GetUserAsync(LeaveApplication.Email);
-            ProxyUser = await UserService.GetUserAsync(LeaveApplication.Proxy);
         }
     }
 }
