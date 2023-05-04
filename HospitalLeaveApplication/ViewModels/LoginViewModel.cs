@@ -11,9 +11,14 @@ namespace HospitalLeaveApplication.ViewModels
     public class LoginViewModel : BaseViewModel
     {
         private User user;
+        private bool hasError;
+        private string errorMessage;
 
         public ICommand LoginCommand { get; }
         public User User { get => user; set => SetProperty(ref user, value); }
+        public bool HasError { get => hasError; set => SetProperty(ref hasError, value); }
+        public string ErrorMessage { get => errorMessage; set => SetProperty(ref errorMessage, value); }
+
         public LoginViewModel()
         {
             User = new User();
@@ -22,6 +27,7 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task ExecuteLogin()
         {
+            HasError = false;
             User LoginUser = await UserService.GetUserAsync(User.Email);
             if(LoginUser != null && LoginUser.Password == User.Password)
             {
@@ -30,11 +36,16 @@ namespace HospitalLeaveApplication.ViewModels
                 StaticCredential.User = LoginUser;
                 await MainThread.InvokeOnMainThreadAsync(() => { Application.Current.MainPage = new UserShell(); });
             }
+            else
+            {
+                HasError = true;
+                ErrorMessage = "Wrong email or password!";
+            }
         }
 
         public void OnAppearing()
         {
-
+            HasError = false;
         }
     }
 }

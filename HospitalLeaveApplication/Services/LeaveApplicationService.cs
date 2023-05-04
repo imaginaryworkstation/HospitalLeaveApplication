@@ -64,14 +64,14 @@ namespace HospitalLeaveApplication.Services
             return firebaseObjects;
         }
 
-        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByProxyAsync(string email)
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByProxyAsync(string email, string status = "Approved")
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<LeaveApplication> firebaseObjects = null;
             firebaseObjects = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
                 .Where(l => l.Object.ProxyEmail == email)
-                .Where(l => l.Object.Status == "Approved")
+                .Where(l => l.Object.Status == status)
                 .OrderBy(l => l.Object.FromDate)
                 .Select(u => u.Object).ToList();
             return firebaseObjects;
@@ -89,13 +89,13 @@ namespace HospitalLeaveApplication.Services
             return firebaseObjects;
         }
 
-        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByRecommendedRoleAsync(List<Pathway> roles, string status = null)
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByRecommendedRoleAsync(List<string> roles, string status = null)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<LeaveApplication> firebaseObjects = null;
             var query = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
-                .Where(p => roles.Any(c => p.Object.Role.Contains(c.Role)))
+                .Where(p => roles.Any(r => p.Object.Role.Contains(r)))
                 .OrderBy(l => l.Object.FromDate);
             if(status != null)
             {

@@ -32,10 +32,10 @@
                 <Label Text="{Binding LeaveApplication.LeaveType}" />
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave type" />
+                <Label Text="Status" />
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.LeaveType}" />
+                <Label Text="{Binding LeaveApplication.Status}" />
             </Grid>
             <Grid Grid.Row="2" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Grid.Column="0" Text="From date" />

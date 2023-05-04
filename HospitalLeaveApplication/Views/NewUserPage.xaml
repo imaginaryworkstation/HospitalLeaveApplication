@@ -62,7 +62,7 @@
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Picker x:Name="subcategorypicker"
-                        Title="Select Category"
+                        Title="Select Subategory"
                         ItemsSource="{Binding SubcategoryList}"
                         SelectedItem="{Binding User.SubCategory}"/>
             </Grid>

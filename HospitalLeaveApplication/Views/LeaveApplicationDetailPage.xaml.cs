@@ -16,4 +16,9 @@ public partial class LeaveApplicationDetailPage : ContentPage
         base.OnAppearing();
 		viewModel.OnAppearing();
     }
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushModalAsync(new LeaveCertificatePage(viewModel.LeaveApplication));
+    }
 }

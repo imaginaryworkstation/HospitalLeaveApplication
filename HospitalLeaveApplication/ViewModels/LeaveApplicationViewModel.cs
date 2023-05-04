@@ -23,7 +23,7 @@ namespace HospitalLeaveApplication.ViewModels
 
         public ICommand LeaveApplicationCommand { get; }
         public ObservableRangeCollection<string> LeaveTypes { get; }
-        public ObservableRangeCollection<User> UserList { get; }
+        public ObservableRangeCollection<User> ProxyUserList { get; }
         public bool HasError { get => hasError; set => SetProperty(ref hasError, value); }
         public string ErrorMessage { get => errorMessage; set => SetProperty(ref errorMessage, value); }
         public DateTime MinFromDate { get => minFromDate; set => SetProperty(ref minFromDate, value); }
@@ -62,7 +62,7 @@ namespace HospitalLeaveApplication.ViewModels
             SelectedProxyUser = new User();
             LeaveApplicationCommand = new AsyncCommand(ExecuteLeaveApplication);
             LeaveTypes = new ObservableRangeCollection<string>();
-            UserList = new ObservableRangeCollection<User>();
+            ProxyUserList = new ObservableRangeCollection<User>();
         }
 
         private async Task ExecuteLeaveApplication()
@@ -152,10 +152,10 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 Pathway pathway = await PathwayService.GetPathwayAsync(LoggedInUser.SubCategory);
-                List<User> users = await UserService.GetUsersAsync(pathway.Forward);
+                List<User> users = await UserService.GetUsersAsync(pathway.Forward.Split("/").ToList());
                 MainThread.BeginInvokeOnMainThread(() => {
-                    UserList.Clear();
-                    UserList.AddRange(users.Where(u => u.Email != LoggedInUser.Email).ToList());
+                    ProxyUserList.Clear();
+                    ProxyUserList.AddRange(users.Where(u => u.Email != LoggedInUser.Email).ToList());
                 });
             }
             catch (Exception ex)

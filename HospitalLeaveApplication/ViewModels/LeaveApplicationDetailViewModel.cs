@@ -14,6 +14,8 @@ namespace HospitalLeaveApplication.ViewModels
         private string FirebaseKey { get; set; }
         public string key { get; set; }
         FirebaseObject<LeaveApplication> firebaseLeaveApplication;
+        private bool isApproved;
+
         private LeaveApplication leaveApplication;
         private User user;
         private User proxyUser;
@@ -21,10 +23,13 @@ namespace HospitalLeaveApplication.ViewModels
 
         public ICommand LeaveApplicationCommand { get; }
         public FirebaseObject<LeaveApplication> FirebaseLeaveApplication { get => firebaseLeaveApplication; set => SetProperty(ref firebaseLeaveApplication, value); }
+
+        public bool IsApproved { get => isApproved; set => SetProperty(ref isApproved, value); }
         public LeaveApplication LeaveApplication { get => leaveApplication; set => SetProperty(ref leaveApplication, value); }
         public User User { get => user; set => SetProperty(ref user, value); }
         public User ProxyUser { get => proxyUser; set => SetProperty(ref proxyUser, value); }
         public bool IsResidenceEnable { get => isResidenceEnable; set => SetProperty(ref isResidenceEnable, value); }
+
         public LeaveApplicationDetailViewModel()
         {
 
@@ -48,6 +53,7 @@ namespace HospitalLeaveApplication.ViewModels
             IsResidenceEnable = LeaveApplication.LeaveType == "Casual" ? false : true;
             if(LeaveApplication != null)
             {
+                IsApproved = LeaveApplication.Status == "Approved";
                 await GetUserDetail();
             }
         }

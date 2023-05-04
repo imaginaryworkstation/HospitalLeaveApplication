@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Firebase.Database;
 using Firebase.Database.Query;
 using HospitalLeaveApplication.Models;
@@ -74,12 +75,16 @@ namespace HospitalLeaveApplication.Services
             return firebaseObjects;
         }
 
-        public async static Task<List<User>> GetUsersAsync(string Subcategory)
+        public async static Task<List<User>> GetUsersAsync(List<string> subcategories)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<User> firebaseObjects = null;
             firebaseObjects = (await firebaseClient.Child("Users").OnceAsync<User>()).Select(u => u.Object).ToList();
-            firebaseObjects = firebaseObjects.Where(s => s.SubCategory == Subcategory).ToList();
+
+            firebaseObjects = firebaseObjects
+                .Where(s => subcategories.Any(r => s.SubCategory.Contains(r)))
+                //.Where(s => s.SubCategory == Subcategory)
+                .ToList();
             return firebaseObjects;
         }
         public async static Task<bool> UpdateUserAsync(string key, User user)

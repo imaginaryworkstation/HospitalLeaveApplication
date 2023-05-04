@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.LeaveApplicationListPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
+             xmlns:model ="clr-namespace:HospitalLeaveApplication.Models"
+             x:DataType="viewmodel:LeaveApplicationListViewModel"
              BackgroundColor="White"
              Title="Leave History">
     
@@ -56,7 +58,7 @@
                                 EmptyView="No items found"
                                 SelectionChanged="CollectionView_SelectionChanged">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="model:LeaveApplication">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.25*" />

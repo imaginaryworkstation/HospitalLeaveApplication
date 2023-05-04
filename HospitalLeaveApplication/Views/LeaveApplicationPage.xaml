@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.LeaveApplicationPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
-             x:DataType="viewmodel:LeaveApplicationViewModel"
+             xmlns:model="clr-namespace:HospitalLeaveApplication.Models"
              xmlns:utility="clr-namespace:HospitalLeaveApplication.Utilities"
              BackgroundColor="White"
+             x:DataType="viewmodel:LeaveApplicationViewModel"
              Title="Leave Application">
     
     <ContentPage.BindingContext>
@@ -38,10 +39,10 @@
                     <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">
                             <Picker x:Name="picker"
-                                Title="Select Leave Type"
-                                TextColor="Black"
-                                ItemsSource="{Binding LeaveTypes}"
-                                SelectedItem="{Binding SelectedLeaveType}" />
+                                    Title="Select Leave Type"
+                                    TextColor="Black"
+                                    ItemsSource="{Binding LeaveTypes}"
+                                    SelectedItem="{Binding SelectedLeaveType}" />
                             <Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />
                         </StackLayout>
                     </Grid>
@@ -88,11 +89,11 @@
                     <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">
                             <Picker x:Name="userpicker"
-                                Title="Select Proxy"
-                                TextColor="Black"
-                                ItemsSource="{Binding UserList}"
-                                ItemDisplayBinding="{Binding Name}"
-                                SelectedItem="{Binding SelectedProxyUser}"/>
+                                    Title="Select Proxy"
+                                    TextColor="Black"
+                                    ItemsSource="{Binding ProxyUserList}"
+                                    ItemDisplayBinding="{Binding Name}"
+                                    SelectedItem="{Binding SelectedProxyUser}"/>
                             <Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />
                         </StackLayout>
                     </Grid>

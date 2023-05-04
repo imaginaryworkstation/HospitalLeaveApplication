@@ -8,9 +8,11 @@ namespace HospitalLeaveApplication
     {
         private bool isAdmin;
         private bool isNotAdmin;
+        private bool isSuperAdmin;
 
         public bool IsAdmin { get => isAdmin; set => SetProperty(ref isAdmin, value); }
         public bool IsNotAdmin { get => isNotAdmin; set => SetProperty(ref isNotAdmin, value); }
+        public bool IsSuperAdmin { get => isSuperAdmin; set => SetProperty(ref isSuperAdmin, value); }
 
         public void OnAppearing()
         {
@@ -20,7 +22,7 @@ namespace HospitalLeaveApplication
         private async Task GetToken()
         {
             User user = await LocalDBService.GetToken();
-            if (user != null && user.Category == "UHFPO")
+            if (user != null && (user.Category == "UHFPO" || user.Category == "Approver"))
             {
                 IsAdmin = true;
             }

@@ -158,7 +158,7 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 SubcategoryList.Clear();
-                SubcategoryList.AddRange(a.Select(s => s.Name).ToList());
+                SubcategoryList.AddRange(a.Where(s => s.Category == User.Category).Select(s => s.Name).ToList());
             }
             catch (Exception ex)
             {

@@ -13,85 +13,89 @@
     
     <VerticalStackLayout>
         <Frame Style="{StaticResource FullFrame}">
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.3*" />
-                <ColumnDefinition Width="0.7*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                <Label Text="Leave type" TextColor="Black"/>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*" />
+                    <ColumnDefinition Width="0.7*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Leave type" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding LeaveApplication.LeaveType}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="1" Margin="10" Style="{StaticResource DetailGrid}">
+                    <Label Grid.Column="0" Text="From date" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding LeaveApplication.FromDate, StringFormat='{0:MMM dd, yyyy}'}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="To date" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding LeaveApplication.ToDate, StringFormat='{0:MMM dd, yyyy}'}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Total days" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding LeaveApplication.Days}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Enjoyed" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding User.Enjoyed, StringFormat='{0} days'}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="5" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Remaining" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="5" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding User.Remaining, StringFormat='{0} days'}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="6" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Proxy" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="6" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding LeaveApplication.ProxyName}" TextColor="Black"/>
+                </Grid>
+                <Grid x:Name="residenceLabel" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Place of residence" TextColor="Black"/>
+                </Grid>
+                <Grid x:Name="residenceEntry" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding LeaveApplication.Residence}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="8" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Status" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="8" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding LeaveApplication.Status}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="9" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Message" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="9" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding LeaveApplication.Message}" TextColor="Black"/>
+                </Grid>
+                <Grid IsVisible="{Binding IsApproved}" Grid.Row="10" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Button Style="{StaticResource NavigateButton}" Text="Certificate" Clicked="Button_Clicked" />
+                </Grid>
             </Grid>
-            <Grid Grid.Row="0" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding LeaveApplication.LeaveType}" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="1" Margin="10" Style="{StaticResource DetailGrid}">
-                <Label Grid.Column="0" Text="From date" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding LeaveApplication.FromDate, StringFormat='{0:MMM dd, yyyy}'}" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="2" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                <Label Text="To date" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="2" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding LeaveApplication.ToDate, StringFormat='{0:MMM dd, yyyy}'}" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="3" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                <Label Text="Total days" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="3" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding LeaveApplication.Days}" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="4" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                <Label Text="Enjoyed" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="4" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding User.Enjoyed, StringFormat='{0} days'}" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="5" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                <Label Text="Remaining" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="5" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding User.Remaining, StringFormat='{0} days'}" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="6" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                <Label Text="Proxy" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="6" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding LeaveApplication.ProxyName}" TextColor="Black"/>
-            </Grid>
-            <Grid x:Name="residenceLabel" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                <Label Text="Place of residence" TextColor="Black"/>
-            </Grid>
-            <Grid x:Name="residenceEntry" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding LeaveApplication.Residence}" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="8" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                <Label Text="Status" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="8" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding LeaveApplication.Status}" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="9" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                <Label Text="Message" TextColor="Black"/>
-            </Grid>
-            <Grid Grid.Row="9" Grid.Column="1" Style="{StaticResource DetailGrid}">
-                <Label Text="{Binding LeaveApplication.Message}" TextColor="Black"/>
-            </Grid>
-        </Grid>
         </Frame>
     </VerticalStackLayout>
 </ContentPage>

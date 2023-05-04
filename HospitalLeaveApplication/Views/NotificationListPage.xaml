@@ -11,35 +11,31 @@
     <ContentPage.BindingContext>
         <viewmodel:NotificationListViewModel/>
     </ContentPage.BindingContext>
-    
-    <VerticalStackLayout>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="10">
+
+    <Frame Style="{StaticResource FullFrame}">
+        <VerticalStackLayout>
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition Width="0.5*" />
                 </Grid.ColumnDefinitions>
                 <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand">
-                    <!--<Entry Placeholder="Name" />-->
+
                 </StackLayout>
                 <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
                     <Picker x:Name="picker"
-                        Title="Select Leave Status"
-                        ItemsSource="{Binding LeaveStatusList}"
-                        SelectedItem="{Binding SelectedLeaveStatus}" />
+                            TextColor="{StaticResource Primary}"
+                            Title="Select Leave Type"
+                            ItemsSource="{Binding LeaveStatusList}"
+                            SelectedItem="{Binding SelectedLeaveStatus}" />
                 </StackLayout>
             </Grid>
-            <Grid Grid.Row="1">
-                <Frame Padding="10" Margin="10, 10" BackgroundColor="LightGrey">
+            <StackLayout>
+                <Frame Style="{StaticResource TableHeaderFrame}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.35*" />
-                            <ColumnDefinition Width="0.15*" />
+                            <ColumnDefinition Width="0.40*" />
+                            <ColumnDefinition Width="0.20*" />
                             <ColumnDefinition Width="0.15*" />
                             <ColumnDefinition Width="0.35*" />
                         </Grid.ColumnDefinitions>
@@ -57,18 +53,17 @@
                         </Grid>
                     </Grid>
                 </Frame>
-            </Grid>
-            <Grid Grid.Row="2">
+
                 <CollectionView ItemsSource="{Binding LeaveApplicationList}"
                             SelectionMode="Single"
                             EmptyView="No items found"
                             SelectionChanged="CollectionView_SelectionChanged">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:LeaveApplication">
-                            <Grid Margin="10, 0">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.35*" />
-                                    <ColumnDefinition Width="0.15*" />
+                                    <ColumnDefinition Width="0.40*" />
+                                    <ColumnDefinition Width="0.20*" />
                                     <ColumnDefinition Width="0.15*" />
                                     <ColumnDefinition Width="0.35*" />
                                 </Grid.ColumnDefinitions>
@@ -82,9 +77,9 @@
                                         <Label Margin="0, 2" TextColor="Black" Text="{Binding Role}" FontSize="10" />
                                     </StackLayout>
                                 </Grid>
-                                <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="5, 0" VerticalOptions="CenterAndExpand">
+                                <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="5, 0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                                     <StackLayout>
-                                        <Label Margin="0, 2" TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy} -'}" FontSize="11" />
+                                        <Label Margin="0, 2" TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="11" />
                                         <Label Margin="0, 2" TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" FontSize="11" />
                                     </StackLayout>
                                 </Grid>
@@ -101,7 +96,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </Grid>
-        </Grid>
-    </VerticalStackLayout>
+            </StackLayout>
+        </VerticalStackLayout>
+    </Frame>
 </ContentPage>

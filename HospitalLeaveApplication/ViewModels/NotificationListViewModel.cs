@@ -11,7 +11,7 @@ namespace HospitalLeaveApplication.ViewModels
         private User LoggedInUser;
         private Pathway pathway;
         private string selectedLeaveStatus;
-        private List<Pathway> pathways;
+        private List<string> pathways;
         public ObservableRangeCollection<LeaveApplication> LeaveApplicationList { get; }
         public ObservableRangeCollection<string> LeaveStatusList { get; }
         public Pathway Pathway { get => pathway; set => SetProperty(ref pathway, value); }
@@ -24,12 +24,12 @@ namespace HospitalLeaveApplication.ViewModels
                 Task.Run(async () => await GetLeaveApplications());
             }
         }
-        public List<Pathway> Pathways { get => pathways; set => SetProperty(ref pathways, value); }
+        public List<string> Pathways { get => pathways; set => SetProperty(ref pathways, value); }
 
         public NotificationListViewModel()
         {
             LeaveStatusList = new ObservableRangeCollection<string>();
-            Pathways = new List<Pathway>();
+            Pathways = new List<string>();
             LeaveApplicationList = new ObservableRangeCollection<LeaveApplication>();
         }
         public void OnAppearing()
@@ -47,18 +47,6 @@ namespace HospitalLeaveApplication.ViewModels
                     LoggedInUser = await LocalDBService.GetToken();
                 }
                 GetLeaveStatusList();
-                switch (LoggedInUser.Category)
-                {
-                    case "UHFPO":
-                        SelectedLeaveStatus = "Reccomended";
-                        break;
-                    case "Approver":
-                        SelectedLeaveStatus = "Forwarded";
-                        break;
-                    default:
-                        SelectedLeaveStatus = "Pending";
-                        break;
-                }
             }
             catch (Exception ex)
             {
@@ -93,9 +81,22 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task GetPathways()
         {
+            var path = await RecommendingPathwayService.GetPathway(LoggedInUser.SubCategory);
             Pathways.Clear();
-            Pathways.AddRange(await PathwayService.GetRecommendingPersonnel(LoggedInUser.SubCategory));
+            Pathways.AddRange(path.Recommend.Split("/").ToList());
             //await GetLeaveApplications();
+            switch (LoggedInUser.Category)
+            {
+                case "UHFPO":
+                    SelectedLeaveStatus = "Reccomended";
+                    break;
+                case "Approver":
+                    SelectedLeaveStatus = "Forwarded";
+                    break;
+                default:
+                    SelectedLeaveStatus = "Pending";
+                    break;
+            }
         }
 
         private async Task GetLeaveApplications()
@@ -105,9 +106,9 @@ namespace HospitalLeaveApplication.ViewModels
                 if (LoggedInUser.Category == "UHFPO" || LoggedInUser.Category == "Approver")
                 {
                     Pathways.Clear();
-                    Pathways.Add(new Pathway { Role = "RMO", Forward = "MO"});
-                    Pathways.Add(new Pathway { Role = "Statistician", Forward = "Office Sohokari" });
-                    Pathways.Add(new Pathway { Role = "Office Sohokari", Forward = "Office Sohokari" });
+                    Pathways.Add("RMO");
+                    Pathways.Add("Statistician");
+                    Pathways.Add("Office Sohokari");
                     var list1 = await LeaveApplicationService.GetLeaveApplicationsByRecommendedRoleAsync(Pathways, SelectedLeaveStatus);
                     var list2 = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync(SelectedLeaveStatus);
                     MainThread.BeginInvokeOnMainThread(async () =>
@@ -119,9 +120,10 @@ namespace HospitalLeaveApplication.ViewModels
                 }
                 else
                 {
+                    var list = await LeaveApplicationService.GetLeaveApplicationsByRecommendedRoleAsync(Pathways, SelectedLeaveStatus);
                     MainThread.BeginInvokeOnMainThread(async () => {
                         LeaveApplicationList.Clear();
-                        LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByRecommendedRoleAsync(Pathways, SelectedLeaveStatus));
+                        LeaveApplicationList.AddRange(list);
                     });
                 }
             }

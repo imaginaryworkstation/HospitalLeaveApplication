@@ -32,23 +32,10 @@
                     <Entry x:Name="passEntry" VerticalOptions="Center" Placeholder="Password" IsPassword="True" HeightRequest="60" Grid.Column="1" Text="{Binding User.Password}" TextColor="Black"/>
                 </Grid>
             </Frame>
-
-            <Button BackgroundColor="{StaticResource Primary}" CornerRadius="25" Padding="8" Text="Login" FontSize="16" FontAttributes="Bold" TextColor="White" Command="{Binding LoginCommand}"/>
-
-            <StackLayout HeightRequest="120">
-                <!--<Label  FontAttributes="Bold" TextColor="Gray" Text="Forget Password ?" HorizontalOptions="CenterAndExpand" />-->
-                <!--<StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="ForgetPassword" />
-                </StackLayout.GestureRecognizers>-->
+            <StackLayout IsVisible="{Binding HasError}" HorizontalOptions="CenterAndExpand">
+                <Label Text="{Binding ErrorMessage}" TextColor="Red" />
             </StackLayout>
-
-            <!--<StackLayout Orientation="Vertical">
-                <Grid>
-                    <Border Background="#707070" HeightRequest="1" WidthRequest="150" HorizontalOptions="StartAndExpand"/>
-                    <Label  FontAttributes="Bold" TextColor="#707070" Text="OR" Grid.Column="1" HorizontalOptions="CenterAndExpand" />
-                    <Border Background="#707070" HeightRequest="1" WidthRequest="150" Grid.Column="2" HorizontalOptions="EndAndExpand"/>
-                </Grid>
-            </StackLayout>-->
+            <Button BackgroundColor="{StaticResource Primary}" CornerRadius="25" Padding="8" Text="Login" FontSize="16" FontAttributes="Bold" TextColor="White" Command="{Binding LoginCommand}"/>
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

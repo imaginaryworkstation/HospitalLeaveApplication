@@ -419,7 +419,7 @@
     </Style>
 
     <Style TargetType="Frame" x:Key="FullFrame">
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="BorderColor" Value="LightGrey" />
     </Style>

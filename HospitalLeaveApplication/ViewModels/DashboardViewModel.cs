@@ -67,7 +67,7 @@ namespace HospitalLeaveApplication.ViewModels
         private async Task GetToken()
         {
             User user = await LocalDBService.GetToken();
-            if (user != null && user.Category == "UHFPO")
+            if (user != null && (user.SubCategory == "UHFPO" || user.SubCategory == "Approver"))
             {
                 IsAdmin = true;
             }
