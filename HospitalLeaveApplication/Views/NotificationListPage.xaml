@@ -23,11 +23,13 @@
 
                 </StackLayout>
                 <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
-                    <Picker x:Name="picker"
+                    <Frame Padding="5, -7" Margin="0, 7">
+                        <Picker x:Name="picker"
                             TextColor="{StaticResource Primary}"
                             Title="Select Leave Type"
                             ItemsSource="{Binding LeaveStatusList}"
                             SelectedItem="{Binding SelectedLeaveStatus}" />
+                    </Frame>
                 </StackLayout>
             </Grid>
             <StackLayout>

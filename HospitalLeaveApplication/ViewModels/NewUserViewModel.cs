@@ -65,7 +65,10 @@ namespace HospitalLeaveApplication.ViewModels
             PostingLocationList = new ObservableRangeCollection<string>();
             SubPostingLocationList = new ObservableRangeCollection<string>();
             WardLocationList = new ObservableRangeCollection<string>();
-			User = new User();
+            User = new User()
+            {
+                Remaining = 20
+            };
 
             NewUserCommand = new AsyncCommand(ExecuteNewuser);
         }
@@ -120,6 +123,7 @@ namespace HospitalLeaveApplication.ViewModels
                 ErrorMessage = "Please select a posting place";
                 return;
             }
+            User.Enjoyed = 20 - User.Remaining;
             await UserService.StoreUser(User);
             await Shell.Current.GoToAsync("//UserListPage");
             IsError = false;

@@ -59,16 +59,25 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 LeaveStatusList.Clear();
-                LeaveStatusList.AddRange(StaticCredential.GetLeaveStatus());
-                if (LoggedInUser.Category != "UHFPO")
+                if (LoggedInUser.Category == "UHFPO")
                 {
-                    LeaveStatusList.Remove("Approved");
+                    LeaveStatusList.Add("Accepted");
+                    LeaveStatusList.Add("Approved");
+                    SelectedLeaveStatus = "Accepted";
                 }
-                else if(LoggedInUser.Category != "UHFPO" && LoggedInUser.Category != "Approver")
+                else if(LoggedInUser.Category == "Approver")
                 {
-                    LeaveStatusList.Remove("Reccomended");
-                    LeaveStatusList.Remove("Approved");
+                    LeaveStatusList.Add("Reccomended");
+                    LeaveStatusList.Add("Accepted");
+                    SelectedLeaveStatus = "Reccomended";
                 }
+                else
+                {
+                    LeaveStatusList.Add("Forwarded");
+                    LeaveStatusList.Add("Reccomended");
+                    SelectedLeaveStatus = "Forwarded";
+                }
+                LeaveStatusList.Add("Rejected");
                 Task.Run(async () => {
                     await GetPathways();
                 });
@@ -81,21 +90,15 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task GetPathways()
         {
-            var path = await RecommendingPathwayService.GetPathway(LoggedInUser.SubCategory);
-            Pathways.Clear();
-            Pathways.AddRange(path.Recommend.Split("/").ToList());
-            //await GetLeaveApplications();
-            switch (LoggedInUser.Category)
+            try
             {
-                case "UHFPO":
-                    SelectedLeaveStatus = "Reccomended";
-                    break;
-                case "Approver":
-                    SelectedLeaveStatus = "Forwarded";
-                    break;
-                default:
-                    SelectedLeaveStatus = "Pending";
-                    break;
+                var path = await RecommendingPathwayService.GetPathway(LoggedInUser.SubCategory);
+                Pathways.Clear();
+                Pathways.AddRange(path.Recommend.Split("/").ToList());
+            }
+            catch(Exception ex)
+            {
+
             }
         }
 

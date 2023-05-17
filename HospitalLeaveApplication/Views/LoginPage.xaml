@@ -17,7 +17,7 @@
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
         <VerticalStackLayout Spacing="16" Margin="20, 0" >
             <Frame BorderColor="Transparent" BackgroundColor="Transparent">
-                <Label Text="Moksudpur UHL" HorizontalOptions="CenterAndExpand" FontSize="Title" FontAttributes="Bold" />
+                <Label Text="Muksudpur UHL" HorizontalOptions="CenterAndExpand" FontSize="Title" FontAttributes="Bold" />
             </Frame>
             <Frame Padding="10, 0" BorderColor="{StaticResource Primary}" BackgroundColor="#F6F6F6" CornerRadius="25" HeightRequest="40">
                 <Grid ColumnDefinitions="20,*">

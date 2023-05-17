@@ -167,7 +167,7 @@ namespace HospitalLeaveApplication.ViewModels
         private async Task<bool> ValidateApplication(string email)
         {
             List<LeaveApplication> leaveApplications = await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(email);
-            leaveApplications = leaveApplications.Where(l => l.Status != "Declined").ToList();
+            leaveApplications = leaveApplications.Where(l => l.Status != "Rejected").ToList();
             int fromCount = leaveApplications.Where(l => l.FromDate >= leaveApplication.FromDate && l.FromDate <= leaveApplication.ToDate).Count();
             int toCount = leaveApplications.Where(l => l.ToDate >= leaveApplication.FromDate && l.ToDate <= leaveApplication.ToDate).Count();
             int midCount = leaveApplications.Where(l => l.FromDate >= leaveApplication.FromDate && l.ToDate <= leaveApplication.ToDate).Count();

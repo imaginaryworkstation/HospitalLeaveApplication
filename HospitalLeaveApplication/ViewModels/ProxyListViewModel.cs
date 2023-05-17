@@ -3,11 +3,6 @@ using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Services.Helpers;
 using HospitalLeaveApplication.Utilities;
 using MvvmHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalLeaveApplication.ViewModels
 {
@@ -47,7 +42,7 @@ namespace HospitalLeaveApplication.ViewModels
                     LoggedInUser = await LocalDBService.GetToken();
                 }
                 GetLeaveStatusList();
-                SelectedLeaveStatus = "Approved";
+                SelectedLeaveStatus = "Forwarded";
             }
             catch (Exception ex)
             {
@@ -60,7 +55,9 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 LeaveStatusList.Clear();
-                LeaveStatusList.AddRange(StaticCredential.GetLeaveStatus());
+                LeaveStatusList.Add("Pending");
+                LeaveStatusList.Add("Forwarded");
+                LeaveStatusList.Add("Approved");
             }
             catch (Exception ex)
             {
@@ -72,8 +69,12 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                LeaveApplicationList.Clear();
-                LeaveApplicationList.AddRange(await LeaveApplicationService.GetLeaveApplicationsByProxyAsync(LoggedInUser.Email, SelectedLeaveStatus));
+                var list = await LeaveApplicationService.GetLeaveApplicationsByProxyAsync(LoggedInUser.Email, SelectedLeaveStatus);
+                MainThread.BeginInvokeOnMainThread(() => 
+                {
+                    LeaveApplicationList.Clear();
+                    LeaveApplicationList.AddRange(list);
+                });
             }
             catch (Exception ex)
             {

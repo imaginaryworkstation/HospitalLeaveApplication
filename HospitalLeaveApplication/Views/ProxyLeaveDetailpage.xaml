@@ -24,42 +24,64 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave type" />
+                <Label Text="Leave type" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.LeaveType}" />
+                <Label Text="{Binding LeaveApplication.LeaveType}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Status" />
+                <Label Text="Status" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.Status}" />
+                <Label Text="{Binding LeaveApplication.Status}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="2" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Grid.Column="0" Text="From date" />
+                <Label Grid.Column="0" Text="From date" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.FromDate, StringFormat='{0:MMM dd, yyyy}'}" />
+                <Label Text="{Binding LeaveApplication.FromDate, StringFormat='{0:MMM dd, yyyy}'}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="To date" />
+                <Label Text="To date" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.ToDate, StringFormat='{0:MMM dd, yyyy}'}" />
+                <Label Text="{Binding LeaveApplication.ToDate, StringFormat='{0:MMM dd, yyyy}'}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Total days" />
+                <Label Text="Total days" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.Days}" />
+                <Label Text="{Binding LeaveApplication.Days}" TextColor="Black"/>
             </Grid>
             <Grid x:Name="residenceLabel" IsVisible="{Binding IsResidenceEnable}" Grid.Row="5" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                <Label Text="Place of residence" />
+                <Label Text="Place of residence" TextColor="Black"/>
             </Grid>
             <Grid x:Name="residenceEntry" IsVisible="{Binding IsResidenceEnable}" Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding LeaveApplication.Residence}" />
+                <Label Text="{Binding LeaveApplication.Residence}" TextColor="Black"/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
+                <Label Text="Status" TextColor="Black"/>
+            </Grid>
+            <Grid x:Name="statusPicker" IsVisible="{Binding IsPending}" Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Frame Padding="5, -7" Margin="0, 0">
+                    <StackLayout Orientation="Horizontal">
+                        <Picker x:Name="picker"
+                                    Title="Select Leave Type"
+                                    TextColor="Black"
+                                    ItemsSource="{Binding LeaveStatusList}"
+                                    SelectedItem="{Binding LeaveApplication.Status}" />
+                    </StackLayout>
+                </Frame>
+            </Grid>
+            <Grid x:Name="statusLabel" IsVisible="{Binding IsNotPending}" Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding LeaveApplication.Status}" TextColor="Black"/>
+            </Grid>
+            <Grid IsVisible="{Binding IsPending}" Grid.Row="7" Grid.ColumnSpan="2" Margin="10" >
+                <Button Text="Submit" Style="{StaticResource SubmitButton}" Command="{Binding LeaveApplicationCommand}"/>
             </Grid>
         </Grid>
     </VerticalStackLayout>

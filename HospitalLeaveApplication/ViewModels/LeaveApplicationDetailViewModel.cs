@@ -11,6 +11,7 @@ namespace HospitalLeaveApplication.ViewModels
 
     class LeaveApplicationDetailViewModel : BaseViewModel
     {
+        private bool isNotPending;
         private string FirebaseKey { get; set; }
         public string key { get; set; }
         FirebaseObject<LeaveApplication> firebaseLeaveApplication;
@@ -24,6 +25,7 @@ namespace HospitalLeaveApplication.ViewModels
         public ICommand LeaveApplicationCommand { get; }
         public FirebaseObject<LeaveApplication> FirebaseLeaveApplication { get => firebaseLeaveApplication; set => SetProperty(ref firebaseLeaveApplication, value); }
 
+        public bool IsNotPending { get => isNotPending; set => SetProperty(ref isNotPending, value); }
         public bool IsApproved { get => isApproved; set => SetProperty(ref isApproved, value); }
         public LeaveApplication LeaveApplication { get => leaveApplication; set => SetProperty(ref leaveApplication, value); }
         public User User { get => user; set => SetProperty(ref user, value); }
@@ -54,6 +56,7 @@ namespace HospitalLeaveApplication.ViewModels
             if(LeaveApplication != null)
             {
                 IsApproved = LeaveApplication.Status == "Approved";
+                IsNotPending = LeaveApplication.Status != "Pending";
                 await GetUserDetail();
             }
         }

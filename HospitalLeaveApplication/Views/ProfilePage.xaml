@@ -31,46 +31,50 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Name" />
+                <Label Text="Name" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Entry Placeholder="Name" Text="{Binding User.Name}" TextColor="Black"/>
+            <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <Frame Padding="5, -7" Margin="0, 0">
+                    <Entry Placeholder="Name" HorizontalTextAlignment="Start" Text="{Binding User.Name}" TextColor="Black"/>
+                </Frame>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Email" />
+                <Label Text="Email" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label  Text="{Binding User.Email}"/>
+                <Label  Text="{Binding User.Email}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Phone" />
+                <Label Text="Phone" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Entry Placeholder="Phone number" Text="{Binding User.Phone}" TextColor="Black"/>
+            <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <Frame Padding="5, -7" Margin="0, 0">
+                    <Entry Placeholder="Phone number" Text="{Binding User.Phone}" TextColor="Black"/>
+                </Frame>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Category" />
+                <Label Text="Category" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Category}"/>
+                <Label Text="{Binding User.Category}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Sub Category" />
+                <Label Text="Sub Category" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.SubCategory}"/>
+                <Label Text="{Binding User.SubCategory}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="5" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave Enjoyed" />
+                <Label Text="Leave Enjoyed" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Enjoyed}"/>
+                <Label Text="{Binding User.Enjoyed}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="6" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave Remaining" />
+                <Label Text="Leave Remaining" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Remaining}"/>
+                <Label Text="{Binding User.Remaining}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="10">
                 <Button Style="{StaticResource SubmitButton}" Text="Update" Command="{Binding UpdateProfileCommand}"/>

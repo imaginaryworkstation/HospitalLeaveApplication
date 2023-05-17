@@ -6,7 +6,6 @@
              xmlns:model="clr-namespace:HospitalLeaveApplication.Models"
              xmlns:utility="clr-namespace:HospitalLeaveApplication.Utilities"
              BackgroundColor="White"
-             x:DataType="viewmodel:LeaveApplicationViewModel"
              Title="Leave Application">
     
     <ContentPage.BindingContext>
@@ -37,33 +36,38 @@
                         <Label Text="Leave type" TextColor="Black" />
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                        <StackLayout Orientation="Horizontal">
-                            <Picker x:Name="picker"
+                        <Frame Padding="5, -7" Margin="0, 0">
+                            <StackLayout Orientation="Horizontal">
+                                <Picker x:Name="picker"
                                     Title="Select Leave Type"
                                     TextColor="Black"
                                     ItemsSource="{Binding LeaveTypes}"
                                     SelectedItem="{Binding SelectedLeaveType}" />
-                            <Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />
-                        </StackLayout>
+                                <!--<Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />-->
+                            </StackLayout>
+                        </Frame>
                     </Grid>
                     <Grid Grid.Row="1" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                         <Label Grid.Column="0" Text="From date" TextColor="Black"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                        <StackLayout Orientation="Horizontal">
-                            <DatePicker Date="{Binding LeaveApplication.FromDate}" Format="dd-MM-yyyy" MinimumDate="{Binding MinFromDate}" DateSelected="FromDatePicker_DateSelected" TextColor="Black"/>
-                            <Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />
-                        </StackLayout>
-                        
+                        <Frame Padding="5, -7" Margin="0, 0">
+                            <StackLayout Orientation="Horizontal">
+                                <DatePicker Date="{Binding LeaveApplication.FromDate}" Format="dd-MM-yyyy" MinimumDate="{Binding MinFromDate}" DateSelected="FromDatePicker_DateSelected" TextColor="Black"/>
+                                <!--<Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />-->
+                            </StackLayout>
+                        </Frame>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                         <Label Text="To date" TextColor="Black"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                        <StackLayout Orientation="Horizontal">
-                            <DatePicker Date="{Binding LeaveApplication.ToDate}" Format="dd-MM-yyyy" MinimumDate="{Binding MinToDate}" TextColor="Black"/>
-                            <Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />
-                        </StackLayout>
+                        <Frame Padding="5, -7" Margin="0, 0">
+                            <StackLayout Orientation="Horizontal">
+                                <DatePicker Date="{Binding LeaveApplication.ToDate}" Format="dd-MM-yyyy" MinimumDate="{Binding MinToDate}" TextColor="Black"/>
+                                <!--<Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />-->
+                            </StackLayout>
+                        </Frame>
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                         <Label Text="Leave enjoyed" TextColor="Black"/>
@@ -81,21 +85,25 @@
                         <Label Text="Place of residence" TextColor="Black"/>
                     </Grid>
                     <Grid IsVisible="{Binding IsResidenceEnable}" x:Name="residenceEntry" Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                        <Entry Placeholder="Place of residence during leave" Text="{Binding LeaveApplication.Residence}" TextColor="Black"/>
+                        <Frame Padding="5, -7" Margin="0, 0">
+                            <Entry Placeholder="Place of residence during leave" Text="{Binding LeaveApplication.Residence}" TextColor="Black"/>
+                        </Frame>
                     </Grid>
                     <Grid Grid.Row="6" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                         <Label Text="Proxy" TextColor="Black"/>
                     </Grid>
                     <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                        <StackLayout Orientation="Horizontal">
-                            <Picker x:Name="userpicker"
+                        <Frame Padding="5, -7" Margin="0, 0">
+                            <StackLayout Orientation="Horizontal">
+                                <Picker x:Name="userpicker"
                                     Title="Select Proxy"
                                     TextColor="Black"
                                     ItemsSource="{Binding ProxyUserList}"
                                     ItemDisplayBinding="{Binding Name}"
                                     SelectedItem="{Binding SelectedProxyUser}"/>
-                            <Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />
-                        </StackLayout>
+                                <!--<Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />-->
+                            </StackLayout>
+                        </Frame>
                     </Grid>
                     <Grid IsVisible="{Binding HasError}" Grid.ColumnSpan="2" Grid.Row="7">
                         <Label Text="{Binding ErrorMessage}" TextColor="Red" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" />

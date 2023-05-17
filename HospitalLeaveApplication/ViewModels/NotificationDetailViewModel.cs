@@ -5,11 +5,6 @@ using HospitalLeaveApplication.Services.Helpers;
 using HospitalLeaveApplication.Utilities;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace HospitalLeaveApplication.ViewModels
@@ -21,6 +16,8 @@ namespace HospitalLeaveApplication.ViewModels
         private string FirebaseKey { get; set; }
         private string UserFirebsaeKey { get; set; }
         public string key { get; set; }
+        private bool isEditable;
+        private bool isNotEditable;
         FirebaseObject<LeaveApplication> firebaseLeaveApplication;
         private LeaveApplication leaveApplication;
         private User user;
@@ -28,6 +25,16 @@ namespace HospitalLeaveApplication.ViewModels
         private bool isResidenceEnable;
 
         public ICommand LeaveApplicationCommand { get; }
+        public bool IsEditable
+        {
+            get => isEditable;
+            set
+            {
+                SetProperty(ref isEditable, value);
+                IsNotEditable = !value;
+            }
+        }
+        public bool IsNotEditable { get => isNotEditable; set => SetProperty(ref isNotEditable, value); }
         public ObservableRangeCollection<string> LeaveStatusList { get; }
         public FirebaseObject<LeaveApplication> FirebaseLeaveApplication { get => firebaseLeaveApplication; set => SetProperty(ref firebaseLeaveApplication, value); }
         public LeaveApplication LeaveApplication { get => leaveApplication; set => SetProperty(ref leaveApplication, value); }
@@ -79,6 +86,34 @@ namespace HospitalLeaveApplication.ViewModels
             IsResidenceEnable = LeaveApplication.LeaveType == "Casual" ? false : true;
             if (LeaveApplication != null)
             {
+                LeaveStatusList.Clear();
+                if (LoggedInUser.Category == "UHFPO")
+                {
+                    if (LeaveApplication.Status == "Pending")
+                    {
+                        LeaveStatusList.Add("Pending");
+                    }
+                    LeaveStatusList.Add("Accepted");
+                    LeaveStatusList.Add("Approved");
+                    IsEditable = LeaveApplication.Status == "Accepted";
+                }
+                else if (LoggedInUser.Category == "Approver")
+                {
+                    if (LeaveApplication.Status == "Pending")
+                    {
+                        LeaveStatusList.Add("Pending");
+                    }
+                    LeaveStatusList.Add("Reccomended");
+                    LeaveStatusList.Add("Accepted");
+                    IsEditable = LeaveApplication.Status == "Reccomended";
+                }
+                else
+                {
+                    LeaveStatusList.Add("Forwarded");
+                    LeaveStatusList.Add("Reccomended");
+                    IsEditable = LeaveApplication.Status == "Forwarded";
+                }
+                LeaveStatusList.Add("Rejected");
                 await GetUserDetail();
             }
         }
@@ -87,12 +122,24 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                LeaveStatusList.Clear();
-                LeaveStatusList.AddRange(StaticCredential.GetLeaveStatus());
-                if (LoggedInUser.Category != "UHFPO")
-                {
-                    LeaveStatusList.Remove("Approved");
-                }
+                //LeaveStatusList.Clear();
+                //if (LoggedInUser.Category == "UHFPO")
+                //{
+                //    LeaveStatusList.Add("Pending");
+                //    LeaveStatusList.Add("Accepted");
+                //    LeaveStatusList.Add("Approved");
+                //}
+                //else if (LoggedInUser.Category == "Approver")
+                //{
+                //    LeaveStatusList.Add("Pending");
+                //    LeaveStatusList.Add("Reccomended");
+                //    LeaveStatusList.Add("Accepted");
+                //}
+                //else
+                //{
+                //    LeaveStatusList.Add("Forwarded");
+                //    LeaveStatusList.Add("Reccomended");
+                //}
                 Task.Run(async () => await GetLeaveApplicationDetail());
             }
             catch(Exception ex)
@@ -103,10 +150,17 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task GetUserDetail()
         {
-            FirebaseObject<User> firebaseUser = await UserService.GetUserWithKeyAsync(LeaveApplication.Email);
-            UserFirebsaeKey = firebaseUser.Key;
-            User = firebaseUser.Object as User;
-            ProxyUser = await UserService.GetUserAsync(LeaveApplication.ProxyEmail);
+            try
+            {
+                FirebaseObject<User> firebaseUser = await UserService.GetUserWithKeyAsync(LeaveApplication.Email);
+                UserFirebsaeKey = firebaseUser.Key;
+                User = firebaseUser.Object as User;
+                ProxyUser = await UserService.GetUserAsync(LeaveApplication.ProxyEmail);
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
     }
 }

@@ -4,7 +4,6 @@
              x:Class="HospitalLeaveApplication.Views.LeaveApplicationDetailPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
              BackgroundColor="White"
-             x:DataType="viewmodel:LeaveApplicationDetailViewModel"
              Title="Leave Application Detail">
 
     <ContentPage.BindingContext>
@@ -86,10 +85,10 @@
                 <Grid Grid.Row="8" Grid.Column="1" Style="{StaticResource DetailGrid}">
                     <Label Text="{Binding LeaveApplication.Status}" TextColor="Black"/>
                 </Grid>
-                <Grid Grid.Row="9" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                <Grid IsVisible="{Binding IsNotPending}" Grid.Row="9" Grid.Column="0" Style="{StaticResource DetailGrid}">
                     <Label Text="Message" TextColor="Black"/>
                 </Grid>
-                <Grid Grid.Row="9" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                <Grid IsVisible="{Binding IsNotPending}" Grid.Row="9" Grid.Column="1" Style="{StaticResource DetailGrid}">
                     <Label Text="{Binding LeaveApplication.Message}" TextColor="Black"/>
                 </Grid>
                 <Grid IsVisible="{Binding IsApproved}" Grid.Row="10" Grid.Column="1" Style="{StaticResource DetailGrid}">
