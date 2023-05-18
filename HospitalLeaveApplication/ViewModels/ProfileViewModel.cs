@@ -1,5 +1,6 @@
 ﻿using Firebase.Database;
 using HospitalLeaveApplication.Models;
+using HospitalLeaveApplication.Models.HelperModels;
 using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Services.Helpers;
 using HospitalLeaveApplication.Utilities;
@@ -32,7 +33,26 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task ExecuteUpdateProfile()
         {
-            await UserService.UpdateUserAsync(FirebaseKey, User);
+            try
+            {
+                FirebaseResponse response = await UserService.UpdateUserAsync(FirebaseKey, User);
+                if (response != null && response.Code == 200)
+                {
+                    await Shell.Current.DisplayAlert("Updated", "Profile successfully updated.", "Ok");
+                }
+                else if (response != null)
+                {
+                    await Shell.Current.DisplayAlert("Error", "Profile update failed.", "Ok");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+            }
         }
 
         public void OnAppearing()

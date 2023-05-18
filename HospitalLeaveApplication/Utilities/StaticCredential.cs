@@ -5,6 +5,9 @@ namespace HospitalLeaveApplication.Utilities
 	public class StaticCredential
 	{
         public static string DatabaseUrl = "https://hospitalleave-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        public static string LeaveApplicationStatus = null;
+        public static string NotificationStatus = null;
+        public static string ProxyStatus = null;
         //public static string FirestoreUrl = "zohar-bible.appspot.com";
         //public static string DatabaseAPIKey = "AIzaSyAT-Lb9IpLaPVSNgrQ5zfCB3HxJbVbd-4U";
 

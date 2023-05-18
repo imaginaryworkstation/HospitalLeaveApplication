@@ -19,11 +19,6 @@ public partial class LeaveApplicationPage : ContentPage
 
     void FromDatePicker_DateSelected(System.Object sender, Microsoft.Maui.Controls.DateChangedEventArgs e)
     {
-        viewModel.MinToDate = e.NewDate.AddDays(1);
-    }
-
-    private void picker_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        var a = e;
+        viewModel.MinToDate = e.NewDate;
     }
 }

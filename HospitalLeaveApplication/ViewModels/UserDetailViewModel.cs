@@ -7,6 +7,7 @@ using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Utilities;
 using HospitalLeaveApplication.Services.Helpers;
 using HospitalLeaveApplication.Views;
+using HospitalLeaveApplication.Models.HelperModels;
 
 namespace HospitalLeaveApplication.ViewModels
 {
@@ -28,8 +29,27 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task ExecuteUpdateProfile()
         {
-            await UserService.UpdateUserAsync(FirebaseKey, User);
-            await Shell.Current.GoToAsync("//UserListPage");
+            try
+            {
+                FirebaseResponse response = await UserService.UpdateUserAsync(FirebaseKey, User);
+                if (response != null && response.Code == 200)
+                {
+                    await Shell.Current.DisplayAlert("Updated", response.Message, "Ok");
+                    await Shell.Current.GoToAsync("//UserListPage");
+                }
+                else if (response != null)
+                {
+                    await Shell.Current.DisplayAlert("Error", response.Message, "Ok");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+                }
+            }
+            catch(Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+            }
         }
 
         private async Task ExecuteNavigateToChangePassword()

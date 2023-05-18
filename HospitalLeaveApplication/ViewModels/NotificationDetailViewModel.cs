@@ -1,5 +1,6 @@
 ﻿using Firebase.Database;
 using HospitalLeaveApplication.Models;
+using HospitalLeaveApplication.Models.HelperModels;
 using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Services.Helpers;
 using HospitalLeaveApplication.Utilities;
@@ -50,11 +51,34 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task ExecuteLeaveApplication()
         {
-            await LeaveApplicationService.UpdateLeaveApplicationAsync(FirebaseKey, LeaveApplication);
-            User.Enjoyed += LeaveApplication.Days;
-            User.Remaining -= LeaveApplication.Days;
-            await UserService.UpdateUserAsync(UserFirebsaeKey, User);
-            await Shell.Current.GoToAsync("..");
+            try
+            {
+                FirebaseResponse response = await LeaveApplicationService.UpdateLeaveApplicationAsync(FirebaseKey, LeaveApplication);
+                if (LeaveApplication.LeaveType != "Casual" && LeaveApplication.Status == "Approved")
+                {
+                    User.Enjoyed += LeaveApplication.Days;
+                    User.Remaining -= LeaveApplication.Days;
+                }
+                if (response != null && response.Code == 200)
+                {
+                    await UserService.UpdateUserAsync(UserFirebsaeKey, User);
+                    await Shell.Current.DisplayAlert(LeaveApplication.Status, response.Message, "Ok");
+                    StaticCredential.NotificationStatus = LeaveApplication.Status;
+                    await Shell.Current.GoToAsync("..");
+                }
+                else if (response != null)
+                {
+                    await Shell.Current.DisplayAlert("Error", response.Message, "Ok");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+                }
+            }
+            catch(Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+            }
         }
 
         public void OnAppearing()
@@ -122,24 +146,6 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                //LeaveStatusList.Clear();
-                //if (LoggedInUser.Category == "UHFPO")
-                //{
-                //    LeaveStatusList.Add("Pending");
-                //    LeaveStatusList.Add("Accepted");
-                //    LeaveStatusList.Add("Approved");
-                //}
-                //else if (LoggedInUser.Category == "Approver")
-                //{
-                //    LeaveStatusList.Add("Pending");
-                //    LeaveStatusList.Add("Reccomended");
-                //    LeaveStatusList.Add("Accepted");
-                //}
-                //else
-                //{
-                //    LeaveStatusList.Add("Forwarded");
-                //    LeaveStatusList.Add("Reccomended");
-                //}
                 Task.Run(async () => await GetLeaveApplicationDetail());
             }
             catch(Exception ex)

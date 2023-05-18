@@ -12,6 +12,7 @@ namespace HospitalLeaveApplication.Models
         public int Remaining { get; set; }
 		public string Posting { get; set; }
 		public string Password { get; set; }
+		public DateTime LastLogin { get; set; }
     }
 }
 

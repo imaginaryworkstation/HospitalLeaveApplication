@@ -12,7 +12,7 @@
 
     <VerticalStackLayout>
         <StackLayout HorizontalOptions="EndAndExpand" Margin="10">
-            <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" TextColor="White" Text="Change Password" Command="{Binding NavigateToChangePassword}"/>
+            <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" BackgroundColor="{StaticResource Primary}" TextColor="White" Text="Change Password" Command="{Binding NavigateToChangePassword}"/>
         </StackLayout>
         <Grid Margin="10, 0">
             <Grid.ColumnDefinitions>
@@ -32,20 +32,24 @@
             <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Name" />
             </Grid>
-            <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Entry Placeholder="Name" Text="{Binding User.Name}"/>
+            <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <Frame Padding="5, -7" Margin="0, 0">
+                    <Entry Placeholder="Name" Text="{Binding User.Name}" TextColor="Black"/>
+                </Frame>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Email" />
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label  Text="{Binding User.Email}"/>
+                <Label Text="{Binding User.Email}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Phone" />
             </Grid>
-            <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Entry Placeholder="Phone number" Text="{Binding User.Phone}"/>
+            <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <Frame Padding="5, -7" Margin="0, 0">
+                    <Entry Placeholder="Phone number" Text="{Binding User.Phone}" TextColor="Black" Keyboard="Telephone"/>
+                </Frame>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Category" />
@@ -72,7 +76,7 @@
                 <Label Text="{Binding User.Remaining}"/>
             </Grid>
             <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="10">
-                <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Update" Command="{Binding UpdateProfileCommand}"/>
+                <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Update" BackgroundColor="{StaticResource Primary}" TextColor="White" Command="{Binding UpdateProfileCommand}"/>
             </Grid>
         </Grid>
     </VerticalStackLayout>

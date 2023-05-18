@@ -62,7 +62,7 @@
                     <Picker x:Name="categorypicker"
                             Title="Select Category"
                             ItemsSource="{Binding CategoryList}"
-                            SelectedItem="{Binding User.Category}"
+                            SelectedItem="{Binding SelectedCategory}"
                             TextColor="Black"/>
                 </Frame>
             </Grid>

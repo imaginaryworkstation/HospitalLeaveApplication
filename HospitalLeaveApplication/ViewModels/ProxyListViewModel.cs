@@ -42,7 +42,7 @@ namespace HospitalLeaveApplication.ViewModels
                     LoggedInUser = await LocalDBService.GetToken();
                 }
                 GetLeaveStatusList();
-                SelectedLeaveStatus = "Forwarded";
+                SelectedLeaveStatus = StaticCredential.ProxyStatus != null ? StaticCredential.ProxyStatus : "Forwarded";
             }
             catch (Exception ex)
             {

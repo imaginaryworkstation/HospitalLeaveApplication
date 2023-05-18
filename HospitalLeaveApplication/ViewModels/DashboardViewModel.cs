@@ -1,4 +1,6 @@
-﻿using HospitalLeaveApplication.Models;
+﻿using Firebase.Database;
+using HospitalLeaveApplication.Models;
+using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Services.Helpers;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
@@ -67,6 +69,15 @@ namespace HospitalLeaveApplication.ViewModels
         private async Task GetToken()
         {
             User user = await LocalDBService.GetToken();
+            FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(user.Email);
+            User LoginUser = firebaseObject.Object as User;
+            if (LoginUser.LastLogin.Year < DateTime.Now.Year)
+            {
+                LoginUser.Remaining = 20;
+                LoginUser.Enjoyed = 0;
+            }
+            LoginUser.LastLogin = DateTime.Now;
+            await UserService.UpdateUserAsync(firebaseObject.Key, LoginUser);
             if (user != null && (user.SubCategory == "UHFPO" || user.SubCategory == "Approver"))
             {
                 IsAdmin = true;

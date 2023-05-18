@@ -52,7 +52,7 @@ namespace HospitalLeaveApplication.ViewModels
         public LeaveApplicationViewModel()
         {
             MinFromDate = DateTime.Now;
-            MinToDate = DateTime.Now.AddDays(1);
+            MinToDate = DateTime.Now;
             LoggedInUser = new User();
             LeaveApplication = new LeaveApplication()
             {
@@ -89,6 +89,14 @@ namespace HospitalLeaveApplication.ViewModels
                     ErrorMessage = "Proxy already has leave in these date";
                     return;
                 }
+                isValid = await ValidateApplication(LoggedInUser.Email, "proxy");
+                isValidProxy = await ValidateApplication(SelectedProxyUser.Email, "proxy");
+                if (!isValidProxy)
+                {
+                    HasError = true;
+                    ErrorMessage = "Proxy already has another proxy in these date";
+                    return;
+                }
                 if (isValid && isValidProxy)
                 {
                     LeaveApplication.Key = string.Format("{0}{1}", LoggedInUser.Email, DateTime.Now.ToString("yyyyMMddHHmmss"));
@@ -99,11 +107,25 @@ namespace HospitalLeaveApplication.ViewModels
                     LeaveApplication.Role = LoggedInUser.SubCategory;
                     LeaveApplication.Status = "Pending";
                     FirebaseResponse response = await LeaveApplicationService.StoreLeaveApplication(LeaveApplication);
-                    await Shell.Current.GoToAsync("//LeaveApplicationListPage");
+                    if (response != null && response.Code == 200)
+                    {
+                        await Shell.Current.DisplayAlert("Submitted", response.Message, "Ok");
+                        StaticCredential.LeaveApplicationStatus = "Pending";
+                        await Shell.Current.GoToAsync("//LeaveApplicationListPage");
+                    }
+                    else if (response != null)
+                    {
+                        await Shell.Current.DisplayAlert("Submitted", response.Message, "Ok");
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+                    }
                 }
             }
             catch(Exception ex)
             {
+                await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
                 SelectedProxyUser = null;
             }
         }
@@ -164,14 +186,22 @@ namespace HospitalLeaveApplication.ViewModels
             }
         }
 
-        private async Task<bool> ValidateApplication(string email)
+        private async Task<bool> ValidateApplication(string email, string type = null)
         {
-            List<LeaveApplication> leaveApplications = await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(email);
+            List<LeaveApplication> leaveApplications = new List<LeaveApplication>();
+            if (type == "proxy")
+            {
+                leaveApplications = await LeaveApplicationService.GetLeaveApplicationsByProxyAsync(email);
+            }
+            else
+            {
+                leaveApplications = await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(email);
+            }
             leaveApplications = leaveApplications.Where(l => l.Status != "Rejected").ToList();
-            int fromCount = leaveApplications.Where(l => l.FromDate >= leaveApplication.FromDate && l.FromDate <= leaveApplication.ToDate).Count();
-            int toCount = leaveApplications.Where(l => l.ToDate >= leaveApplication.FromDate && l.ToDate <= leaveApplication.ToDate).Count();
-            int midCount = leaveApplications.Where(l => l.FromDate >= leaveApplication.FromDate && l.ToDate <= leaveApplication.ToDate).Count();
-            int outCount = leaveApplications.Where(l => l.FromDate <= leaveApplication.FromDate && l.ToDate >= leaveApplication.ToDate).Count();
+            int fromCount = leaveApplications.Where(l => l.FromDate.Date >= leaveApplication.FromDate.Date && l.FromDate.Date <= leaveApplication.ToDate.Date).Count();
+            int toCount = leaveApplications.Where(l => l.ToDate.Date >= leaveApplication.FromDate.Date && l.ToDate.Date <= leaveApplication.ToDate.Date).Count();
+            int midCount = leaveApplications.Where(l => l.FromDate.Date >= leaveApplication.FromDate.Date && l.ToDate.Date <= leaveApplication.ToDate.Date).Count();
+            int outCount = leaveApplications.Where(l => l.FromDate.Date <= leaveApplication.FromDate.Date && l.ToDate.Date >= leaveApplication.ToDate.Date).Count();
             return fromCount + toCount + midCount + outCount <= 0;
         }
     }

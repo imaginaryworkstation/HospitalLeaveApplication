@@ -1,5 +1,6 @@
 ﻿using Firebase.Database;
 using HospitalLeaveApplication.Models;
+using HospitalLeaveApplication.Models.HelperModels;
 using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Services.Helpers;
 using HospitalLeaveApplication.Utilities;
@@ -62,10 +63,29 @@ namespace HospitalLeaveApplication.ViewModels
                 else
                 {
                     User.Password = Password;
-                    await UserService.UpdateUserAsync(FirebaseKey, User);
-                    IsError = false;
-                    ErrorMesasge = "Password successfully updated";
-                    await Shell.Current.GoToAsync("..");
+                    try
+                    {
+                        FirebaseResponse response = await UserService.UpdateUserAsync(FirebaseKey, User);
+                        if (response != null && response.Code == 200)
+                        {
+                            await Shell.Current.DisplayAlert("Added", response.Message, "Ok");
+                            IsError = false;
+                            ErrorMesasge = "Password successfully updated";
+                            await Shell.Current.GoToAsync("..");
+                        }
+                        else if (response != null)
+                        {
+                            await Shell.Current.DisplayAlert("Error", "Profile update failed.", "Ok");
+                        }
+                        else
+                        {
+                            await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+                    }
                 }
             }
             catch(Exception ex)

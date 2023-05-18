@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using HospitalLeaveApplication.Models;
+using HospitalLeaveApplication.Models.HelperModels;
 using HospitalLeaveApplication.Services;
 using HospitalLeaveApplication.Utilities;
 using MvvmHelpers;
@@ -14,6 +15,7 @@ namespace HospitalLeaveApplication.ViewModels
         private string selectedSubPostingLocation;
         private string selectedWardLocation;
         private string errorMessage;
+        private string selectedCategory;
         private bool isError;
         private bool isSubPosting;
         private bool isWard;
@@ -51,6 +53,15 @@ namespace HospitalLeaveApplication.ViewModels
             {
                 SetProperty(ref selectedWardLocation, value);
                 UpdateWardPosting();
+            }
+        }
+        public string SelectedCategory
+        {
+            get => selectedCategory;
+            set
+            {
+                selectedCategory = value;
+                Task.Run(async () => await GetSubcategories());
             }
         }
         public bool IsSubPosting { get => isSubPosting; set => SetProperty(ref isSubPosting, value); }
@@ -124,10 +135,31 @@ namespace HospitalLeaveApplication.ViewModels
                 return;
             }
             User.Enjoyed = 20 - User.Remaining;
-            await UserService.StoreUser(User);
-            await Shell.Current.GoToAsync("//UserListPage");
-            IsError = false;
-            ErrorMessage = null;
+            try
+            {
+                FirebaseResponse response = await UserService.StoreUser(User);
+                if (response != null && response.Code == 200)
+                {
+                    await Shell.Current.DisplayAlert("Added", response.Message, "Ok");
+                    await Shell.Current.GoToAsync("//UserListPage");
+                }
+                else if (response != null)
+                {
+                    await Shell.Current.DisplayAlert("Error", "Profile update failed.", "Ok");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+                }
+                IsError = false;
+                ErrorMessage = null;
+            }
+            catch(Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+                IsError = true;
+                ErrorMessage = "Iternal error occured.";
+            }
         }
 
         public void OnAppearing()
@@ -136,7 +168,6 @@ namespace HospitalLeaveApplication.ViewModels
             IsSubPosting = IsWard = false;
             ErrorMessage = null;
             Task.Run(async () => await GetCategories());
-            Task.Run(async () => await GetSubcategories());
             GetPostingLocations();
         }
 
@@ -161,8 +192,13 @@ namespace HospitalLeaveApplication.ViewModels
             var a = await SubcategoryService.GetSubcategoriesAsync();
             try
             {
-                SubcategoryList.Clear();
-                SubcategoryList.AddRange(a.Where(s => s.Category == User.Category).Select(s => s.Name).ToList());
+                if (SelectedCategory != null)
+                {
+                    User.Category = SelectedCategory;
+                    SubcategoryList.Clear();
+                    SubcategoryList.AddRange(a.Where(s => s.Category == User.Category).Select(s => s.Name).ToList());
+                }
+                
             }
             catch (Exception ex)
             {

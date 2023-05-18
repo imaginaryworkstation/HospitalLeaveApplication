@@ -13,13 +13,24 @@ namespace HospitalLeaveApplication.Services
 	{
         public async static Task<FirebaseResponse> StoreLeaveApplication(LeaveApplication leaveApplication)
         {
-            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
-            FirebaseObject<LeaveApplication> firebaseObject = await firebaseClient.Child("LeaveApplications").PostAsync(leaveApplication);
-            return new FirebaseResponse
+            try
             {
-                Code = 200,
-                Message = "Leave application successfully submitted"
-            };
+                FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+                FirebaseObject<LeaveApplication> firebaseObject = await firebaseClient.Child("LeaveApplications").PostAsync(leaveApplication);
+                return new FirebaseResponse
+                {
+                    Code = 200,
+                    Message = "Leave application successfully submitted"
+                };
+            }
+            catch(Exception ex)
+            {
+                return new FirebaseResponse
+                {
+                    Code = 500,
+                    Message = "Internal error occured, please try again."
+                };
+            }
         }
 
         public async static Task<FirebaseObject<LeaveApplication>> GetLeaveApplicationByKeyAsync(string key)
@@ -64,16 +75,22 @@ namespace HospitalLeaveApplication.Services
             return firebaseObjects;
         }
 
-        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByProxyAsync(string email, string status = "Approved")
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByProxyAsync(string email, string status = null)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<LeaveApplication> firebaseObjects = null;
-            firebaseObjects = (await firebaseClient.Child("LeaveApplications")
+            var query = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
                 .Where(l => l.Object.ProxyEmail == email)
-                .Where(l => l.Object.Status == status)
-                .OrderBy(l => l.Object.FromDate)
-                .Select(u => u.Object).ToList();
+                .OrderBy(l => l.Object.FromDate);
+            if (status != null)
+            {
+                firebaseObjects = query.Where(l => l.Object.Status == status).Select(u => u.Object).ToList();
+            }
+            else
+            {
+                firebaseObjects = query.Select(u => u.Object).ToList();
+            }
             return firebaseObjects;
         }
 
@@ -128,11 +145,26 @@ namespace HospitalLeaveApplication.Services
             return firebaseObjects;
         }
 
-        public async static Task<bool> UpdateLeaveApplicationAsync(string key, LeaveApplication leaveApplication)
+        public async static Task<FirebaseResponse> UpdateLeaveApplicationAsync(string key, LeaveApplication leaveApplication)
         {
-            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
-            await firebaseClient.Child("LeaveApplications").Child(key).PutAsync(leaveApplication);
-            return true;
+            try
+            {
+                FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+                await firebaseClient.Child("LeaveApplications").Child(key).PutAsync(leaveApplication);
+                return new FirebaseResponse
+                {
+                    Code = 200,
+                    Message = "Leave application successfully " + leaveApplication.Status
+                };
+            }
+            catch (Exception ex)
+            {
+                return new FirebaseResponse
+                {
+                    Code = 500,
+                    Message = "Internal error occured, please try again."
+                };
+            }
         }
     }
 }

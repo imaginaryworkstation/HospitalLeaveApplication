@@ -1,6 +1,8 @@
 ﻿using Firebase.Database;
 using HospitalLeaveApplication.Models;
+using HospitalLeaveApplication.Models.HelperModels;
 using HospitalLeaveApplication.Services;
+using HospitalLeaveApplication.Utilities;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System.Windows.Input;
@@ -48,12 +50,25 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                await LeaveApplicationService.UpdateLeaveApplicationAsync(FirebaseKey, LeaveApplication);
-                await Shell.Current.GoToAsync("..");
+                FirebaseResponse response = await LeaveApplicationService.UpdateLeaveApplicationAsync(FirebaseKey, LeaveApplication);
+                if (response != null && response.Code == 200)
+                {
+                    await Shell.Current.DisplayAlert(LeaveApplication.Status, response.Message, "Ok");
+                    StaticCredential.ProxyStatus = LeaveApplication.Status;
+                    await Shell.Current.GoToAsync("..");
+                }
+                else if (response != null)
+                {
+                    await Shell.Current.DisplayAlert("Error", response.Message, "Ok");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
+                }
             }
             catch(Exception Ex)
             {
-
+                await Shell.Current.DisplayAlert("Error", "Internal error occured, please try again later.", "Ok");
             }
         }
 

@@ -12,13 +12,24 @@ namespace HospitalLeaveApplication.Services
 	{
         public async static Task<FirebaseResponse> StoreUser(User user)
         {
-            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
-            FirebaseObject<User> firebaseObject = await firebaseClient.Child("Users").PostAsync(user);
-            return new FirebaseResponse
+            try
             {
-                Code = 200,
-                Message = "User successfully added"
-            };
+                FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+                FirebaseObject<User> firebaseObject = await firebaseClient.Child("Users").PostAsync(user);
+                return new FirebaseResponse
+                {
+                    Code = 200,
+                    Message = "User successfully added"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new FirebaseResponse
+                {
+                    Code = 500,
+                    Message = "Internal error occured."
+                };
+            }
         }
 
         public async static Task<FirebaseObject<User>> GetUserWithKeyAsync(string email)
@@ -87,11 +98,26 @@ namespace HospitalLeaveApplication.Services
                 .ToList();
             return firebaseObjects;
         }
-        public async static Task<bool> UpdateUserAsync(string key, User user)
+        public async static Task<FirebaseResponse> UpdateUserAsync(string key, User user)
         {
-            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
-            await firebaseClient.Child("Users").Child(key).PutAsync(user);
-            return true;
+            try
+            {
+                FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+                await firebaseClient.Child("Users").Child(key).PutAsync(user);
+                return new FirebaseResponse
+                {
+                    Code = 200,
+                    Message = "User successfully updated"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new FirebaseResponse
+                {
+                    Code = 500,
+                    Message = "Internal error occured."
+                };
+            }
         }
     }
 }

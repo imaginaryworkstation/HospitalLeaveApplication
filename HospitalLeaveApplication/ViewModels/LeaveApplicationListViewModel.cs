@@ -66,7 +66,7 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LoggedInUser = await LocalDBService.GetToken();
                 }
-                SelectedLeaveStatus = "Approved";
+                SelectedLeaveStatus = StaticCredential.LeaveApplicationStatus != null ? StaticCredential.LeaveApplicationStatus : "Approved";
                 //await GetLeaveApplications();
             }
             catch(Exception ex)

@@ -63,19 +63,19 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LeaveStatusList.Add("Accepted");
                     LeaveStatusList.Add("Approved");
-                    SelectedLeaveStatus = "Accepted";
+                    SelectedLeaveStatus = StaticCredential.NotificationStatus != null ? StaticCredential.NotificationStatus : "Accepted";
                 }
                 else if(LoggedInUser.Category == "Approver")
                 {
                     LeaveStatusList.Add("Reccomended");
                     LeaveStatusList.Add("Accepted");
-                    SelectedLeaveStatus = "Reccomended";
+                    SelectedLeaveStatus = StaticCredential.NotificationStatus != null ? StaticCredential.NotificationStatus : "Reccomended";
                 }
                 else
                 {
                     LeaveStatusList.Add("Forwarded");
                     LeaveStatusList.Add("Reccomended");
-                    SelectedLeaveStatus = "Forwarded";
+                    SelectedLeaveStatus = StaticCredential.NotificationStatus != null ? StaticCredential.NotificationStatus : "Forwarded";
                 }
                 LeaveStatusList.Add("Rejected");
                 Task.Run(async () => {

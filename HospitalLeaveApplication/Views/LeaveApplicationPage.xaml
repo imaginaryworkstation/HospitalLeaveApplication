@@ -18,8 +18,8 @@
                 <Label Text="Information" HorizontalOptions="CenterAndExpand" Margin="5" FontSize="16" FontAttributes="Bold" TextColor="LightSlateGrey" />
                 <Grid Margin="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.3*" />
-                        <ColumnDefinition Width="0.7*" />
+                        <ColumnDefinition Width="0.35*" />
+                        <ColumnDefinition Width="0.65*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -35,7 +35,7 @@
                     <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                         <Label Text="Leave type" TextColor="Black" />
                     </Grid>
-                    <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid Grid.Row="0" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                         <Frame Padding="5, -7" Margin="0, 0">
                             <StackLayout Orientation="Horizontal">
                                 <Picker x:Name="picker"
@@ -50,7 +50,7 @@
                     <Grid Grid.Row="1" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                         <Label Grid.Column="0" Text="From date" TextColor="Black"/>
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                         <Frame Padding="5, -7" Margin="0, 0">
                             <StackLayout Orientation="Horizontal">
                                 <DatePicker Date="{Binding LeaveApplication.FromDate}" Format="dd-MM-yyyy" MinimumDate="{Binding MinFromDate}" DateSelected="FromDatePicker_DateSelected" TextColor="Black"/>
@@ -61,7 +61,7 @@
                     <Grid Grid.Row="2" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                         <Label Text="To date" TextColor="Black"/>
                     </Grid>
-                    <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                         <Frame Padding="5, -7" Margin="0, 0">
                             <StackLayout Orientation="Horizontal">
                                 <DatePicker Date="{Binding LeaveApplication.ToDate}" Format="dd-MM-yyyy" MinimumDate="{Binding MinToDate}" TextColor="Black"/>
@@ -84,7 +84,7 @@
                     <Grid IsVisible="{Binding IsResidenceEnable}" x:Name="residenceLabel" Grid.Row="5" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                         <Label Text="Place of residence" TextColor="Black"/>
                     </Grid>
-                    <Grid IsVisible="{Binding IsResidenceEnable}" x:Name="residenceEntry" Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid IsVisible="{Binding IsResidenceEnable}" x:Name="residenceEntry" Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                         <Frame Padding="5, -7" Margin="0, 0">
                             <Entry Placeholder="Place of residence during leave" Text="{Binding LeaveApplication.Residence}" TextColor="Black"/>
                         </Frame>
@@ -92,7 +92,7 @@
                     <Grid Grid.Row="6" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                         <Label Text="Proxy" TextColor="Black"/>
                     </Grid>
-                    <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                         <Frame Padding="5, -7" Margin="0, 0">
                             <StackLayout Orientation="Horizontal">
                                 <Picker x:Name="userpicker"
