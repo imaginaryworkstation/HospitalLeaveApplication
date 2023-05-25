@@ -4,14 +4,14 @@
              x:Class="HospitalLeaveApplication.Views.LoadingPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
              Shell.NavBarIsVisible="False"
-             BackgroundImageSource="bg.jpg"
              Title="Moksudpur UHL">
     
     <ContentPage.BindingContext>
         <viewmodel:LoadingPageViewModel />
     </ContentPage.BindingContext>
     
-    <VerticalStackLayout>
-        
-    </VerticalStackLayout>
+    <Grid>
+        <Image Source="bg.jpg" VerticalOptions="Fill" Aspect="AspectFill"/>
+    </Grid>
+    
 </ContentPage>

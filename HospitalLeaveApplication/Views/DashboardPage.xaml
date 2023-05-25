@@ -3,50 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.Views.DashboardPage"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication.ViewModels"
-             BackgroundImageSource="bg.jpg"
              Title="Dashboard">
     
     <ContentPage.BindingContext>
         <viewmodel:DashboardViewModel/>
     </ContentPage.BindingContext>
 
-    <VerticalStackLayout>
-        <Grid IsVisible="{Binding IsNotAdmin}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0" Margin="20">
-                <Button Style="{StaticResource NavigateButton}" Text="New Leave Application" Command="{Binding NavigateToNewLeaveApplicationCommand}"/>
+    <Grid>
+        <Image Source="bg.jpg" VerticalOptions="Fill" Aspect="AspectFill"/>
+        <VerticalStackLayout HorizontalOptions="CenterAndExpand">
+            <Grid IsVisible="{Binding IsNotAdmin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.Column="0" Margin="20">
+                    <Button Style="{StaticResource NavigateButton}" Text="New Leave Application" Command="{Binding NavigateToNewLeaveApplicationCommand}"/>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1" Margin="20">
+                    <Button Style="{StaticResource NavigateButton}" Text="Leave History" Command="{Binding NavigateToLeaveApplicationListCommand}"/>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="0" Margin="20">
+                    <Button Style="{StaticResource NavigateButton}" Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" Margin="20">
+                    <Button Style="{StaticResource NavigateButton}" Text="Proxy List" Command="{Binding NavigateToProxyListCommand}"/>
+                </Grid>
             </Grid>
-            <Grid Grid.Row="0" Grid.Column="1" Margin="20">
-                <Button Style="{StaticResource NavigateButton}" Text="Leave History" Command="{Binding NavigateToLeaveApplicationListCommand}"/>
+            <Grid IsVisible="{Binding IsAdmin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.Column="0" Margin="20">
+                    <Button Style="{StaticResource NavigateButton}" Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="0" Margin="20">
+                    <Button Style="{StaticResource NavigateButton}" Text="User List" Command="{Binding NavigateToUserCommand}"/>
+                </Grid>
             </Grid>
-            <Grid Grid.Row="1" Grid.Column="0" Margin="20">
-                <Button Style="{StaticResource NavigateButton}" Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="1" Margin="20">
-                <Button Style="{StaticResource NavigateButton}" Text="Proxy List" Command="{Binding NavigateToProxyListCommand}"/>
-            </Grid>
-        </Grid>
-        <Grid IsVisible="{Binding IsAdmin}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0" Margin="20">
-                <Button Style="{StaticResource NavigateButton}" Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
-            </Grid>
-            <Grid Grid.Row="0" Grid.Column="1" Margin="20">
-                <Button Style="{StaticResource NavigateButton}" Text="User List" Command="{Binding NavigateToUserCommand}"/>
-            </Grid>
-        </Grid>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
