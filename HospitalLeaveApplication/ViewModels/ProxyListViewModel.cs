@@ -8,6 +8,7 @@ namespace HospitalLeaveApplication.ViewModels
 {
     public class ProxyListViewModel : BaseViewModel
     {
+        private string status;
         private User LoggedInUser;
         private string selectedLeaveStatus;
         public ObservableRangeCollection<LeaveApplication> LeaveApplicationList { get; }
@@ -42,7 +43,7 @@ namespace HospitalLeaveApplication.ViewModels
                     LoggedInUser = await LocalDBService.GetToken();
                 }
                 GetLeaveStatusList();
-                SelectedLeaveStatus = StaticCredential.ProxyStatus != null ? StaticCredential.ProxyStatus : "Forwarded";
+                SelectedLeaveStatus = StaticCredential.ProxyStatus ?? "All";
             }
             catch (Exception ex)
             {
@@ -55,9 +56,10 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 LeaveStatusList.Clear();
+                LeaveStatusList.Add("All");
                 LeaveStatusList.Add("Pending");
-                LeaveStatusList.Add("Forwarded");
-                LeaveStatusList.Add("Approved");
+                LeaveStatusList.Add("Agreed");
+                LeaveStatusList.Add("Denied");
             }
             catch (Exception ex)
             {
@@ -69,7 +71,8 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                var list = await LeaveApplicationService.GetLeaveApplicationsByProxyAsync(LoggedInUser.Email, SelectedLeaveStatus);
+                status = SelectedLeaveStatus == "All" ? null : SelectedLeaveStatus;
+                var list = await LeaveApplicationService.GetLeaveApplicationsByProxyAsync(LoggedInUser.Email, status);
                 MainThread.BeginInvokeOnMainThread(() => 
                 {
                     LeaveApplicationList.Clear();

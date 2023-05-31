@@ -67,21 +67,16 @@
                 <Label Text="Status" TextColor="Black"/>
             </Grid>
             <Grid x:Name="statusPicker" IsVisible="{Binding IsPending}" Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Frame Padding="5, -7" Margin="0, 0">
-                    <StackLayout Orientation="Horizontal">
-                        <Picker x:Name="picker"
-                                    Title="Select Leave Type"
-                                    TextColor="Black"
-                                    ItemsSource="{Binding LeaveStatusList}"
-                                    SelectedItem="{Binding LeaveApplication.Status}" />
-                    </StackLayout>
-                </Frame>
-            </Grid>
-            <Grid x:Name="statusLabel" IsVisible="{Binding IsNotPending}" Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding LeaveApplication.Status}" TextColor="Black"/>
             </Grid>
-            <Grid IsVisible="{Binding IsPending}" Grid.Row="7" Grid.ColumnSpan="2" Margin="10" >
-                <Button Text="Submit" Style="{StaticResource SubmitButton}" Command="{Binding LeaveApplicationCommand}"/>
+            <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding LeaveApplication.Status}" TextColor="Black"/>
+            </Grid>
+            <Grid IsVisible="{Binding IsPending}" Grid.Row="7" Grid.Column="0" Margin="10">
+                <Button Text="Deny" Style="{StaticResource RedButton}" Command="{Binding DenyLeaveApplicationCommand}" HorizontalOptions="StartAndExpand"/>
+            </Grid>
+            <Grid IsVisible="{Binding IsPending}" Grid.Row="7" Grid.Column="1" Margin="10">
+                <Button Text="Agree" Style="{StaticResource GreenButton}" Command="{Binding AgreeLeaveApplicationCommand}" HorizontalOptions="StartAndExpand"/>
             </Grid>
         </Grid>
     </VerticalStackLayout>

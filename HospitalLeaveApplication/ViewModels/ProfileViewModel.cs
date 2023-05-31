@@ -15,10 +15,13 @@ namespace HospitalLeaveApplication.ViewModels
         private User user;
         private User Token;
         private string FirebaseKey { get; set; }
+        private bool isEditable;
 
         public ICommand LogoutCommand { get; }
         public ICommand UpdateProfileCommand { get; }
         public User User { get => user; set => SetProperty(ref user, value); }
+        public bool IsEditable { get => isEditable; set => SetProperty(ref isEditable, value); }
+
         public ProfileViewModel()
         {
             LogoutCommand = new AsyncCommand(ExecuteLogout);
@@ -77,6 +80,7 @@ namespace HospitalLeaveApplication.ViewModels
                 FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(Token.Email);
                 FirebaseKey = firebaseObject.Key;
                 User = firebaseObject.Object as User;
+                IsEditable = User.SubCategory != "Admin" && User.SubCategory != "UHFPO";
             }
             catch(Exception ex)
             {

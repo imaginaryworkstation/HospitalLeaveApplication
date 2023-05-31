@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalLeaveApplication.Utilities;
+using System;
 namespace HospitalLeaveApplication.Models
 {
 	public class LeaveApplication
@@ -16,6 +17,9 @@ namespace HospitalLeaveApplication.Models
 		public string Status { get; set; }
 		public string Role { get; set; }
 		public string Message { get; set; }
-	}
+		public DateTime? ApproveDate { get; set; }
+		public bool BlackText { get { return StaticCredential.BlackTextList().Contains(Status); } }
+		public bool BlueText { get { return StaticCredential.BlueTextList().Contains(Status); } }
+    }
 }
 

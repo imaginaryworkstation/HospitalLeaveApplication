@@ -21,7 +21,8 @@ namespace HospitalLeaveApplication.ViewModels
         private User user;
         private bool isResidenceEnable;
 
-        public ICommand LeaveApplicationCommand { get; }
+        public ICommand AgreeLeaveApplicationCommand { get; }
+        public ICommand DenyLeaveApplicationCommand { get; }
 
         public ObservableRangeCollection<string> LeaveStatusList { get; }
 
@@ -43,7 +44,20 @@ namespace HospitalLeaveApplication.ViewModels
         public ProxyLeaveDetailViewModel()
         {
             LeaveStatusList = new ObservableRangeCollection<string>();
-            LeaveApplicationCommand = new AsyncCommand(ExecuteLeaveApplication);
+            AgreeLeaveApplicationCommand = new AsyncCommand(ExecuteAgreeLeaveCommand);
+            DenyLeaveApplicationCommand = new AsyncCommand(ExecuteDenyLeaveCommand);
+        }
+
+        private async Task ExecuteAgreeLeaveCommand()
+        {
+            LeaveApplication.Status = "Agreed";
+            await ExecuteLeaveApplication();
+        }
+
+        private async Task ExecuteDenyLeaveCommand()
+        {
+            LeaveApplication.Status = "Denied";
+            await ExecuteLeaveApplication();
         }
 
         private async Task ExecuteLeaveApplication()
@@ -83,8 +97,8 @@ namespace HospitalLeaveApplication.ViewModels
             {
                 LeaveStatusList.Clear();
                 LeaveStatusList.Add("Pending");
-                LeaveStatusList.Add("Forwarded");
-                LeaveStatusList.Add("Rejected");
+                LeaveStatusList.Add("Agreed");
+                LeaveStatusList.Add("Denied");
             }
             catch (Exception ex)
             {

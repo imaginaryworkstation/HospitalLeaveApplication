@@ -113,6 +113,7 @@
 	  <None Remove="Resources\Fonts\fa-solid-900.ttf" />
 	  <None Remove="Resources\Images\bg.jpg" />
 	  <None Remove="Resources\Images\logout.png" />
+	  <None Remove="Resources\Images\signature.jpg" />
 	  <None Remove="Services\" />
 	  <None Remove="Utilities\" />
 	  <None Remove="Models\HelperModels\" />

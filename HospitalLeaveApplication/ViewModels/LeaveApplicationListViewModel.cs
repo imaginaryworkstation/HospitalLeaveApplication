@@ -46,6 +46,7 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 LeaveStatusList.Clear();
+                LeaveStatusList.Add("All");
                 LeaveStatusList.AddRange(StaticCredential.GetLeaveStatus());
                 Task.Run(async () => {
                     await GetUser();
@@ -66,7 +67,7 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LoggedInUser = await LocalDBService.GetToken();
                 }
-                SelectedLeaveStatus = StaticCredential.LeaveApplicationStatus != null ? StaticCredential.LeaveApplicationStatus : "Approved";
+                SelectedLeaveStatus = StaticCredential.LeaveApplicationStatus ?? "All";
                 //await GetLeaveApplications();
             }
             catch(Exception ex)
@@ -79,7 +80,8 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                var list = await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(LoggedInUser.Email, SelectedLeaveStatus);
+                var status = SelectedLeaveStatus == "All" ? null : SelectedLeaveStatus;
+                var list = await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(LoggedInUser.Email, status);
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     LeaveApplicationList.Clear();

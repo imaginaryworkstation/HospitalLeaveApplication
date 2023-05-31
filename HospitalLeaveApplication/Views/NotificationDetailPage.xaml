@@ -81,29 +81,23 @@
                 <Grid Grid.Row="8" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                     <Label Text="Status" />
                 </Grid>
-                <Grid IsVisible="{Binding IsEditable}" Grid.Row="8" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                    <Frame Padding="5, -7" Margin="0, 0">
-                        <Picker x:Name="picker"
-                            Title="Select Status"
-                            TextColor="Black"
-                            ItemsSource="{Binding LeaveStatusList}"
-                            SelectedItem="{Binding LeaveApplication.Status}" />
-                    </Frame>
-                </Grid>
-                <Grid IsVisible="{Binding IsNotEditable}" Grid.Row="8" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
+                <Grid Grid.Row="8" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
                     <Label Text="{Binding LeaveApplication.Status}" TextColor="Black"/>
                 </Grid>
                 <Grid Grid.Row="9" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
                     <Label Text="Message" TextColor="Black"/>
                 </Grid>
                 <Grid Grid.Row="9" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
-                    <Frame IsVisible="{Binding IsEditable}" Padding="5, -7" Margin="0, 0">
-                        <Entry Placeholder="Feedback" Text="{Binding LeaveApplication.Message}" TextColor="Black" />
+                    <Frame IsVisible="{Binding IsButtonVisible}" Padding="5, -7" Margin="0, 0">
+                        <Editor Placeholder="Feedback" Text="{Binding LeaveApplication.Message}" TextColor="Black" />
                     </Frame>
-                    <Label IsVisible="{Binding IsNotEditable}" Text="{Binding LeaveApplication.Message}" />
+                    <Label IsVisible="{Binding IsButtonNotVisible}" Text="{Binding LeaveApplication.Message}" />
                 </Grid>
-                <Grid IsVisible="{Binding IsEditable}" Grid.Row="10" Grid.ColumnSpan="2" Margin="10">
-                    <Button Style="{StaticResource SubmitButton}" Text="Submit" Command="{Binding LeaveApplicationCommand}"/>
+                <Grid IsVisible="{Binding IsButtonVisible}" Grid.Row="10" Grid.Column="0" Margin="10">
+                    <Button Text="{Binding RejectButtonText}" Style="{StaticResource RedButton}" Command="{Binding RejectApplicationCommand}" HorizontalOptions="FillAndExpand"/>
+                </Grid>
+                <Grid IsVisible="{Binding IsButtonVisible}" Grid.Row="10" Grid.Column="1" Margin="10">
+                    <Button Text="{Binding AcceptButtonText}" Style="{StaticResource GreenButton}" Command="{Binding AcceptApplicationCommand}" HorizontalOptions="StartAndExpand"/>
                 </Grid>
             </Grid>
         </VerticalStackLayout>

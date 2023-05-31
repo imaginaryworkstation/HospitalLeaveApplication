@@ -13,52 +13,74 @@ namespace HospitalLeaveApplication.ViewModels
     [QueryProperty(nameof(key), "key")]
     public class NotificationDetailViewModel : BaseViewModel
     {
+        private string AcceptStatus;
+        private string RejectStatus;
         private User LoggedInUser;
         private string FirebaseKey { get; set; }
         private string UserFirebsaeKey { get; set; }
         public string key { get; set; }
-        private bool isEditable;
-        private bool isNotEditable;
         FirebaseObject<LeaveApplication> firebaseLeaveApplication;
         private LeaveApplication leaveApplication;
         private User user;
         private User proxyUser;
         private bool isResidenceEnable;
+        private string acceptButtonText;
+        private string rejectButtonText;
+        private bool isButtonVisible;
+        private bool isButtonNotVisible;
 
-        public ICommand LeaveApplicationCommand { get; }
-        public bool IsEditable
-        {
-            get => isEditable;
-            set
-            {
-                SetProperty(ref isEditable, value);
-                IsNotEditable = !value;
-            }
-        }
-        public bool IsNotEditable { get => isNotEditable; set => SetProperty(ref isNotEditable, value); }
-        public ObservableRangeCollection<string> LeaveStatusList { get; }
+        public ICommand AcceptApplicationCommand { get; }
+        public ICommand RejectApplicationCommand { get; }
         public FirebaseObject<LeaveApplication> FirebaseLeaveApplication { get => firebaseLeaveApplication; set => SetProperty(ref firebaseLeaveApplication, value); }
         public LeaveApplication LeaveApplication { get => leaveApplication; set => SetProperty(ref leaveApplication, value); }
         public User User { get => user; set => SetProperty(ref user, value); }
         public User ProxyUser { get => proxyUser; set => SetProperty(ref proxyUser, value); }
         public bool IsResidenceEnable { get => isResidenceEnable; set => SetProperty(ref isResidenceEnable, value); }
+        public bool IsButtonVisible
+        {
+            get => isButtonVisible;
+            set
+            {
+                SetProperty(ref isButtonVisible, value);
+                IsButtonNotVisible = !value;
+            }
+        }
+        public bool IsButtonNotVisible { get => isButtonNotVisible; set => SetProperty(ref isButtonNotVisible, value); }
+        public string AcceptButtonText { get => acceptButtonText; set => SetProperty(ref acceptButtonText, value); }
+        public string RejectButtonText { get => rejectButtonText; set => SetProperty(ref rejectButtonText, value); }
 
         public NotificationDetailViewModel()
         {
-            LeaveStatusList = new ObservableRangeCollection<string>();
-            LeaveApplicationCommand = new AsyncCommand(ExecuteLeaveApplication);
+            AcceptApplicationCommand = new AsyncCommand(ExecuteAcceptLeaveCommand);
+            RejectApplicationCommand = new AsyncCommand(ExecuteRejectLeaveCommand);
+        }
+
+        private async Task ExecuteAcceptLeaveCommand()
+        {
+            LeaveApplication.Status = AcceptStatus;
+            await ExecuteLeaveApplication();
+        }
+
+        private async Task ExecuteRejectLeaveCommand()
+        {
+            LeaveApplication.Status = RejectStatus;
+            await ExecuteLeaveApplication();
         }
 
         private async Task ExecuteLeaveApplication()
         {
             try
             {
-                FirebaseResponse response = await LeaveApplicationService.UpdateLeaveApplicationAsync(FirebaseKey, LeaveApplication);
-                if (LeaveApplication.LeaveType != "Casual" && LeaveApplication.Status == "Approved")
+                if (LeaveApplication.Status == "Approved")
                 {
-                    User.Enjoyed += LeaveApplication.Days;
-                    User.Remaining -= LeaveApplication.Days;
+                    LeaveApplication.ApproveDate = DateTime.Now;
+                    if (LeaveApplication.LeaveType != "Casual")
+                    {
+                        User.Enjoyed += LeaveApplication.Days;
+                        User.Remaining -= LeaveApplication.Days;
+                    }
                 }
+                FirebaseResponse response = await LeaveApplicationService.UpdateLeaveApplicationAsync(FirebaseKey, LeaveApplication);
                 if (response != null && response.Code == 200)
                 {
                     await UserService.UpdateUserAsync(UserFirebsaeKey, User);
@@ -95,7 +117,7 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LoggedInUser = await LocalDBService.GetToken();
                 }
-                GetLeaveStatusList();
+                await GetLeaveApplicationDetail();
             }
             catch (Exception ex)
             {
@@ -107,50 +129,34 @@ namespace HospitalLeaveApplication.ViewModels
             FirebaseObject<LeaveApplication> FirebaseLeaveApplication = await LeaveApplicationService.GetLeaveApplicationByKeyAsync(key);
             LeaveApplication = FirebaseLeaveApplication.Object as LeaveApplication;
             FirebaseKey = FirebaseLeaveApplication.Key;
-            IsResidenceEnable = LeaveApplication.LeaveType == "Casual" ? false : true;
+            IsResidenceEnable = LeaveApplication.LeaveType != "Casual";
             if (LeaveApplication != null)
             {
-                LeaveStatusList.Clear();
                 if (LoggedInUser.Category == "UHFPO")
                 {
-                    if (LeaveApplication.Status == "Pending")
-                    {
-                        LeaveStatusList.Add("Pending");
-                    }
-                    LeaveStatusList.Add("Accepted");
-                    LeaveStatusList.Add("Approved");
-                    IsEditable = LeaveApplication.Status == "Accepted";
+                    AcceptButtonText = "Approve";
+                    RejectButtonText = "Reject";
+                    IsButtonVisible = LeaveApplication.Status == "Forwarded";
+                    AcceptStatus = "Approved";
+                    RejectStatus = "Rejected";
                 }
-                else if (LoggedInUser.Category == "Approver")
+                else if (LoggedInUser.Category == "Admin")
                 {
-                    if (LeaveApplication.Status == "Pending")
-                    {
-                        LeaveStatusList.Add("Pending");
-                    }
-                    LeaveStatusList.Add("Reccomended");
-                    LeaveStatusList.Add("Accepted");
-                    IsEditable = LeaveApplication.Status == "Reccomended";
+                    AcceptButtonText = "Forward";
+                    RejectButtonText = "Send back";
+                    IsButtonVisible = LeaveApplication.Status == "Recommended" || LeaveApplication.Status == "Pending";
+                    AcceptStatus = "Forwarded";
+                    RejectStatus = "Sent back";
                 }
                 else
                 {
-                    LeaveStatusList.Add("Forwarded");
-                    LeaveStatusList.Add("Reccomended");
-                    IsEditable = LeaveApplication.Status == "Forwarded";
+                    AcceptButtonText = "Recommend";
+                    RejectButtonText = "Decline";
+                    IsButtonVisible = LeaveApplication.Status == "Agreed";
+                    AcceptStatus = "Recommended";
+                    RejectStatus = "Declined";
                 }
-                LeaveStatusList.Add("Rejected");
                 await GetUserDetail();
-            }
-        }
-
-        private void GetLeaveStatusList()
-        {
-            try
-            {
-                Task.Run(async () => await GetLeaveApplicationDetail());
-            }
-            catch(Exception ex)
-            {
-
             }
         }
 

@@ -26,7 +26,7 @@
                     <Frame Padding="5, -7" Margin="0, 7">
                         <Picker x:Name="picker"
                             TextColor="{StaticResource Primary}"
-                            Title="Select Leave Type"
+                            Title="Select Leave Status"
                             ItemsSource="{Binding LeaveStatusList}"
                             SelectedItem="{Binding SelectedLeaveStatus}" />
                     </Frame>
@@ -51,7 +51,7 @@
                             <Label TextColor="Black" Text="Type" />
                         </Grid>
                         <Grid Grid.Column="3" HorizontalOptions="CenterAndExpand">
-                            <Label TextColor="Black" Text="Proxy" />
+                            <Label TextColor="Black" Text="Status" />
                         </Grid>
                     </Grid>
                 </Frame>
@@ -86,10 +86,10 @@
                                     </StackLayout>
                                 </Grid>
                                 <Grid Grid.Column="2" Grid.Row="0" BackgroundColor="Transparent" Padding="5, 0" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding LeaveType}" FontSize="12" />
+                                    <Label TextColor="Black" Text="{Binding LeaveType}" FontSize="12" HorizontalOptions="CenterAndExpand"/>
                                 </Grid>
                                 <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="5, 0" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding ProxyName}" FontSize="12" />
+                                    <Label TextColor="Black" Text="{Binding Status}" FontSize="12" HorizontalOptions="CenterAndExpand"/>
                                 </Grid>
                                 <Grid Grid.Row="1" Grid.ColumnSpan="4">
                                     <BoxView Color="LightGrey" HeightRequest="1" />

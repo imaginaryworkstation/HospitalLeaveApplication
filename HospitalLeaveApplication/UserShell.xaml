@@ -27,15 +27,15 @@
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Notifications">
+    <FlyoutItem IsVisible="{Binding IsNotAdmin}" Title="Proxy">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:NotificationListPage}"  Route="NotificationListPage"/>
+            <ShellContent ContentTemplate="{DataTemplate local:ProxyListPage}"  Route="ProxyListPage"/>
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem IsVisible="{Binding IsNotAdmin}" Title="Proxy List">
+    <FlyoutItem IsVisible="{Binding IsSenior}" Title="Notifications">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:ProxyListPage}"  Route="ProxyListPage"/>
+            <ShellContent ContentTemplate="{DataTemplate local:NotificationListPage}"  Route="NotificationListPage"/>
         </Tab>
     </FlyoutItem>
 

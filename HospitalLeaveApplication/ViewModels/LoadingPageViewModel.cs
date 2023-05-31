@@ -1,15 +1,22 @@
 ﻿using HospitalLeaveApplication.Models;
 using HospitalLeaveApplication.Services.Helpers;
 using MvvmHelpers;
+using MvvmHelpers.Commands;
+using System.Windows.Input;
 
 namespace HospitalLeaveApplication.ViewModels
 {
     public class LoadingPageViewModel : BaseViewModel
     {
         private User user;
+        public ICommand GetStartedCommand { get; }
+        public LoadingPageViewModel()
+        {
+            GetStartedCommand = new AsyncCommand(GetToken);
+        }
         public void OnAppearing()
         {
-            Task.Run(async () => await GetToken());
+            //Task.Run(async () => await GetToken());
         }
 
         public async Task GetToken()

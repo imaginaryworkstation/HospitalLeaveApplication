@@ -39,11 +39,10 @@
                         <Frame Padding="5, -7" Margin="0, 0">
                             <StackLayout Orientation="Horizontal">
                                 <Picker x:Name="picker"
-                                    Title="Select Leave Type"
+                                    Title="Select Leave Status"
                                     TextColor="Black"
                                     ItemsSource="{Binding LeaveTypes}"
                                     SelectedItem="{Binding SelectedLeaveType}" />
-                                <!--<Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />-->
                             </StackLayout>
                         </Frame>
                     </Grid>

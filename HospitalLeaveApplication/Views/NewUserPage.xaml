@@ -90,9 +90,7 @@
                 <Label Text="Leave" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                <Frame Padding="5, -7" Margin="0, 0">
-                    <Entry Placeholder="Leave"  Text="{Binding User.Remaining}" Keyboard="Numeric" TextColor="Black"/>
-                </Frame>
+                <Label Text="{Binding User.Remaining}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Posting" TextColor="Black"/>

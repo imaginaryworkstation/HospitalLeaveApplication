@@ -8,8 +8,6 @@ namespace HospitalLeaveApplication.Utilities
         public static string LeaveApplicationStatus = null;
         public static string NotificationStatus = null;
         public static string ProxyStatus = null;
-        //public static string FirestoreUrl = "zohar-bible.appspot.com";
-        //public static string DatabaseAPIKey = "AIzaSyAT-Lb9IpLaPVSNgrQ5zfCB3HxJbVbd-4U";
 
         public static User User = null;
 
@@ -28,10 +26,14 @@ namespace HospitalLeaveApplication.Utilities
             List<string> StatusList = new List<string>
             {
                 "Pending",
+                "Agreed",
+                "Denied",
+                "Forwarded",
+                "Declined",
+                "Reccomended",
+                "Sent back",
                 "Approved",
                 "Rejected",
-                "Forwarded",
-                "Reccomended"
             };
             return StatusList;
         }
@@ -55,6 +57,30 @@ namespace HospitalLeaveApplication.Utilities
                 "Ward 3"
             };
             return PostingWards;
+        }
+
+        public static List<string> BlackTextList()
+        {
+            return new List<string>
+            {
+                "Rejected", "Sent back", "Declined", "Denied", "Pending"
+            };
+        }
+
+        public static List<string> BlueTextList()
+        {
+            return new List<string>
+            {
+                "Approved", "Forwarded", "Recommended", "Agreed"
+            };
+        }
+
+        public static List<string> SeniorList()
+        {
+            return new List<string>
+            {
+                "RMO", "Nursing Supervisor", "NS", "HI in charge", "Admin", "UHFPO"
+            };
         }
     }
 }

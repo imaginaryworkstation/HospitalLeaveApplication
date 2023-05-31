@@ -25,7 +25,7 @@
                     <Frame Padding="5, -7" Margin="0, 7">
                         <Picker x:Name="picker"
                             TextColor="{StaticResource Primary}"
-                            Title="Select Leave Type"
+                            Title="Select Leave Status"
                             ItemsSource="{Binding LeaveStatusList}"
                             SelectedItem="{Binding SelectedLeaveStatus}" />
                     </Frame>
@@ -41,16 +41,16 @@
                             <ColumnDefinition Width="0.30*" />
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <Label TextColor="Black" Text="From" />
+                            <Label TextColor="Black" Text="From" HorizontalOptions="CenterAndExpand"/>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <Label TextColor="Black" Text="To" />
+                            <Label TextColor="Black" Text="To" HorizontalOptions="CenterAndExpand"/>
                         </Grid>
                         <Grid Grid.Column="2">
-                            <Label TextColor="Black" Text="Type" />
+                            <Label TextColor="Black" Text="Type" HorizontalOptions="CenterAndExpand"/>
                         </Grid>
                         <Grid Grid.Column="3">
-                            <Label TextColor="Black" Text="Proxy" />
+                            <Label TextColor="Black" Text="Status" HorizontalOptions="CenterAndExpand"/>
                         </Grid>
                     </Grid>
                 </Frame>
@@ -78,10 +78,11 @@
                                     <Label TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}"  FontSize="13"/>
                                 </Grid>
                                 <Grid Grid.Column="2" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding LeaveType}"  FontSize="13"/>
+                                    <Label TextColor="Black" Text="{Binding LeaveType}"  FontSize="13" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
                                 </Grid>
                                 <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding ProxyName}"  FontSize="13"/>
+                                    <Label IsVisible="{Binding BlackText}" TextColor="Black" Text="{Binding Status}"  FontSize="13" HorizontalOptions="CenterAndExpand"/>
+                                    <Label IsVisible="{Binding BlueText}" TextColor="Blue" Text="{Binding Status}"  FontSize="13" HorizontalOptions="CenterAndExpand"/>
                                 </Grid>
                                 <Grid Grid.Row="1" Grid.ColumnSpan="4">
                                     <BoxView Color="LightGrey" HeightRequest="1" />

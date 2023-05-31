@@ -11,7 +11,7 @@
     </ContentPage.BindingContext>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Logout" IconImageSource="logout.png" Command="{Binding LogoutCommand}" />
+        <ToolbarItem Text="Logout" Command="{Binding LogoutCommand}" />
     </ContentPage.ToolbarItems>
 
     <VerticalStackLayout>
@@ -44,10 +44,10 @@
             <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label  Text="{Binding User.Email}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="2" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+            <Grid IsVisible="{Binding IsEditable}" Grid.Row="2" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Phone" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid IsVisible="{Binding IsEditable}" Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                 <Frame Padding="5, -7" Margin="0, 0">
                     <Entry Placeholder="Phone number" Text="{Binding User.Phone}" TextColor="Black"/>
                 </Frame>
@@ -64,16 +64,16 @@
             <Grid Grid.Row="4" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding User.SubCategory}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="5" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+            <Grid IsVisible="{Binding IsEditable}" Grid.Row="5" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Leave Enjoyed" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid IsVisible="{Binding IsEditable}" Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding User.Enjoyed}" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="6" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+            <Grid IsVisible="{Binding IsEditable}" Grid.Row="6" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Leave Remaining" TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid IsVisible="{Binding IsEditable}" Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding User.Remaining}" TextColor="Black"/>
             </Grid>
             <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="10">

@@ -20,18 +20,20 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Grid.Column="0" Margin="20">
                     <Button Style="{StaticResource NavigateButton}" Text="New Leave Application" Command="{Binding NavigateToNewLeaveApplicationCommand}"/>
                 </Grid>
-                <Grid Grid.Row="0" Grid.Column="1" Margin="20">
+                <Grid Grid.Row="1" Grid.Column="0" Margin="20">
                     <Button Style="{StaticResource NavigateButton}" Text="Leave History" Command="{Binding NavigateToLeaveApplicationListCommand}"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="0" Margin="20">
-                    <Button Style="{StaticResource NavigateButton}" Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
+                <Grid Grid.Row="2" Grid.Column="0" Margin="20">
+                    <Button Style="{StaticResource NavigateButton}" Text="Proxy" Command="{Binding NavigateToProxyListCommand}"/>
                 </Grid>
-                <Grid Grid.Row="1" Grid.Column="1" Margin="20">
-                    <Button Style="{StaticResource NavigateButton}" Text="Proxy List" Command="{Binding NavigateToProxyListCommand}"/>
+                <Grid IsVisible="{Binding IsSenior}" Grid.Row="3" Grid.Column="0" Margin="20">
+                    <Button Style="{StaticResource NavigateButton}" Text="Notifications" Command="{Binding NavigateToNotificationListCommand}"/>
                 </Grid>
             </Grid>
             <Grid IsVisible="{Binding IsAdmin}">
@@ -44,10 +46,10 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Grid.Column="0" Margin="20">
-                    <Button Style="{StaticResource NavigateButton}" Text="Notification List" Command="{Binding NavigateToNotificationListCommand}"/>
+                    <Button Style="{StaticResource NavigateButton}" Text="Notifications" Command="{Binding NavigateToNotificationListCommand}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="0" Margin="20">
-                    <Button Style="{StaticResource NavigateButton}" Text="User List" Command="{Binding NavigateToUserCommand}"/>
+                    <Button Style="{StaticResource NavigateButton}" Text="Users" Command="{Binding NavigateToUserCommand}"/>
                 </Grid>
             </Grid>
         </VerticalStackLayout>

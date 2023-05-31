@@ -94,44 +94,45 @@ namespace HospitalLeaveApplication.Services
             return firebaseObjects;
         }
 
-        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByRoleAsync(string role)
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByRoleAsync(List<string> roles)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<LeaveApplication> firebaseObjects = null;
             firebaseObjects = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
-                .Where(l => l.Object.Role == role)
+                .Where(p => roles.Any(r => p.Object.Role.Contains(r)))
+                .Where(l => l.Object.Status == "Pending")
                 .OrderBy(l => l.Object.FromDate)
                 .Select(u => u.Object).ToList();
             return firebaseObjects;
         }
 
-        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByRecommendedRoleAsync(List<string> roles, string status = null)
-        {
-            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
-            List<LeaveApplication> firebaseObjects = null;
-            var query = (await firebaseClient.Child("LeaveApplications")
-                .OnceAsync<LeaveApplication>())
-                .Where(p => roles.Any(r => p.Object.Role.Contains(r)))
-                .OrderBy(l => l.Object.FromDate);
-            if(status != null)
-            {
-                firebaseObjects = query.Where(l => l.Object.Status == status).Select(u => u.Object).ToList();
-            }
-            else
-            {
-                firebaseObjects = query.Select(u => u.Object).ToList();
-            }
-            return firebaseObjects;
-        }
+        //public async static Task<List<LeaveApplication>> GetLeaveApplicationsByRecommendedRoleAsync(List<string> roles, string status = null)
+        //{
+        //    FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+        //    List<LeaveApplication> firebaseObjects = null;
+        //    var query = (await firebaseClient.Child("LeaveApplications")
+        //        .OnceAsync<LeaveApplication>())
+        //        .Where(p => roles.Any(r => p.Object.Role.Contains(r)))
+        //        .OrderBy(l => l.Object.FromDate);
+        //    if(status != null)
+        //    {
+        //        firebaseObjects = query.Where(l => l.Object.Status == status).Select(u => u.Object).ToList();
+        //    }
+        //    else
+        //    {
+        //        firebaseObjects = query.Select(u => u.Object).ToList();
+        //    }
+        //    return firebaseObjects;
+        //}
 
-        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByStatusAsync(string status)
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByStatusAsync(List<string> statusList)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<LeaveApplication> firebaseObjects = null;
             firebaseObjects = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
-                .Where(l => l.Object.Status == status)
+                .Where(p => statusList.Any(r => p.Object.Status.Contains(r)))
                 .OrderBy(l => l.Object.FromDate)
                 .Select(u => u.Object).ToList();
             return firebaseObjects;
