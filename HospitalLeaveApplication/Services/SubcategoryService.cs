@@ -7,11 +7,16 @@ namespace HospitalLeaveApplication.Services
 {
 	public class SubcategoryService
     {
-        public async static Task<List<Subcategory>> GetSubcategoriesAsync()
+        public async static Task<List<Subcategory>> GetSubcategoriesAsync(string category = null)
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
             List<Subcategory> firebaseObjects = null;
-            firebaseObjects = (await firebaseClient.Child("Subcategories").OnceAsync<Subcategory>()).Select(u => u.Object).ToList();
+            var query = (await firebaseClient.Child("Subcategories").OnceAsync<Subcategory>()).Select(u => u.Object);
+            if (category != null)
+            {
+                query = query.Where(l => l.Category == category);
+            }
+            firebaseObjects = query.ToList();
             return firebaseObjects;
         }
     }

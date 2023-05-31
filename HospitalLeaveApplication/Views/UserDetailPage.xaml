@@ -28,6 +28,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
                 <Label Text="Name" />
@@ -64,18 +65,24 @@
                 <Label Text="{Binding User.SubCategory}"/>
             </Grid>
             <Grid Grid.Row="5" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave Enjoyed" />
+                <Label Text="Posting" />
             </Grid>
             <Grid Grid.Row="5" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding User.Enjoyed}"/>
+                <Label Text="{Binding User.Posting}"/>
             </Grid>
             <Grid Grid.Row="6" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave Remaining" />
+                <Label Text="Leave Enjoyed" />
             </Grid>
             <Grid Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding User.Enjoyed}"/>
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+                <Label Text="Leave Remaining" />
+            </Grid>
+            <Grid Grid.Row="7" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding User.Remaining}"/>
             </Grid>
-            <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="10">
+            <Grid Grid.Row="8" Grid.ColumnSpan="2" Margin="10">
                 <Button Margin="0" Padding="0" HeightRequest="30" FontSize="14" Text="Update" BackgroundColor="{StaticResource Primary}" TextColor="White" Command="{Binding UpdateProfileCommand}"/>
             </Grid>
         </Grid>

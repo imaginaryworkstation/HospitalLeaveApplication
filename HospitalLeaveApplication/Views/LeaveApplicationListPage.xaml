@@ -12,86 +12,93 @@
     </ContentPage.BindingContext>
 
     <Frame Style="{StaticResource FullFrame}">
-        <VerticalStackLayout>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition Width="0.5*" />
-                </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand">
-                
-                </StackLayout>
-                <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
-                    <Frame Padding="5, -7" Margin="0, 7">
-                        <Picker x:Name="picker"
+        <ScrollView>
+            <VerticalStackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="0.5*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0" HorizontalOptions="FillAndExpand">
+
+                    </StackLayout>
+                    <StackLayout Grid.Column="1" HorizontalOptions="FillAndExpand">
+                        <Frame Padding="5, -7" Margin="0, 7">
+                            <Picker x:Name="picker"
                             TextColor="{StaticResource Primary}"
                             Title="Select Leave Status"
                             ItemsSource="{Binding LeaveStatusList}"
                             SelectedItem="{Binding SelectedLeaveStatus}" />
-                    </Frame>
-                </StackLayout>
-            </Grid>
-            <StackLayout>
-                <Frame Style="{StaticResource TableHeaderFrame}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.25*" />
-                            <ColumnDefinition Width="0.25*" />
-                            <ColumnDefinition Width="0.20*" />
-                            <ColumnDefinition Width="0.30*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Label TextColor="Black" Text="From" HorizontalOptions="CenterAndExpand"/>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Label TextColor="Black" Text="To" HorizontalOptions="CenterAndExpand"/>
-                        </Grid>
-                        <Grid Grid.Column="2">
-                            <Label TextColor="Black" Text="Type" HorizontalOptions="CenterAndExpand"/>
-                        </Grid>
-                        <Grid Grid.Column="3">
-                            <Label TextColor="Black" Text="Status" HorizontalOptions="CenterAndExpand"/>
-                        </Grid>
-                    </Grid>
-                </Frame>
-                <CollectionView ItemsSource="{Binding LeaveApplicationList}"
-                                SelectionMode="Single"
-                                EmptyView="No items found"
-                                SelectionChanged="CollectionView_SelectionChanged">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:LeaveApplication">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.25*" />
-                                    <ColumnDefinition Width="0.25*" />
-                                    <ColumnDefinition Width="0.20*" />
-                                    <ColumnDefinition Width="0.30*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="13"/>
-                                </Grid>
-                                <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}"  FontSize="13"/>
-                                </Grid>
-                                <Grid Grid.Column="2" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding LeaveType}"  FontSize="13" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
-                                </Grid>
-                                <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                    <Label IsVisible="{Binding BlackText}" TextColor="Black" Text="{Binding Status}"  FontSize="13" HorizontalOptions="CenterAndExpand"/>
-                                    <Label IsVisible="{Binding BlueText}" TextColor="Blue" Text="{Binding Status}"  FontSize="13" HorizontalOptions="CenterAndExpand"/>
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.ColumnSpan="4">
-                                    <BoxView Color="LightGrey" HeightRequest="1" />
-                                </Grid>
+                        </Frame>
+                    </StackLayout>
+                </Grid>
+                <StackLayout>
+                    <Frame Style="{StaticResource TableHeaderFrame}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.25*" />
+                                <ColumnDefinition Width="0.25*" />
+                                <ColumnDefinition Width="0.20*" />
+                                <ColumnDefinition Width="0.30*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Label TextColor="Black" Text="From" HorizontalOptions="CenterAndExpand"/>
                             </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-        </VerticalStackLayout>
+                            <Grid Grid.Column="1">
+                                <Label TextColor="Black" Text="To" HorizontalOptions="CenterAndExpand"/>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Label TextColor="Black" Text="Type" HorizontalOptions="CenterAndExpand"/>
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <Label TextColor="Black" Text="Status" HorizontalOptions="CenterAndExpand"/>
+                            </Grid>
+                        </Grid>
+                    </Frame>
+                    <ListView ItemsSource="{Binding LeaveApplicationList}"
+                              ItemTapped="ListView_ItemTapped"
+                              SelectionMode="Single"
+                              HasUnevenRows="True"
+                              VerticalScrollBarVisibility="Never"
+                              SeparatorVisibility="Default"
+                              SeparatorColor="LightGrey">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:LeaveApplication">
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.25*" />
+                                            <ColumnDefinition Width="0.20*" />
+                                            <ColumnDefinition Width="0.30*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                            <Label TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="13"/>
+                                        </Grid>
+                                        <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                            <Label TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}"  FontSize="13"/>
+                                        </Grid>
+                                        <Grid Grid.Column="2" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                            <Label TextColor="Black" Text="{Binding LeaveType}"  FontSize="13" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                                        </Grid>
+                                        <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                            <Label IsVisible="{Binding BlackText}" TextColor="Black" Text="{Binding Status}"  FontSize="13" HorizontalOptions="CenterAndExpand"/>
+                                            <Label IsVisible="{Binding BlueText}" TextColor="Blue" Text="{Binding Status}"  FontSize="13" HorizontalOptions="CenterAndExpand"/>
+                                        </Grid>
+                                        <Grid Grid.Row="1" Grid.ColumnSpan="4">
+                                            <BoxView Color="LightGrey" HeightRequest="1" />
+                                        </Grid>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
     </Frame>
 </ContentPage>

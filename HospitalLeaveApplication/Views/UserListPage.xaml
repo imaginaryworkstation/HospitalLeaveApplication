@@ -11,62 +11,65 @@
     </ContentPage.BindingContext>
 
     <Frame Style="{StaticResource FullFrame}">
-        <VerticalStackLayout>
-            <StackLayout HorizontalOptions="EndAndExpand" Margin="10">
-                <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" BackgroundColor="{StaticResource Primary}" TextColor="White" Text="New User" Command="{Binding NavigateToNewUserCommand}"/>
-            </StackLayout>
-            <StackLayout>
-                <Frame Style="{StaticResource TableHeaderFrame}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Label TextColor="Black" Text="Name" />
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Label TextColor="Black" Text="Phone" />
-                        </Grid>
-                        <Grid Grid.Column="2">
-                            <Label TextColor="Black" Text="Post" />
-                        </Grid>
-                    </Grid>
-                </Frame>
-                <CollectionView ItemsSource="{Binding UserList}"
-                            SelectionMode="Single"
-                            EmptyView="No items found"
-                            SelectionChanged="CollectionView_SelectionChanged">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="10, 0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding Name}" FontSize="12" />
-                                </Grid>
-                                <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding Phone}" FontSize="12" />
-                                </Grid>
-                                <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                    <Label TextColor="Black" Text="{Binding SubCategory}" FontSize="12"/>
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.ColumnSpan="4">
-                                    <BoxView Color="LightGrey" HeightRequest="1" />
-                                </Grid>
+        <ScrollView>
+            <VerticalStackLayout>
+                <StackLayout HorizontalOptions="EndAndExpand" Margin="10">
+                    <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" BackgroundColor="{StaticResource Primary}" TextColor="White" Text="New User" Command="{Binding NavigateToNewUserCommand}"/>
+                </StackLayout>
+                <StackLayout>
+                    <Frame Style="{StaticResource TableHeaderFrame}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Label TextColor="Black" Text="Name" />
                             </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-        </VerticalStackLayout>
+                            <Grid Grid.Column="1">
+                                <Label TextColor="Black" Text="Phone" />
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Label TextColor="Black" Text="Post" />
+                            </Grid>
+                        </Grid>
+                    </Frame>
+                    <ListView ItemsSource="{Binding UserList}"
+                              ItemTapped="ListView_ItemTapped"
+                              SelectionMode="Single"
+                              HasUnevenRows="True"
+                              VerticalScrollBarVisibility="Never"
+                              SeparatorVisibility="Default"
+                              SeparatorColor="LightGrey">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Margin="10, 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                            <Label TextColor="Black" Text="{Binding Name}" FontSize="12" />
+                                        </Grid>
+                                        <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                            <Label TextColor="Black" Text="{Binding Phone}" FontSize="12" />
+                                        </Grid>
+                                        <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
+                                            <Label TextColor="Black" Text="{Binding SubCategory}" FontSize="12"/>
+                                        </Grid>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
     </Frame>
 </ContentPage>

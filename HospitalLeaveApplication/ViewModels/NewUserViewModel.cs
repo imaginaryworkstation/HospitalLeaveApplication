@@ -86,6 +86,7 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task ExecuteNewuser()
         {
+            User.Category = SelectedCategory;
             if (string.IsNullOrEmpty(User.Name))
             {
                 IsError = true;
@@ -176,7 +177,7 @@ namespace HospitalLeaveApplication.ViewModels
             var a = await CategoryService.GetCategoriesAsync();
             try
             {
-                await MainThread.InvokeOnMainThreadAsync(async () => {
+                await MainThread.InvokeOnMainThreadAsync(() => {
                     CategoryList.Clear();
                     CategoryList.AddRange(a.Select(s => s.Name).ToList());
                 });
@@ -189,16 +190,13 @@ namespace HospitalLeaveApplication.ViewModels
 
 		private async Task GetSubcategories()
 		{
-            var a = await SubcategoryService.GetSubcategoriesAsync();
             try
             {
-                if (SelectedCategory != null)
-                {
-                    User.Category = SelectedCategory;
+                var list = await SubcategoryService.GetSubcategoriesAsync(SelectedCategory);
+                await MainThread.InvokeOnMainThreadAsync(() => {
                     SubcategoryList.Clear();
-                    SubcategoryList.AddRange(a.Where(s => s.Category == User.Category).Select(s => s.Name).ToList());
-                }
-                
+                    SubcategoryList.AddRange(list.Select(s => s.Name).ToList());
+                });
             }
             catch (Exception ex)
             {

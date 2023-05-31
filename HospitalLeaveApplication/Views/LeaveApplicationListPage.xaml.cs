@@ -23,4 +23,10 @@ public partial class LeaveApplicationListPage : ContentPage
         LeaveApplication leaveApplication = e.CurrentSelection.FirstOrDefault() as LeaveApplication;
         await Shell.Current.GoToAsync($"{nameof(LeaveApplicationDetailPage)}?key={leaveApplication.Key}");
     }
+
+    private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+    {
+        LeaveApplication leaveApplication = e.Item as LeaveApplication;
+        await Shell.Current.GoToAsync($"{nameof(LeaveApplicationDetailPage)}?key={leaveApplication.Key}");
+    }
 }

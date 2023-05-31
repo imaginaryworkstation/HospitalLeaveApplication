@@ -23,4 +23,10 @@ public partial class UserListPage : ContentPage
         User user = e.CurrentSelection.FirstOrDefault() as User;
         await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}?email={user.Email}");
     }
+
+    private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+    {
+        User user = e.Item as User;
+        await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}?email={user.Email}");
+    }
 }

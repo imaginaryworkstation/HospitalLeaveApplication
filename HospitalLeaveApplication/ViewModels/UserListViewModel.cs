@@ -41,9 +41,10 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LoggedinUser = await LocalDBService.GetToken();
                 }
-                List<User> users = await UserService.GetUsersAsync();
+                var users = await UserService.GetUsersAsync(LoggedinUser.Email);
                 UserList.Clear();
-                UserList.AddRange(users.Where(u => u.Email != LoggedinUser.Email));
+                UserList.AddRange(users);
+                
             }
             catch (Exception ex)
             {
