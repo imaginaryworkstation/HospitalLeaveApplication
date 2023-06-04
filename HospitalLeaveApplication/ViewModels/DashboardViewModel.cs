@@ -86,7 +86,8 @@ namespace HospitalLeaveApplication.ViewModels
             {
                 IsAdmin = true;
             }
-            IsSenior = user != null && StaticCredential.SeniorList().Contains(user.SubCategory);
+            var seniorList = StaticCredential.SeniorList();
+            IsSenior = user != null && seniorList.Contains(user.SubCategory);
             IsNotAdmin = !IsAdmin;
         }
     }

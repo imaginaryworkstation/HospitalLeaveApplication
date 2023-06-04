@@ -79,7 +79,7 @@ namespace HospitalLeaveApplication.Utilities
         {
             return new List<string>
             {
-                "RMO", "Nursing Supervisor", "NS", "HI in charge", "Admin", "UHFPO"
+                "RMO", "Nursing Supervisor", "NS", "Office Shohokari", "HI in charge", "HI", "AHI", "Admin", "UHFPO"
             };
         }
     }

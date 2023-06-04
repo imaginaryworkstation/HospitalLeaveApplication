@@ -14,8 +14,14 @@
     </ContentPage.BindingContext>
     <Grid>
         <Image Source="bg.jpg" VerticalOptions="Fill" Aspect="AspectFill"/>
-        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
-            <VerticalStackLayout Spacing="16" Margin="20, 0, 20, 100" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" />
+            <VerticalStackLayout Grid.Row="1" Spacing="16" Margin="20, 0, 20, 0" >
                 <Frame BorderColor="Transparent" BackgroundColor="Transparent" VerticalOptions="StartAndExpand">
                     <Label Text="Muksudpur UHC CL" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="Title" FontAttributes="Bold" TextColor="White" />
                 </Frame>
@@ -37,7 +43,8 @@
                 </StackLayout>
                 <Button BackgroundColor="{StaticResource Primary}" CornerRadius="25" Padding="8" Text="Login" FontSize="16" FontAttributes="Bold" TextColor="White" Command="{Binding LoginCommand}"/>
             </VerticalStackLayout>
-        </VerticalStackLayout>
+            <StackLayout Grid.Row="2" />
+        </Grid>
     </Grid>
     
     
