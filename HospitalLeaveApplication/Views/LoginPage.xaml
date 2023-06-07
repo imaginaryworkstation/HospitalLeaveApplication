@@ -38,10 +38,12 @@
                         <Entry x:Name="passEntry" VerticalOptions="Center" Placeholder="Password" IsPassword="True" HeightRequest="60" Grid.Column="1" Text="{Binding User.Password}" TextColor="Black"/>
                     </Grid>
                 </Frame>
-                <StackLayout IsVisible="{Binding HasError}" HorizontalOptions="CenterAndExpand">
-                    <Label Text="{Binding ErrorMessage}" TextColor="Red" />
+                <StackLayout>
+                    <Button BackgroundColor="{StaticResource Primary}" CornerRadius="25" Padding="8" Text="Login" FontSize="16" FontAttributes="Bold" TextColor="White" Command="{Binding LoginCommand}"/>
                 </StackLayout>
-                <Button BackgroundColor="{StaticResource Primary}" CornerRadius="25" Padding="8" Text="Login" FontSize="16" FontAttributes="Bold" TextColor="White" Command="{Binding LoginCommand}"/>
+                <Frame IsVisible="{Binding HasError}" HorizontalOptions="CenterAndExpand" BackgroundColor="Red" Padding="5" BorderColor="Transparent">
+                    <Label Text="{Binding ErrorMessage}" TextColor="White" />
+                </Frame>
             </VerticalStackLayout>
             <StackLayout Grid.Row="2" />
         </Grid>

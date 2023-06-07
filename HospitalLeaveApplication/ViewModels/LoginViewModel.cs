@@ -27,19 +27,26 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task ExecuteLogin()
         {
-            HasError = false;
-            User LoginUser = await UserService.GetUserAsync(User.Email);
-            if(LoginUser != null && LoginUser.Password == User.Password)
+            try
             {
-                await LocalDBService.RemoveToken();
-                await LocalDBService.InsertToken(LoginUser);
-                StaticCredential.User = LoginUser;
-                await MainThread.InvokeOnMainThreadAsync(() => { Application.Current.MainPage = new UserShell(); });
+                HasError = false;
+                User LoginUser = await UserService.GetUserAsync(User.Email);
+                if (LoginUser != null && LoginUser.Password == User.Password)
+                {
+                    await LocalDBService.RemoveToken();
+                    await LocalDBService.InsertToken(LoginUser);
+                    StaticCredential.User = LoginUser;
+                    await MainThread.InvokeOnMainThreadAsync(() => { Application.Current.MainPage = new UserShell(); });
+                }
+                else
+                {
+                    HasError = true;
+                    ErrorMessage = "Wrong email or password!";
+                }
             }
-            else
+            catch(Exception ex)
             {
-                HasError = true;
-                ErrorMessage = "Wrong email or password!";
+
             }
         }
 

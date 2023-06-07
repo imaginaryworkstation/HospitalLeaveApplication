@@ -24,7 +24,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Grid.Column="0" Margin="0, 20">
-                    <Button Style="{StaticResource NavigateButton}" Text="New Leave" HorizontalOptions="CenterAndExpand" Command="{Binding NavigateToNewLeaveApplicationCommand}"/>
+                    <Button Style="{StaticResource NavigateButton}" Text="Take Leave" HorizontalOptions="CenterAndExpand" Command="{Binding NavigateToNewLeaveApplicationCommand}"/>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="0" Margin="0, 20">
                     <Button Style="{StaticResource NavigateButton}" Text="Leave History" HorizontalOptions="CenterAndExpand" Command="{Binding NavigateToLeaveApplicationListCommand}"/>
