@@ -25,7 +25,7 @@ namespace HospitalLeaveApplication
         private async Task GetToken()
         {
             User user = await LocalDBService.GetToken();
-            if (user != null && (user.Category == "UHFPO" || user.Category == "Admin"))
+            if (user != null && (user.SubCategory == "UHFPO" || user.SubCategory == "Admin"))
             {
                 IsAdmin = true;
             }

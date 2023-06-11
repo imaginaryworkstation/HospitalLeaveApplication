@@ -27,7 +27,7 @@
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem IsVisible="{Binding IsNotAdmin}" Title="Proxy">
+    <FlyoutItem IsVisible="{Binding IsNotAdmin}" Title="Proxy requests">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate local:ProxyListPage}"  Route="ProxyListPage"/>
         </Tab>

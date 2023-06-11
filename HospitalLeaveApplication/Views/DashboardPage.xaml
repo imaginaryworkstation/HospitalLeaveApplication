@@ -30,7 +30,7 @@
                     <Button Style="{StaticResource NavigateButton}" Text="Leave History" HorizontalOptions="CenterAndExpand" Command="{Binding NavigateToLeaveApplicationListCommand}"/>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="0" Margin="0, 20">
-                    <Button Style="{StaticResource NavigateButton}" Text="Proxy" HorizontalOptions="CenterAndExpand" Command="{Binding NavigateToProxyListCommand}"/>
+                    <Button Style="{StaticResource NavigateButton}" Text="Proxy requests" HorizontalOptions="CenterAndExpand" Command="{Binding NavigateToProxyListCommand}"/>
                 </Grid>
                 <Grid IsVisible="{Binding IsSenior}" Grid.Row="3" Grid.Column="0" Margin="0, 20">
                     <Button Style="{StaticResource NavigateButton}" Text="Notifications" HorizontalOptions="CenterAndExpand" Command="{Binding NavigateToNotificationListCommand}"/>

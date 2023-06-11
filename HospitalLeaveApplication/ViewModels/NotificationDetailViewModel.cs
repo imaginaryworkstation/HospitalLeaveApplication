@@ -74,7 +74,7 @@ namespace HospitalLeaveApplication.ViewModels
                 if (LeaveApplication.Status == "Approved")
                 {
                     LeaveApplication.ApproveDate = DateTime.Now;
-                    if (LeaveApplication.LeaveType != "Casual")
+                    if (LeaveApplication.LeaveType == "Casual with station Leave")
                     {
                         User.Enjoyed += LeaveApplication.Days;
                         User.Remaining -= LeaveApplication.Days;
@@ -132,7 +132,7 @@ namespace HospitalLeaveApplication.ViewModels
             IsResidenceEnable = LeaveApplication.LeaveType != "Casual";
             if (LeaveApplication != null)
             {
-                if (LoggedInUser.Category == "UHFPO")
+                if (LoggedInUser.SubCategory == "UHFPO")
                 {
                     AcceptButtonText = "Approve";
                     RejectButtonText = "Reject";
@@ -140,7 +140,7 @@ namespace HospitalLeaveApplication.ViewModels
                     AcceptStatus = "Approved";
                     RejectStatus = "Rejected";
                 }
-                else if (LoggedInUser.Category == "Admin")
+                else if (LoggedInUser.SubCategory == "Admin")
                 {
                     AcceptButtonText = "Forward";
                     RejectButtonText = "Send back";

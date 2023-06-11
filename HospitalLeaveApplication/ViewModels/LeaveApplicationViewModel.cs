@@ -69,12 +69,14 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
-                if(SelectedProxyUser == null)
-                {
-                    HasError = true;
-                    ErrorMessage = "Please select a proxy user";
-                    return;
-                }
+                //string[] subCats = { "HI", "AHI", "HA" };
+
+                //if (!subCats.Contains(LoggedInUser.SubCategory) && SelectedProxyUser == null)
+                //{
+                //    HasError = true;
+                //    ErrorMessage = "Please select a proxy user";
+                //    return;
+                //}
                 bool isValid = await ValidateApplication(LoggedInUser.Email);
                 bool isValidProxy = await ValidateApplication(SelectedProxyUser.Email);
                 if (!isValid)

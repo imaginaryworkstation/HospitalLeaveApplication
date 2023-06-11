@@ -67,13 +67,13 @@ namespace HospitalLeaveApplication.ViewModels
             {
                 LeaveStatusList.Clear();
                 LeaveStatusList.Add("All");
-                if (LoggedInUser.Category == "UHFPO")
+                if (LoggedInUser.SubCategory == "UHFPO")
                 {
                     LeaveStatusList.Add("Forwarded");
                     LeaveStatusList.Add("Approved");
                     LeaveStatusList.Add("Rejected");
                 }
-                else if(LoggedInUser.Category == "Admin")
+                else if(LoggedInUser.SubCategory == "Admin")
                 {
                     LeaveStatusList.Add("Pending");
                     LeaveStatusList.Add("Recommended");
@@ -86,10 +86,10 @@ namespace HospitalLeaveApplication.ViewModels
                     LeaveStatusList.Add("Recommended");
                     LeaveStatusList.Add("Declined");
                 }
-                SelectedLeaveStatus = StaticCredential.NotificationStatus ?? "All";
                 Task.Run(async () => {
                     await GetPathways();
                 });
+                SelectedLeaveStatus = StaticCredential.NotificationStatus ?? "All";
             }
             catch (Exception ex)
             {
@@ -116,8 +116,7 @@ namespace HospitalLeaveApplication.ViewModels
             try
             {
                 SelectedLeaveStatusList.Clear();
-                Pathways.Clear();
-                if (LoggedInUser.Category == "UHFPO")
+                if (LoggedInUser.SubCategory == "UHFPO")
                 {
                     if (SelectedLeaveStatus == "All")
                     {
@@ -130,7 +129,7 @@ namespace HospitalLeaveApplication.ViewModels
                         SelectedLeaveStatusList.Add(SelectedLeaveStatus);
                     }
                 }
-                if (LoggedInUser.Category == "Admin")
+                else if (LoggedInUser.SubCategory == "Admin")
                 {
                     list1.Clear();
                     list2.Clear();
@@ -164,6 +163,10 @@ namespace HospitalLeaveApplication.ViewModels
                 }
                 else
                 {
+                    if (pathways.Count == 0)
+                    {
+                        await GetPathways();
+                    }
                     if (SelectedLeaveStatus == "All")
                     {
                         SelectedLeaveStatusList.Add("Agreed");
@@ -174,7 +177,7 @@ namespace HospitalLeaveApplication.ViewModels
                     {
                         SelectedLeaveStatusList.Add(SelectedLeaveStatus);
                     }
-                    var list = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync(SelectedLeaveStatusList);
+                    var list = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync(SelectedLeaveStatusList, pathways);
                     MainThread.BeginInvokeOnMainThread(() => {
                         LeaveApplicationList.Clear();
                         LeaveApplicationList.AddRange(list);

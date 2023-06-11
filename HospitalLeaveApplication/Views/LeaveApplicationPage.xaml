@@ -52,8 +52,7 @@
                     <Grid Grid.Row="1" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                         <Frame Padding="5, -7" Margin="0, 0">
                             <StackLayout Orientation="Horizontal">
-                                <DatePicker Date="{Binding LeaveApplication.FromDate}" Format="dd-MM-yyyy" MinimumDate="{Binding MinFromDate}" DateSelected="FromDatePicker_DateSelected" TextColor="Black"/>
-                                <!--<Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />-->
+                                <DatePicker Date="{Binding LeaveApplication.FromDate}" Format="dd-MM-yyyy" DateSelected="FromDatePicker_DateSelected" TextColor="Black"/>
                             </StackLayout>
                         </Frame>
                     </Grid>
@@ -63,8 +62,7 @@
                     <Grid Grid.Row="2" Grid.Column="1" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                         <Frame Padding="5, -7" Margin="0, 0">
                             <StackLayout Orientation="Horizontal">
-                                <DatePicker Date="{Binding LeaveApplication.ToDate}" Format="dd-MM-yyyy" MinimumDate="{Binding MinToDate}" TextColor="Black"/>
-                                <!--<Label Style="{StaticResource DropdownLabel}" FontFamily="FASRegular" Text="{x:Static utility:FARegular.SquareCaretDown}" />-->
+                                <DatePicker Date="{Binding LeaveApplication.ToDate}" MinimumDate="{Binding MinToDate}" Format="dd-MM-yyyy" TextColor="Black"/>
                             </StackLayout>
                         </Frame>
                     </Grid>
