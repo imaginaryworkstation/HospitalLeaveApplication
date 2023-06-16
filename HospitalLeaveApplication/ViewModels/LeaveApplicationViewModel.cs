@@ -56,8 +56,8 @@ namespace HospitalLeaveApplication.ViewModels
             LoggedInUser = new User();
             LeaveApplication = new LeaveApplication()
             {
-                FromDate = MinFromDate,
-                ToDate = MinToDate
+                FromDate = MinFromDate.Date,
+                ToDate = MinToDate.Date
             };
             SelectedProxyUser = new User();
             LeaveApplicationCommand = new AsyncCommand(ExecuteLeaveApplication);
@@ -78,7 +78,11 @@ namespace HospitalLeaveApplication.ViewModels
                 //    return;
                 //}
                 bool isValid = await ValidateApplication(LoggedInUser.Email);
-                bool isValidProxy = await ValidateApplication(SelectedProxyUser.Email);
+                bool isValidProxy = true;
+                if (SelectedProxyUser != null && SelectedProxyUser.Email != null)
+                {
+                    isValidProxy = await ValidateApplication(SelectedProxyUser.Email);
+                }
                 if (!isValid)
                 {
                     HasError = true;
@@ -92,7 +96,10 @@ namespace HospitalLeaveApplication.ViewModels
                     return;
                 }
                 isValid = await ValidateApplication(LoggedInUser.Email, "proxy");
-                isValidProxy = await ValidateApplication(SelectedProxyUser.Email, "proxy");
+                if (SelectedProxyUser != null && SelectedProxyUser.Email != null)
+                {
+                    isValidProxy = await ValidateApplication(SelectedProxyUser.Email, "proxy");
+                }
                 if (!isValidProxy)
                 {
                     HasError = true;
@@ -103,9 +110,9 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     LeaveApplication.Key = string.Format("{0}{1}", LoggedInUser.Email, DateTime.Now.ToString("yyyyMMddHHmmss"));
                     LeaveApplication.LeaveType = SelectedLeaveType;
-                    LeaveApplication.Days = (LeaveApplication.ToDate - LeaveApplication.FromDate).Days + 1;
-                    LeaveApplication.ProxyName = SelectedProxyUser.Name;
-                    leaveApplication.ProxyEmail = SelectedProxyUser.Email;
+                    LeaveApplication.Days = (LeaveApplication.ToDate.Date - LeaveApplication.FromDate.Date).Days + 1;
+                    LeaveApplication.ProxyName = SelectedProxyUser != null && SelectedProxyUser.Name != null ? SelectedProxyUser.Name : "";
+                    leaveApplication.ProxyEmail = SelectedProxyUser != null && SelectedProxyUser.Name != null ? SelectedProxyUser.Name : "";
                     LeaveApplication.Role = LoggedInUser.SubCategory;
                     LeaveApplication.Status = "Pending";
                     FirebaseResponse response = await LeaveApplicationService.StoreLeaveApplication(LeaveApplication);

@@ -152,7 +152,7 @@ namespace HospitalLeaveApplication.ViewModels
                 {
                     AcceptButtonText = "Recommend";
                     RejectButtonText = "Decline";
-                    IsButtonVisible = LeaveApplication.Status == "Agreed";
+                    IsButtonVisible = LeaveApplication.Status == "Agreed" || (LeaveApplication.ProxyEmail == "" && LeaveApplication.Status == "Pending");
                     AcceptStatus = "Recommended";
                     RejectStatus = "Declined";
                 }

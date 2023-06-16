@@ -147,6 +147,28 @@ namespace HospitalLeaveApplication.Services
             return firebaseObjects;
         }
 
+        public async static Task<List<LeaveApplication>> GetLeaveApplicationsByStatusNoProxyAsync(List<string> statusList, List<string> roles = null)
+        {
+            FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);
+            List<LeaveApplication> firebaseObjects = null;
+            var query = (await firebaseClient.Child("LeaveApplications")
+                .OnceAsync<LeaveApplication>())
+                .Where(p => p.Object.ProxyEmail == "")
+                .Where(p => statusList.Any(r => p.Object.Status.Contains(r)));
+            if (roles != null)
+            {
+                firebaseObjects = query.Where(p => roles.Any(r => p.Object.Role.Contains(r)))
+                    .OrderBy(l => l.Object.FromDate)
+                    .Select(u => u.Object).ToList();
+            }
+            else
+            {
+                firebaseObjects = query.OrderBy(l => l.Object.FromDate).Select(u => u.Object).ToList();
+            }
+
+            return firebaseObjects;
+        }
+
         public async static Task<List<LeaveApplication>> GetLeaveApplicationsAsync()
         {
             FirebaseClient firebaseClient = new FirebaseClient(StaticCredential.DatabaseUrl);

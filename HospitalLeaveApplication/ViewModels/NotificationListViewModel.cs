@@ -85,6 +85,7 @@ namespace HospitalLeaveApplication.ViewModels
                     LeaveStatusList.Add("Agreed");
                     LeaveStatusList.Add("Recommended");
                     LeaveStatusList.Add("Declined");
+                    LeaveStatusList.Add("Pending");
                 }
                 Task.Run(async () => {
                     await GetPathways();
@@ -177,10 +178,20 @@ namespace HospitalLeaveApplication.ViewModels
                     {
                         SelectedLeaveStatusList.Add(SelectedLeaveStatus);
                     }
-                    var list = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync(SelectedLeaveStatusList, pathways);
+                    var noProxyList = new List<LeaveApplication>();
+                    var list = new List<LeaveApplication>();
+                    if (SelectedLeaveStatus != "Pending")
+                    {
+                        list = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync(SelectedLeaveStatusList, pathways);
+                    }
+                    if (SelectedLeaveStatus == "All" || SelectedLeaveStatus == "Pending")
+                    {
+                        noProxyList = await LeaveApplicationService.GetLeaveApplicationsByStatusNoProxyAsync(new List<string> { "Pending" }, pathways);
+                    }
                     MainThread.BeginInvokeOnMainThread(() => {
                         LeaveApplicationList.Clear();
                         LeaveApplicationList.AddRange(list);
+                        LeaveApplicationList.AddRange(noProxyList);
                     });
                 }
             }
