@@ -77,7 +77,7 @@
                 <Label Text="{Binding User.Enjoyed}"/>
             </Grid>
             <Grid Grid.Row="7" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave Remaining" />
+                <Label Text="Leave remain" />
             </Grid>
             <Grid Grid.Row="7" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding User.Remaining}"/>

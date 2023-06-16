@@ -56,13 +56,13 @@
                     <Label Text="{Binding LeaveApplication.Days}" TextColor="Black"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                    <Label Text="Enjoyed" TextColor="Black"/>
+                    <Label Text="Leave Enjoyed" TextColor="Black"/>
                 </Grid>
                 <Grid Grid.Row="4" Grid.Column="1" Style="{StaticResource DetailGrid}">
                     <Label Text="{Binding User.Enjoyed, StringFormat='{0} days'}" TextColor="Black"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="0" Style="{StaticResource DetailGrid}">
-                    <Label Text="Remaining" TextColor="Black"/>
+                    <Label Text="Leave remain" TextColor="Black"/>
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="1" Style="{StaticResource DetailGrid}">
                     <Label Text="{Binding User.Remaining, StringFormat='{0} days'}" TextColor="Black"/>

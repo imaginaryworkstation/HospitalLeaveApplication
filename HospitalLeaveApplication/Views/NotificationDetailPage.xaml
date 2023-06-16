@@ -61,7 +61,7 @@
                     <Label Text="{Binding User.Enjoyed, StringFormat='{0} days'}" />
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="0" Margin="10" VerticalOptions="CenterAndExpand">
-                    <Label Text="Remaining" />
+                    <Label Text="Leave remain" />
                 </Grid>
                 <Grid Grid.Row="5" Grid.Column="1" Margin="10" VerticalOptions="CenterAndExpand">
                     <Label Text="{Binding User.Remaining, StringFormat='{0} days'}" />

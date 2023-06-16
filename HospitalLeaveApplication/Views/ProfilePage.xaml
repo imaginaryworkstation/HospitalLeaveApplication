@@ -71,7 +71,7 @@
                 <Label Text="{Binding User.Enjoyed}" TextColor="Black"/>
             </Grid>
             <Grid IsVisible="{Binding IsEditable}" Grid.Row="6" Grid.Column="0" Margin="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-                <Label Text="Leave Remaining" TextColor="Black"/>
+                <Label Text="Leave remain" TextColor="Black"/>
             </Grid>
             <Grid IsVisible="{Binding IsEditable}" Grid.Row="6" Grid.Column="1" Margin="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding User.Remaining}" TextColor="Black"/>
