@@ -24,6 +24,7 @@ namespace HospitalLeaveApplication.ViewModels
             set
             {
                 SetProperty(ref selectedLeaveStatus, value);
+                StaticCredential.NotificationStatus = value;
                 Task.Run(async () => await GetLeaveApplications());
             }
         }
@@ -116,6 +117,8 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
+                list1.Clear();
+                list2.Clear();
                 SelectedLeaveStatusList.Clear();
                 if (LoggedInUser.SubCategory == "UHFPO")
                 {
@@ -129,11 +132,15 @@ namespace HospitalLeaveApplication.ViewModels
                     {
                         SelectedLeaveStatusList.Add(SelectedLeaveStatus);
                     }
+                    list1 = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync(SelectedLeaveStatusList);
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        LeaveApplicationList.Clear();
+                        LeaveApplicationList.AddRange(list1);
+                    });
                 }
                 else if (LoggedInUser.SubCategory == "Admin")
                 {
-                    list1.Clear();
-                    list2.Clear();
                     if (SelectedLeaveStatus == "All")
                     {
                         SelectedLeaveStatusList.Add("Recommended");
@@ -178,20 +185,18 @@ namespace HospitalLeaveApplication.ViewModels
                     {
                         SelectedLeaveStatusList.Add(SelectedLeaveStatus);
                     }
-                    var noProxyList = new List<LeaveApplication>();
-                    var list = new List<LeaveApplication>();
                     if (SelectedLeaveStatus != "Pending")
                     {
-                        list = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync(SelectedLeaveStatusList, pathways);
+                        list1 = await LeaveApplicationService.GetLeaveApplicationsByStatusAsync(SelectedLeaveStatusList, pathways);
                     }
                     if (SelectedLeaveStatus == "All" || SelectedLeaveStatus == "Pending")
                     {
-                        noProxyList = await LeaveApplicationService.GetLeaveApplicationsByStatusNoProxyAsync(new List<string> { "Pending" }, pathways);
+                        list2 = await LeaveApplicationService.GetLeaveApplicationsByStatusNoProxyAsync(new List<string> { "Pending" }, pathways);
                     }
                     MainThread.BeginInvokeOnMainThread(() => {
                         LeaveApplicationList.Clear();
-                        LeaveApplicationList.AddRange(list);
-                        LeaveApplicationList.AddRange(noProxyList);
+                        LeaveApplicationList.AddRange(list1);
+                        LeaveApplicationList.AddRange(list2);
                     });
                 }
             }

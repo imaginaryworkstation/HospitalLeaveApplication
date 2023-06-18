@@ -37,22 +37,22 @@
                     <Frame Style="{StaticResource TableHeaderFrame}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.30*" />
-                                <ColumnDefinition Width="0.20*" />
-                                <ColumnDefinition Width="0.20*" />
-                                <ColumnDefinition Width="0.20*" />
+                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="0.2*" />
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Label TextColor="Black" Text="Name" />
+                            <Grid Grid.Column="0" HorizontalOptions="CenterAndExpand">
+                                <Label TextColor="Black" Text="Recognition" />
                             </Grid>
-                            <Grid Grid.Column="1">
-                                <Label TextColor="Black" Text="From" />
+                            <Grid Grid.Column="1" HorizontalOptions="CenterAndExpand">
+                                <Label TextColor="Black" Text="Date" />
                             </Grid>
-                            <Grid Grid.Column="2">
-                                <Label TextColor="Black" Text="To" />
+                            <Grid Grid.Column="2" HorizontalOptions="CenterAndExpand">
+                                <Label TextColor="Black" Text="Type" />
                             </Grid>
-                            <Grid Grid.Column="3">
-                                <Label TextColor="Black" Text="Leave type" />
+                            <Grid Grid.Column="3" HorizontalOptions="CenterAndExpand">
+                                <Label TextColor="Black" Text="Status" />
                             </Grid>
                         </Grid>
                     </Frame>
@@ -68,26 +68,33 @@
                                 <ViewCell>
                                     <Grid Margin="10, 0">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.30*" />
-                                            <ColumnDefinition Width="0.20*" />
-                                            <ColumnDefinition Width="0.20*" />
-                                            <ColumnDefinition Width="0.20*" />
+                                            <ColumnDefinition Width="140" />
+                                            <ColumnDefinition Width="80" />
+                                            <ColumnDefinition Width="0.2*" />
+                                            <ColumnDefinition Width="0.2*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
-                                        <Grid Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                            <Label TextColor="Black" Text="{Binding Name}" FontSize="12"/>
+                                        <Grid Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Padding="5, 0" VerticalOptions="CenterAndExpand">
+                                            <StackLayout>
+                                                <Label Margin="0, 2" TextColor="Black" Text="{Binding Name}" FontSize="13"/>
+                                                <Label Margin="0, 2" TextColor="Black" Text="{Binding Role}" FontSize="10"/>
+                                            </StackLayout>
                                         </Grid>
-                                        <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                            <Label TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12"/>
+                                        <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Padding="5, 0" VerticalOptions="CenterAndExpand">
+                                            <StackLayout HorizontalOptions="StartAndExpand">
+                                                <Label Margin="0, 2" TextColor="Black" Text="{Binding FromDate, StringFormat='{0:dd-MM-yy}'}" FontSize="11" />
+                                                <Label Margin="0, 2" TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" FontSize="11" />
+                                            </StackLayout>
                                         </Grid>
-                                        <Grid Grid.Column="2" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                            <Label TextColor="Black" Text="{Binding ToDate, StringFormat='{0:dd-MM-yy}'}" FontSize="12"/>
+                                        <Grid Grid.Column="2" Grid.Row="0" BackgroundColor="Transparent" Padding="5, 0" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
+                                            <Label TextColor="Black" Text="{Binding LeaveType}" FontSize="12" HorizontalOptions="CenterAndExpand"/>
                                         </Grid>
-                                        <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="10" VerticalOptions="CenterAndExpand">
-                                            <Label TextColor="Black" Text="{Binding LeaveType}" FontSize="12"/>
+                                        <Grid Grid.Column="3" Grid.Row="0" BackgroundColor="Transparent" Padding="5, 0" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand">
+                                            <Label IsVisible="{Binding BlackText}" TextColor="Black" Text="{Binding Status}" FontSize="12" HorizontalOptions="CenterAndExpand"/>
+                                            <Label IsVisible="{Binding BlueText}" TextColor="Blue" Text="{Binding Status}" FontSize="12" HorizontalOptions="CenterAndExpand"/>
                                         </Grid>
                                         <Grid Grid.Row="1" Grid.ColumnSpan="4">
                                             <BoxView Color="LightGrey" HeightRequest="1" />

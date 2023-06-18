@@ -22,6 +22,7 @@ namespace HospitalLeaveApplication.ViewModels
             set
             {
                 SetProperty(ref selectedLeaveStatus, value);
+                StaticCredential.LeaveApplicationStatus = value;
                 Task.Run(async () => await GetLeaveApplications());
             }
         }
@@ -68,7 +69,6 @@ namespace HospitalLeaveApplication.ViewModels
                     LoggedInUser = await LocalDBService.GetToken();
                 }
                 SelectedLeaveStatus = StaticCredential.LeaveApplicationStatus ?? "All";
-                //await GetLeaveApplications();
             }
             catch(Exception ex)
             {

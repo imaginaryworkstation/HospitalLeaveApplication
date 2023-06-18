@@ -30,7 +30,7 @@ namespace HospitalLeaveApplication.Utilities
                 "Denied",
                 "Forwarded",
                 "Declined",
-                "Reccomended",
+                "Recommended",
                 "Sent back",
                 "Approved",
                 "Rejected",
@@ -79,7 +79,7 @@ namespace HospitalLeaveApplication.Utilities
         {
             return new List<string>
             {
-                "RMO", "Nursing Supervisor", "NS", "Office Shohokari", "HI in charge", "HI", "AHI", "Admin", "UHFPO"
+                "RMO", "Nursing Supervisor", "NS", "Office Shohokari", "HI", "Admin", "UHFPO"
             };
         }
     }

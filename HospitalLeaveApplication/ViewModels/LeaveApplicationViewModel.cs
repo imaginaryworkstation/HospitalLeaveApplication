@@ -112,7 +112,7 @@ namespace HospitalLeaveApplication.ViewModels
                     LeaveApplication.LeaveType = SelectedLeaveType;
                     LeaveApplication.Days = (LeaveApplication.ToDate.Date - LeaveApplication.FromDate.Date).Days + 1;
                     LeaveApplication.ProxyName = SelectedProxyUser != null && SelectedProxyUser.Name != null ? SelectedProxyUser.Name : "";
-                    leaveApplication.ProxyEmail = SelectedProxyUser != null && SelectedProxyUser.Name != null ? SelectedProxyUser.Name : "";
+                    leaveApplication.ProxyEmail = SelectedProxyUser != null && SelectedProxyUser.Email != null ? SelectedProxyUser.Email : "";
                     LeaveApplication.Role = LoggedInUser.SubCategory;
                     LeaveApplication.Status = "Pending";
                     FirebaseResponse response = await LeaveApplicationService.StoreLeaveApplication(LeaveApplication);

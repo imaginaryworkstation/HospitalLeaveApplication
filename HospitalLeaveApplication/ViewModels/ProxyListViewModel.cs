@@ -19,6 +19,7 @@ namespace HospitalLeaveApplication.ViewModels
             set
             {
                 SetProperty(ref selectedLeaveStatus, value);
+                StaticCredential.ProxyStatus = value;
                 Task.Run(async () => await GetLeaveApplications());
             }
         }

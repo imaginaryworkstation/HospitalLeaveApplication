@@ -30,6 +30,7 @@ namespace HospitalLeaveApplication.ViewModels
 
         private async Task ExecuteLogout()
         {
+            StaticCredential.LeaveApplicationStatus = null;
             await LocalDBService.RemoveToken();
             await MainThread.InvokeOnMainThreadAsync(() => { Application.Current.MainPage = new AppShell(); });
         }
