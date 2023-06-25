@@ -3,21 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HospitalLeaveApplication.UserShell"
              xmlns:local="clr-namespace:HospitalLeaveApplication.Views"
+            xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+            android:TabbedPage.ToolbarPlacement="Bottom"
              xmlns:viewmodel="clr-namespace:HospitalLeaveApplication">
 
     <Shell.BindingContext>
         <viewmodel:UserShellViewModel />
     </Shell.BindingContext>
-    
+
     <FlyoutItem Title="Dashboard">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:DashboardPage}" />
+            <ShellContent ContentTemplate="{DataTemplate local:DashboardPage}" Route="DashboardPage"/>
         </Tab>
     </FlyoutItem>
 
     <FlyoutItem IsVisible="{Binding IsNotAdmin}" Title="Take Leave">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:LeaveApplicationPage}"  Route="LeaveApplicationPage"/>
+            <ShellContent ContentTemplate="{DataTemplate local:LeaveApplicationPage}" Route="LeaveApplicationPage"/>
         </Tab>
     </FlyoutItem>
 

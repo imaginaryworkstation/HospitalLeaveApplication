@@ -18,6 +18,12 @@ public partial class LeaveApplicationListPage : ContentPage
         viewModel.OnAppearing();
     }
 
+    protected override bool OnBackButtonPressed()
+    {
+        Shell.Current.GoToAsync($"{nameof(DashboardPage)}");
+        return true;
+    }
+
     private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         LeaveApplication leaveApplication = e.CurrentSelection.FirstOrDefault() as LeaveApplication;
