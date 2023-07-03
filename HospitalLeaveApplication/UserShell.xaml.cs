@@ -4,6 +4,7 @@ namespace HospitalLeaveApplication;
 
 public partial class UserShell : Shell
 {
+    private bool isBack;
     private UserShellViewModel viewModel;
     private Stack<ShellNavigationState> Uri { get; set; } // Navigation stack.
     private ShellNavigationState temp; // Prevents applications from adding redundant data to the stack when the back button is clicked. 
@@ -24,30 +25,41 @@ public partial class UserShell : Shell
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        isBack = false;
         viewModel.OnAppearing();
     }
 
     protected override void OnNavigated(ShellNavigatedEventArgs args)
     {
         base.OnNavigated(args);
-        if (Uri != null && args.Current != null && (temp == null || args.Current.Location != temp.Location))
+        if (Uri != null && args.Previous != null && isBack == false)
         {
-            Uri.Push(args.Current);
+            if (args.Previous.Location.ToString() != "//LeaveApplicationListPage/LeaveApplicationDetailPage")
+            {
+                Uri.Push(args.Previous);
+            }
+            
         }
+        isBack = false;
     }
 
 
     protected override bool OnBackButtonPressed()
     {
+        isBack = true;
         if (Uri.Count > 0)
         {
-            temp = Uri.Pop();
-            Shell.Current.GoToAsync(temp);
+            Shell.Current.GoToAsync(Uri.Pop());
             return true;
+        }
+        else if(CurrentPage.GetType().Name == "DashboardPage")
+        {
+            return false;
         }
         else
         {
-            return false;
+            Shell.Current.GoToAsync("//DashboardPage");
+            return true;
         }
     }
 }
