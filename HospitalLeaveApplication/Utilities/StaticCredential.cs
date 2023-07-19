@@ -5,7 +5,7 @@ namespace HospitalLeaveApplication.Utilities
 	public class StaticCredential
 	{
         //public static string DatabaseUrl = "https://hospitalleave-default-rtdb.asia-southeast1.firebasedatabase.app/";
-        public static string DatabaseUrl = "https://hospitalleave-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        public static string DatabaseUrl = "https://muksudpuruhc-default-rtdb.firebaseio.com/";
         public static string LeaveApplicationStatus = null;
         public static string NotificationStatus = null;
         public static string ProxyStatus = null;
