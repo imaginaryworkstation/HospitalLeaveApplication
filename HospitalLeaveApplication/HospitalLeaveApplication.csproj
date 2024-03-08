@@ -14,7 +14,7 @@
 		<ApplicationTitle>Muksudpur UHC CL</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>MuksudpurUHC.CL</ApplicationId>
+		<ApplicationId>com.MuksudpurUHC.CL</ApplicationId>
 		<ApplicationIdGuid>b541ddaa-b7d5-4e98-a549-a57f2aeee1d7</ApplicationIdGuid>
 
 		<!-- Versions -->
