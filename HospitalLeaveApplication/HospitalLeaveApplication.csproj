@@ -14,12 +14,12 @@
 		<ApplicationTitle>Muksudpur UHC CL</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.MuksudpurUHC.CL</ApplicationId>
+		<ApplicationId>MuksudpurUHC.CL</ApplicationId>
 		<ApplicationIdGuid>b541ddaa-b7d5-4e98-a549-a57f2aeee1d7</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+		<ApplicationVersion>2</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>

@@ -46,7 +46,8 @@ namespace HospitalLeaveApplication.ViewModels
             }
             catch(Exception ex)
             {
-
+                HasError = true;
+                ErrorMessage = "Unexpected error occured, please restart the app!";
             }
         }
 

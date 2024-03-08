@@ -32,6 +32,8 @@ public partial class LeaveApplicationListPage : ContentPage
 
     private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
     {
+        ((ListView)sender).SelectedItem = null;
+        ((ListView)sender).BackgroundColor = Colors.Transparent;
         LeaveApplication leaveApplication = e.Item as LeaveApplication;
         await Shell.Current.GoToAsync($"{nameof(LeaveApplicationDetailPage)}?key={leaveApplication.Key}");
     }

@@ -21,4 +21,15 @@ public partial class LeaveApplicationDetailPage : ContentPage
     {
         await Navigation.PushModalAsync(new LeaveCertificatePage(viewModel.LeaveApplication));
     }
+
+    private void FromDatePicker_DateSelected(object sender, DateChangedEventArgs e)
+    {
+        viewModel.MinToDate = e.NewDate;
+        leaveTotalDays.Text = ((viewModel.LeaveApplication.ToDate - viewModel.LeaveApplication.FromDate).Days + 1).ToString();
+    }
+
+    private void ToDatePicker_DateSelected(object sender, DateChangedEventArgs e)
+    {
+        leaveTotalDays.Text= ((viewModel.LeaveApplication.ToDate - viewModel.LeaveApplication.FromDate).Days + 1).ToString();
+    }
 }

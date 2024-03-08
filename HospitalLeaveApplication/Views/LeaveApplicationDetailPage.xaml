@@ -11,7 +11,7 @@
     </ContentPage.BindingContext>
     
     <VerticalStackLayout>
-        <Frame Style="{StaticResource FullFrame}">
+        <Frame Style="{StaticResource FullFrame}" IsVisible="{Binding IsShowing}">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.3*" />
@@ -93,6 +93,119 @@
                 </Grid>
                 <Grid IsVisible="{Binding IsApproved}" Grid.Row="10" Grid.Column="1" Style="{StaticResource DetailGrid}">
                     <Button Style="{StaticResource NavigateButton}" Text="Certificate" Clicked="Button_Clicked" />
+                </Grid>
+                <Grid IsVisible="{Binding IsPending}" Grid.Row="10" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Button Text="Edit" Command="{Binding ToggleFormCommand}" />
+                </Grid>
+            </Grid>
+        </Frame>
+        <Frame Style="{StaticResource FullFrame}" IsVisible="{Binding IsEditing}">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*" />
+                    <ColumnDefinition Width="0.6*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Leave type" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Frame Padding="5, -7" Margin="0, 0">
+                        <StackLayout Orientation="Horizontal">
+                            <Picker x:Name="picker"
+                                    Title="Select Leave Type"
+                                    TextColor="Black"
+                                    ItemsSource="{Binding LeaveTypeList}"
+                                    SelectedItem="{Binding SelectedLeaveType}" />
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+                <Grid Grid.Row="1" Margin="10" Style="{StaticResource DetailGrid}">
+                    <Label Grid.Column="0" Text="From date" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Frame Padding="5, -7" Margin="0, 0">
+                        <StackLayout Orientation="Horizontal">
+                            <DatePicker Date="{Binding LeaveApplication.FromDate}" Format="dd-MM-yyyy" DateSelected="FromDatePicker_DateSelected" TextColor="Black"/>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="To date" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Frame Padding="5, -7" Margin="0, 0">
+                        <StackLayout Orientation="Horizontal">
+                            <DatePicker x:Name="editToDate" Date="{Binding LeaveApplication.ToDate}" Format="dd-MM-yyyy" TextColor="Black"/>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Total days" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label x:Name="leaveTotalDays" Text="{Binding LeaveApplication.Days}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Leave Enjoyed" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding User.Enjoyed, StringFormat='{0} days'}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="5" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Leave remain" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="5" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Label Text="{Binding User.Remaining, StringFormat='{0} days'}" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="6" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Proxy" TextColor="Black"/>
+                </Grid>
+                <Grid Grid.Row="6" Grid.Column="1" Style="{StaticResource DetailGrid}" IsVisible="{Binding DropdownNotClicked}">
+                    <Label Text="{Binding SelectedProxyUser.Name}" TextColor="Black">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ProxyTapCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="6" Grid.Column="1" Style="{StaticResource DetailGrid}" IsVisible="{Binding DropdownClicked}">
+                    <Frame Padding="5, -7" Margin="0, 0">
+                        <StackLayout Orientation="Horizontal">
+                            <Picker x:Name="userpicker2"
+                                Title="Select Proxy"
+                                TextColor="Black"
+                                ItemsSource="{Binding ProxyUserList}"
+                                ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding SelectedProxyUser}"/>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+                <Grid x:Name="residenceLabel2" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Label Text="Place of residence" TextColor="Black"/>
+                </Grid>
+                <Grid x:Name="residenceEntry2" IsVisible="{Binding IsResidenceEnable}" Grid.Row="7" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Frame Padding="5, -7" Margin="0, 0">
+                        <Entry Placeholder="Place of residence during leave" Text="{Binding LeaveApplication.Residence}" TextColor="Black"/>
+                    </Frame>
+                </Grid>
+                <Grid Grid.Row="8" Grid.Column="0" Style="{StaticResource DetailGrid}">
+                    <Button Text="Back" BackgroundColor="Green" Command="{Binding ToggleFormCommand}" />
+                </Grid>
+                <Grid Grid.Row="8" Grid.Column="1" Style="{StaticResource DetailGrid}">
+                    <Button Text="Update" Command="{Binding UpdateLeaveApplicationCommand}" />
                 </Grid>
             </Grid>
         </Frame>

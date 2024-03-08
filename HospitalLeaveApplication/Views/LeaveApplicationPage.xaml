@@ -39,7 +39,7 @@
                         <Frame Padding="5, -7" Margin="0, 0">
                             <StackLayout Orientation="Horizontal">
                                 <Picker x:Name="picker"
-                                    Title="Select Leave Status"
+                                    Title="Select Leave Type"
                                     TextColor="Black"
                                     ItemsSource="{Binding LeaveTypes}"
                                     SelectedItem="{Binding SelectedLeaveType}" />

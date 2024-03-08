@@ -73,22 +73,29 @@ namespace HospitalLeaveApplication.ViewModels
         private async Task GetToken()
         {
             User user = await LocalDBService.GetToken();
-            FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(user.Email);
-            User LoginUser = firebaseObject.Object as User;
-            if (LoginUser.LastLogin.Year < DateTime.Now.Year)
+            if (user != null)
             {
-                LoginUser.Remaining = 20;
-                LoginUser.Enjoyed = 0;
+                FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(user.Email);
+                User LoginUser = firebaseObject.Object as User;
+                if (user != null && (user.SubCategory == "UHFPO" || user.SubCategory == "Admin"))
+                {
+                    IsAdmin = true;
+                }
+                var seniorList = StaticCredential.SeniorList();
+                IsSenior = user != null && seniorList.Contains(user.SubCategory);
+                IsNotAdmin = !IsAdmin;
+                if (LoginUser.LastLogin.Year < DateTime.Now.Year)
+                {
+                    LoginUser.Remaining = 20;
+                    LoginUser.Enjoyed = 0;
+                }
+                LoginUser.LastLogin = DateTime.Now;
+                await UserService.UpdateUserAsync(firebaseObject.Key, LoginUser);
             }
-            LoginUser.LastLogin = DateTime.Now;
-            await UserService.UpdateUserAsync(firebaseObject.Key, LoginUser);
-            if (user != null && (user.SubCategory == "UHFPO" || user.SubCategory == "Admin"))
+            else
             {
-                IsAdmin = true;
+                await MainThread.InvokeOnMainThreadAsync(() => { Application.Current.MainPage = new AppShell(); });
             }
-            var seniorList = StaticCredential.SeniorList();
-            IsSenior = user != null && seniorList.Contains(user.SubCategory);
-            IsNotAdmin = !IsAdmin;
         }
     }
 }

@@ -63,7 +63,7 @@ namespace HospitalLeaveApplication.Services
             var query = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
                 .Where(l => l.Object.Email == email)
-                .OrderBy(l => l.Object.FromDate);
+                .OrderByDescending(l => l.Object.FromDate);
             if (status != null)
             {
                 firebaseObjects = query.Where(l => l.Object.Status == status).Select(u => u.Object).ToList();
@@ -82,7 +82,7 @@ namespace HospitalLeaveApplication.Services
             var query = (await firebaseClient.Child("LeaveApplications")
                 .OnceAsync<LeaveApplication>())
                 .Where(l => l.Object.ProxyEmail == email)
-                .OrderBy(l => l.Object.FromDate);
+                .OrderByDescending(l => l.Object.FromDate);
             if (status != null)
             {
                 firebaseObjects = query.Where(l => l.Object.Status == status).Select(u => u.Object).ToList();
@@ -102,7 +102,7 @@ namespace HospitalLeaveApplication.Services
                 .OnceAsync<LeaveApplication>())
                 .Where(p => roles.Any(r => p.Object.Role.Contains(r)))
                 .Where(l => l.Object.Status == "Pending")
-                .OrderBy(l => l.Object.FromDate)
+                .OrderByDescending(l => l.Object.FromDate)
                 .Select(u => u.Object).ToList();
             return firebaseObjects;
         }
@@ -136,12 +136,12 @@ namespace HospitalLeaveApplication.Services
             if (roles != null)
             {
                 firebaseObjects = query.Where(p => roles.Any(r => p.Object.Role.Contains(r)))
-                    .OrderBy(l => l.Object.FromDate)
+                    .OrderByDescending(l => l.Object.FromDate)
                     .Select(u => u.Object).ToList();
             }
             else
             {
-                firebaseObjects = query.OrderBy(l => l.Object.FromDate).Select(u => u.Object).ToList();
+                firebaseObjects = query.OrderByDescending(l => l.Object.FromDate).Select(u => u.Object).ToList();
             }
                 
             return firebaseObjects;
@@ -158,12 +158,12 @@ namespace HospitalLeaveApplication.Services
             if (roles != null)
             {
                 firebaseObjects = query.Where(p => roles.Any(r => p.Object.Role.Contains(r)))
-                    .OrderBy(l => l.Object.FromDate)
+                    .OrderByDescending(l => l.Object.FromDate)
                     .Select(u => u.Object).ToList();
             }
             else
             {
-                firebaseObjects = query.OrderBy(l => l.Object.FromDate).Select(u => u.Object).ToList();
+                firebaseObjects = query.OrderByDescending(l => l.Object.FromDate).Select(u => u.Object).ToList();
             }
 
             return firebaseObjects;

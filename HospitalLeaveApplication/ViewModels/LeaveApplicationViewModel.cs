@@ -206,7 +206,7 @@ namespace HospitalLeaveApplication.ViewModels
             {
                 leaveApplications = await LeaveApplicationService.GetLeaveApplicationsByEmailAsync(email);
             }
-            leaveApplications = leaveApplications.Where(l => l.Status != "Rejected").ToList();
+            leaveApplications = leaveApplications.Where(l => l.Status != "Rejected" && l.Status != "Declined" && l.Status != "Denied").ToList();
             int fromCount = leaveApplications.Where(l => l.FromDate.Date >= leaveApplication.FromDate.Date && l.FromDate.Date <= leaveApplication.ToDate.Date).Count();
             int toCount = leaveApplications.Where(l => l.ToDate.Date >= leaveApplication.FromDate.Date && l.ToDate.Date <= leaveApplication.ToDate.Date).Count();
             int midCount = leaveApplications.Where(l => l.FromDate.Date >= leaveApplication.FromDate.Date && l.ToDate.Date <= leaveApplication.ToDate.Date).Count();

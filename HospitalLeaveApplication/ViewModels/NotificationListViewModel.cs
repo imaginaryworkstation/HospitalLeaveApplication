@@ -165,8 +165,8 @@ namespace HospitalLeaveApplication.ViewModels
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
                         LeaveApplicationList.Clear();
-                        LeaveApplicationList.AddRange(list1);
-                        LeaveApplicationList.AddRange(list2);
+                        LeaveApplicationList.AddRange(list1.OrderByDescending(q => q.FromDate));
+                        LeaveApplicationList.AddRange(list2.OrderByDescending(q => q.FromDate));
                     });
                 }
                 else
@@ -195,8 +195,8 @@ namespace HospitalLeaveApplication.ViewModels
                     }
                     MainThread.BeginInvokeOnMainThread(() => {
                         LeaveApplicationList.Clear();
-                        LeaveApplicationList.AddRange(list1);
-                        LeaveApplicationList.AddRange(list2);
+                        LeaveApplicationList.AddRange(list1.OrderByDescending(q => q.FromDate));
+                        LeaveApplicationList.AddRange(list2.OrderByDescending(q => q.FromDate));
                     });
                 }
             }

@@ -1,13 +1,6 @@
 ﻿using Firebase.Database;
-using Firebase.Database.Query;
 using HospitalLeaveApplication.Models;
-using HospitalLeaveApplication.Models.HelperModels;
 using HospitalLeaveApplication.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalLeaveApplication.Services
 {
