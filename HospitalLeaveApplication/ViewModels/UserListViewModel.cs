@@ -36,6 +36,7 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
+                IsBusy = true;
                 LoggedinUser = StaticCredential.User;
                 if(LoggedinUser == null)
                 {
@@ -50,6 +51,7 @@ namespace HospitalLeaveApplication.ViewModels
             {
 
             }
+            finally { IsBusy = false; }
         }
     }
 }

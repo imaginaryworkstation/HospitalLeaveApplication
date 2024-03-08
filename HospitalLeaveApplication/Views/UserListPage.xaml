@@ -16,7 +16,10 @@
                 <StackLayout HorizontalOptions="EndAndExpand" Margin="10">
                     <Button x:Name="AddUser" Margin="0" Padding="5" HeightRequest="30" FontSize="14" FontAttributes="Bold" BackgroundColor="{StaticResource Primary}" TextColor="White" Text="New User" Command="{Binding NavigateToNewUserCommand}"/>
                 </StackLayout>
-                <StackLayout>
+                <StackLayout IsVisible="{Binding IsBusy}">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"  Color="{StaticResource Primary}"/>
+                </StackLayout>
+                <StackLayout IsVisible="{Binding IsNotBusy}">
                     <Frame Style="{StaticResource TableHeaderFrame}">
                         <Grid>
                             <Grid.ColumnDefinitions>

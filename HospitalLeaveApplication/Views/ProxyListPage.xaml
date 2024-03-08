@@ -33,7 +33,10 @@
                         </Frame>
                     </StackLayout>
                 </Grid>
-                <StackLayout>
+                <StackLayout IsVisible="{Binding IsBusy}">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"  Color="{StaticResource Primary}"/>
+                </StackLayout>
+                <StackLayout IsVisible="{Binding IsNotBusy}">
                     <Frame Style="{StaticResource TableHeaderFrame}">
                         <Grid>
                             <Grid.ColumnDefinitions>

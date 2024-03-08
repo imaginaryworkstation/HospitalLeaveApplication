@@ -117,6 +117,7 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
+                IsBusy = true;
                 list1.Clear();
                 list2.Clear();
                 SelectedLeaveStatusList.Clear();
@@ -203,6 +204,10 @@ namespace HospitalLeaveApplication.ViewModels
             catch (Exception ex)
             {
 
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

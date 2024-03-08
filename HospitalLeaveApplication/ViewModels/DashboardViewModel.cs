@@ -72,29 +72,41 @@ namespace HospitalLeaveApplication.ViewModels
         }
         private async Task GetToken()
         {
-            User user = await LocalDBService.GetToken();
-            if (user != null)
+            try
             {
-                FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(user.Email);
-                User LoginUser = firebaseObject.Object as User;
-                if (user != null && (user.SubCategory == "UHFPO" || user.SubCategory == "Admin"))
+                IsBusy = true;
+                User user = await LocalDBService.GetToken();
+                if (user != null)
                 {
-                    IsAdmin = true;
+                    FirebaseObject<User> firebaseObject = await UserService.GetUserWithKeyAsync(user.Email);
+                    User LoginUser = firebaseObject.Object as User;
+                    if (user != null && (user.SubCategory == "UHFPO" || user.SubCategory == "Admin"))
+                    {
+                        IsAdmin = true;
+                    }
+                    var seniorList = StaticCredential.SeniorList();
+                    IsSenior = user != null && seniorList.Contains(user.SubCategory);
+                    IsNotAdmin = !IsAdmin;
+                    if (LoginUser.LastLogin.Year < DateTime.Now.Year)
+                    {
+                        LoginUser.Remaining = 20;
+                        LoginUser.Enjoyed = 0;
+                    }
+                    LoginUser.LastLogin = DateTime.Now;
+                    await UserService.UpdateUserAsync(firebaseObject.Key, LoginUser);
                 }
-                var seniorList = StaticCredential.SeniorList();
-                IsSenior = user != null && seniorList.Contains(user.SubCategory);
-                IsNotAdmin = !IsAdmin;
-                if (LoginUser.LastLogin.Year < DateTime.Now.Year)
+                else
                 {
-                    LoginUser.Remaining = 20;
-                    LoginUser.Enjoyed = 0;
+                    await MainThread.InvokeOnMainThreadAsync(() => { Application.Current.MainPage = new AppShell(); });
                 }
-                LoginUser.LastLogin = DateTime.Now;
-                await UserService.UpdateUserAsync(firebaseObject.Key, LoginUser);
             }
-            else
+            catch(Exception ex)
             {
-                await MainThread.InvokeOnMainThreadAsync(() => { Application.Current.MainPage = new AppShell(); });
+
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

@@ -11,7 +11,10 @@
 
     <Grid>
         <Image Source="bg.jpg" VerticalOptions="Fill" Aspect="AspectFill"/>
-        <VerticalStackLayout HorizontalOptions="CenterAndExpand">
+        <StackLayout IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" />
+        </StackLayout>
+        <VerticalStackLayout HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsNotBusy}">
             <Grid IsVisible="{Binding IsNotAdmin}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

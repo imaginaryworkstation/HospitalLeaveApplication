@@ -39,7 +39,7 @@
                     </Grid>
                 </Frame>
                 <StackLayout>
-                    <Button BackgroundColor="{StaticResource Primary}" CornerRadius="25" Padding="8" Text="Login" FontSize="16" FontAttributes="Bold" TextColor="White" Command="{Binding LoginCommand}"/>
+                    <Button IsEnabled="{Binding IsNotBusy}" BackgroundColor="{StaticResource Primary}" CornerRadius="25" Padding="8" Text="{Binding LoginText}" FontSize="16" FontAttributes="Bold" TextColor="White" Command="{Binding LoginCommand}"/>
                 </StackLayout>
                 <Frame IsVisible="{Binding HasError}" HorizontalOptions="CenterAndExpand" BackgroundColor="Red" Padding="5" BorderColor="Transparent">
                     <Label Text="{Binding ErrorMessage}" TextColor="White" />

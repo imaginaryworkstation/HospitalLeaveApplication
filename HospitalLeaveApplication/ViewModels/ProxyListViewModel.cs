@@ -72,6 +72,7 @@ namespace HospitalLeaveApplication.ViewModels
         {
             try
             {
+                IsBusy = true;
                 status = SelectedLeaveStatus == "All" ? null : SelectedLeaveStatus;
                 var list = await LeaveApplicationService.GetLeaveApplicationsByProxyAsync(LoggedInUser.Email, status);
                 MainThread.BeginInvokeOnMainThread(() => 
@@ -84,6 +85,7 @@ namespace HospitalLeaveApplication.ViewModels
             {
 
             }
+            finally { IsBusy = false; }
         }
     }
 }
